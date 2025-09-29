@@ -1,0 +1,12 @@
+.paid-variations { margin-top: 10px; }
+
+body #booked-profile-page .booked-profile-appt-list .appt-block .pay,
+body #booked-profile-page .booked-profile-appt-list .appt-block .edit { font-size:12px; padding-left:10px; border:1px solid #ccc; background:#eee; color:#888; }
+body #booked-profile-page .booked-profile-appt-list .appt-block .pay:hover,
+body #booked-profile-page .booked-profile-appt-list .appt-block .edit:hover { background:#ddd; }
+
+div.booked-wc-checkout-section { line-height:1.3; padding:0 0 10px; }
+.woocommerce-checkout-review-order div.booked-wc-checkout-section:last-child { padding:0; margin:0 0 -1.4em; }
+
+span.booked_wc_payment_pending { color: #E35656; font-weight:600; }
+span.booked_wc_payment_completed { color:#000; font-weight:600; }

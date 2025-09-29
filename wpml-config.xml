@@ -1,0 +1,22 @@
+<wpml-config>
+    <admin-texts>
+	    <key name="booked_custom_login_message" />
+        <key name="booked_registration_email_subject" />
+        <key name="booked_registration_email_content" />
+        <key name="booked_admin_reminder_email_subject" />
+        <key name="booked_admin_reminder_email" />
+        <key name="booked_reminder_email" />
+        <key name="booked_reminder_email_subject" />
+        <key name="booked_approval_email_subject" />
+        <key name="booked_approval_email_content" />
+        <key name="booked_cancellation_email_subject" />
+        <key name="booked_cancellation_email_content" />
+        <key name="booked_appt_confirmation_email_subject" />
+        <key name="booked_appt_confirmation_email_content" />
+        <key name="booked_admin_appointment_email_subject" />
+        <key name="booked_admin_appointment_email_content" />
+        <key name="booked_admin_cancellation_email_subject" />
+        <key name="booked_admin_cancellation_email_content" />
+        <key name="booked_custom_fields" />
+    </admin-texts>
+</wpml-config>

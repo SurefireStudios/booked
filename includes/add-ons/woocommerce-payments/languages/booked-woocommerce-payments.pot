@@ -1,0 +1,384 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Booked Add-On: WooCommerce Payments\n"
+"POT-Creation-Date: 2019-05-29 15:58-0400\n"
+"PO-Revision-Date: 2017-06-12 14:10-0400\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.2.1\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: booked-woocommerce-payments.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: fragments/admin-calendar-app-buttons.php:15
+msgid "Approve Appointment"
+msgstr ""
+
+#: fragments/admin-calendar-app-buttons.php:25
+#: fragments/admin-calendar-app-buttons.php:34
+msgid "Mark as Paid"
+msgstr ""
+
+#: fragments/admin-calendar-app-buttons.php:36
+#: fragments/appointment-additional-info.php:23
+#: lib/class-appointment-payment-status.php:26 lib/class-enqueue-scripts.php:41
+#: lib/class-post-status.php:43 lib/class-post-status.php:49
+#: lib/class-post-status.php:63
+msgid "Awaiting Payment"
+msgstr ""
+
+#: fragments/admin-calendar-app-buttons.php:47
+#: fragments/admin-calendar-app-buttons.php:49 lib/class-enqueue-scripts.php:40
+msgid "Paid"
+msgstr ""
+
+#: fragments/ajax-loaded/appointment-change-date.php:57
+#: fragments/ajax-loaded/appointment-change-date.php:90
+msgid "Update Appointment Date"
+msgstr ""
+
+#: fragments/ajax-loaded/appointment-change-date.php:74
+#, php-format
+msgid ""
+"Please confirm that you would like to change the appointment date for %s to "
+"the following:"
+msgstr ""
+
+#: fragments/ajax-loaded/appointment-change-date.php:78
+#, php-format
+msgid "%s at %s"
+msgstr ""
+
+#: fragments/ajax-loaded/appointment-change-date.php:91
+msgid "Cancel"
+msgstr ""
+
+#: fragments/ajax-loaded/appointment-change-date.php:93
+msgid "Okay"
+msgstr ""
+
+#: fragments/appointment-buttons.php:39
+msgid "Pay"
+msgstr ""
+
+#: fragments/appointment-buttons.php:42
+msgid "Change Date"
+msgstr ""
+
+#: fragments/appointment-buttons.php:69
+msgid "Cancel Appointment"
+msgstr ""
+
+#: fragments/booked-administration-fields/buttons.php:1
+#: fragments/booked-administration-fields/templates-main.php:7
+#: fragments/booked-administration-fields/templates.php:5
+msgid "Product Selector"
+msgstr ""
+
+#: fragments/booked-administration-fields/templates-main.php:11
+#: fragments/booked-administration-fields/templates.php:6
+msgid "Required Field"
+msgstr ""
+
+#: fragments/booked-administration-fields/templates-main.php:14
+msgid "Enter a label for this drop-down group..."
+msgstr ""
+
+#: fragments/booked-administration-fields/templates-subs-end.php:3
+#: fragments/booked-administration-fields/templates.php:9
+msgid "Product"
+msgstr ""
+
+#: fragments/booked-administration-fields/templates-subs.php:5
+#: fragments/booked-administration-fields/templates.php:14
+#: fragments/booked-frontend-fields/templates-main.php:6
+msgid "Select a Product"
+msgstr ""
+
+#: fragments/settings-payment-options.php:3
+msgid "WooCommerce Settings"
+msgstr ""
+
+#: lib/class-appointment-payment-status.php:14 lib/class-appointment.php:42
+#: lib/woocommerce/class-wc-order.php:23
+#: lib/woocommerce/class-wc-product.php:30
+#, php-format
+msgid "%s integer expected when %s given."
+msgstr ""
+
+#: lib/class-appointment-payment-status.php:17
+#, php-format
+msgid "%s invalid ID is given. %s"
+msgstr ""
+
+#: lib/class-appointment-payment-status.php:47
+msgid "Order Paid"
+msgstr ""
+
+#: lib/class-appointment-payment-status.php:51
+msgid "Order "
+msgstr ""
+
+#: lib/class-appointment.php:142
+msgid "All day"
+msgstr ""
+
+#: lib/class-appointment.php:144
+#, php-format
+msgid "from %1$s to %2$s on %3$s"
+msgstr ""
+
+#: lib/class-appointment.php:146
+#, php-format
+msgid "at %1$s on %2$s"
+msgstr ""
+
+#: lib/class-enqueue-scripts.php:37
+msgid ""
+"Are you sure you want to change the appointment date? By doing so, the "
+"appointment date will need to be approved again."
+msgstr ""
+
+#: lib/class-enqueue-scripts.php:38
+msgid ""
+"Are you sure you want to add the appointment to cart and go to checkout?"
+msgstr ""
+
+#: lib/class-enqueue-scripts.php:39
+msgid "Are you sure you want to mark this appointment as \"Paid\"?"
+msgstr ""
+
+#: lib/class-post-status.php:21
+msgctxt "booked-woocommerce-payments"
+msgid "Awaiting Payment"
+msgstr ""
+
+#: lib/class-post-status.php:26
+#, php-format
+msgid "Awaiting Payment <span class=\"count\">(%s)</span>"
+msgid_plural "Awaiting Payment <span class=\"count\">(%s)</span>"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/class-settings.php:29 lib/class-settings.php:30
+msgid "WooCommerce"
+msgstr ""
+
+#: lib/class-settings.php:93
+msgid "Email Confirmations"
+msgstr ""
+
+#: lib/class-settings.php:101
+msgid "Enable Thumbnails"
+msgstr ""
+
+#: lib/class-settings.php:109
+msgid "Enable Auto-Cleanup"
+msgstr ""
+
+#: lib/class-settings.php:117
+msgid "Cleanup Schedule"
+msgstr ""
+
+#: lib/class-settings.php:125
+msgid "Redirect After Booking"
+msgstr ""
+
+#: lib/class-settings.php:145
+msgid ""
+"Send Booked confirmation emails ONLY after payment is marked as \"complete\"."
+msgstr ""
+
+#: lib/class-settings.php:146
+msgid "Send Booked confirmation emails right away."
+msgstr ""
+
+#: lib/class-settings.php:149
+msgid "When do you want Booked to send out its confirmation emails?"
+msgstr ""
+
+#: lib/class-settings.php:164 lib/class-settings.php:183
+msgid "Enable"
+msgstr ""
+
+#: lib/class-settings.php:165 lib/class-settings.php:184
+msgid "Disable"
+msgstr ""
+
+#: lib/class-settings.php:168
+msgid ""
+"Enable this to show product thumbnails for Booked items (on the cart/"
+"checkout screens)."
+msgstr ""
+
+#: lib/class-settings.php:187
+msgid ""
+"Automatically cleans up all non-paid appointments at a specific time "
+"interval. For example, when someone chooses a day and product but does not "
+"pay for the appointment, then it will continue to be \"booked\" unless "
+"removed manually. This removes that step with an automated option."
+msgstr ""
+
+#: lib/class-settings.php:202
+msgid "Checkout Page (default)"
+msgstr ""
+
+#: lib/class-settings.php:203
+msgid "Cart Page"
+msgstr ""
+
+#: lib/class-settings.php:206
+msgid ""
+"You can choose to have Booked redirect to the Checkout page (default) or the "
+"Cart page instead."
+msgstr ""
+
+#: lib/class-settings.php:236
+msgid ""
+"More schedule intervals can be added with a plugin like <a href=\"https://"
+"wordpress.org/plugins/wp-crontrol/\" target=\"_blank\">WP Crontrol</a>."
+msgstr ""
+
+#: lib/class-settings.php:236
+msgid "The currently available schedules are listed below."
+msgstr ""
+
+#: lib/class-static-functions.php:217 lib/woocommerce/class-wc-cart.php:235
+#: lib/woocommerce/class-wc-order-item.php:15
+msgid "Booking Agent"
+msgstr ""
+
+#: lib/class-static-functions.php:450
+msgid "Approve"
+msgstr ""
+
+#: lib/class-static-functions.php:479
+msgid "Choose New Date"
+msgstr ""
+
+#: lib/class-wp-ajax.php:95
+msgid "An error has occur."
+msgstr ""
+
+#: lib/class-wp-ajax.php:107
+msgid "Appointment ID is not defined."
+msgstr ""
+
+#: lib/class-wp-ajax.php:125
+msgid "Appointment has been added to the cart"
+msgstr ""
+
+#: lib/class-wp-cron.php:21
+msgid "Weekly"
+msgstr ""
+
+#: lib/class-wp-cron.php:26
+msgid "Twice Weekly"
+msgstr ""
+
+#: lib/class-wp-cron.php:31
+msgid "Monthly"
+msgstr ""
+
+#: lib/class-wp-cron.php:36
+msgid "Twice Monthly"
+msgstr ""
+
+#: lib/class-wp-cron.php:41
+msgid "Every 30 Minutes"
+msgstr ""
+
+#: lib/class-wp-cron.php:46
+msgid "Every 15 Minutes"
+msgstr ""
+
+#: lib/class-wp-cron.php:51
+msgid "Every 5 Minutes"
+msgstr ""
+
+#: lib/core.php:30
+msgid ""
+"\"Booked Payments with WooCommerce\" plugin by Boxy Studio is currently "
+"inactive due to a missing dependency."
+msgstr ""
+
+#: lib/core.php:37
+msgid ""
+"\"Booked\" plugin by <a href=\"https://boxystudio.com/\" target=\"_blank"
+"\">Boxy Studio</a> is missing or not active."
+msgstr ""
+
+#: lib/core.php:44
+msgid ""
+"\"WooCommerce\" plugin by <a href=\"http://www.woothemes.com/woocommerce/\" "
+"target=\"_blank\">WooThemes</a> is missing or not active."
+msgstr ""
+
+#: lib/woocommerce/class-wc-cart.php:13
+#, php-format
+msgid "Appointment with ID %1$d does not have any products assigned to it."
+msgstr ""
+
+#: lib/woocommerce/class-wc-cart.php:225
+msgid "Date"
+msgstr ""
+
+#: lib/woocommerce/class-wc-cart.php:229
+#: lib/woocommerce/class-wc-order-item.php:13
+msgid "Calendar"
+msgstr ""
+
+#: lib/woocommerce/class-wc-meta-box-product.php:34
+msgid "Booked Appointment Service"
+msgstr ""
+
+#: lib/woocommerce/class-wc-meta-box-product.php:35
+msgid "Booked Appointment products are used for Booked Payments."
+msgstr ""
+
+#: lib/woocommerce/class-wc-order-item.php:10
+msgid "Form Field"
+msgstr ""
+
+#: lib/woocommerce/class-wc-order-item.php:28
+#: lib/woocommerce/class-wc-order-item.php:61
+msgid "Appointment"
+msgstr ""
+
+#: lib/woocommerce/class-wc-order.php:196
+#, php-format
+msgid ""
+"Appointment \"%s\" and cart products do not match. Please make sure that all "
+"appointment products are available in the cart."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Booked Add-On: WooCommerce Payments"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://getbooked.io/booked-woocommerce/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Adds the ability to accept payments for appointments using WooCommerce."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Boxy Studio"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://boxystudio.com"
+msgstr ""

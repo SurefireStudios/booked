@@ -1,0 +1,23 @@
+.paid-variations {}
+.paid-variations select { margin-top: 15px; }
+
+#booked-admin-panel-container #booked-cf-sortables button { clear: both; float: none; display: block; }
+#booked-admin-panel-container #booked-cf-sortables ul select { width:475px; height:34px; }
+
+span.booked-wc_status-text { display:block; padding: 10px; margin-top: 10px; background: #eee; -moz-border-radius:5px; -webkit-border-radius:5px; border-radius:5px; }
+span.booked-wc_status-text.paid { display:inline-block; float:right; padding:0; margin:0; background:transparent; color: #56C477; text-transform:uppercase; font-size:12px; font-weight:600; line-height:2.4; }
+span.booked-wc_status-text.paid a, span.booked-wc_status-text.paid span { background:#56C477; color:#fff; padding:6px 10px; line-height:1; top:1px; position:relative; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+span.booked-wc_status-text.paid a:hover { background:#4ab66a; }
+span.booked-wc_status-text.awaiting { color: #E35656; font-size:12px; font-weight:600; line-height:2.4; }
+span.booked-wc_status-text.awaiting a, span.booked-wc_status-text.awaiting span { background:#E35656; color:#fff; padding:6px 10px; line-height:1; top:1px; position:relative; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; }
+span.booked-wc_status-text.awaiting a:hover { background:#cd4646; }
+
+.booked-payment-settings-wrap {}
+.booked-payment-settings-wrap form {}
+.booked-payment-settings-wrap form tr,
+.booked-payment-settings-wrap form td,
+.booked-payment-settings-wrap form th { display: block; width: 100%; padding: 0;}
+.booked-payment-settings-wrap form tr { padding-bottom: 40px; }
+.booked-payment-settings-wrap form th { font-size: 15px; line-height: 20px; color: #2ea2cc; text-transform: uppercase; font-weight: 600; }
+.booked-payment-settings-wrap form p { padding: 13px 0; position: relative; margin: 0; font-family: 'Open Sans', sans-serif; }
+.booked-payment-settings-wrap form td > div ~ div { padding: 10px 0 0 0; }

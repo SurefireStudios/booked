@@ -1,0 +1,21 @@
+/* Salient Theme Overrides */
+html[class*="fa-"] { width:100%; font-size:1em; height:auto; line-height:1em; top:0; word-spacing:0; text-align:left; vertical-align:inherit; }
+body .booked-form [class*="fa-"],
+body .booked-calendar-wrap [class*="fa-"] { font-size:1em; width:auto; height:auto; line-height:1em; top:0; word-spacing:0; text-align:left; vertical-align:inherit; }
+body:not(.woocommerce-cart) .main-content table.booked-calendar th { padding:21px 0; }
+body table.booked-calendar tbody td { padding:0 !important; }
+body .booked-calendar-wrap .booked-appt-list .timeslot .timeslot-time i.fa-solid { width:auto; height:auto; }
+body .booked-form .field p.field-small-p { padding:0; }
+body .booked-form .field input::-webkit-input-placeholder { color:#aaa; }
+body .booked-form .field input::-moz-placeholder { color:#aaa; }
+body .booked-form .field input:-ms-input-placeholder { color:#aaa; }
+body .booked-form .field input:-moz-placeholder { color:#aaa; }
+body .booked-modal .bm-window p { padding-bottom:0; }
+body[data-form-style="minimal"] .booked-form .field input[type="text"],
+body[data-form-style="minimal"] .booked-form .field textarea,
+body[data-form-style="minimal"] .booked-form .field input[type="email"],
+body[data-form-style="minimal"] .booked-form .field input[type=password],
+body[data-form-style="minimal"] .booked-form .field input[type=tel],
+body[data-form-style="minimal"] .booked-form .field input[type=url],
+body[data-form-style="minimal"] .booked-form .field input[type=search],
+body[data-form-style="minimal"] .booked-form .field input[type=date] { padding:7px 10px !important; border:1px solid rgba(0,0,0,0.15) !important; box-sizing:border-box !important; }

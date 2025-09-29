@@ -1,0 +1,60 @@
+{
+    "packages": [
+        {
+            "name": "fortawesome/wordpress-fontawesome",
+            "version": "4.2.0",
+            "version_normalized": "4.2.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/FortAwesome/wordpress-fontawesome.git",
+                "reference": "fa70de353f38cf220d7849b9d43036326f08ee1c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/FortAwesome/wordpress-fontawesome/zipball/fa70de353f38cf220d7849b9d43036326f08ee1c",
+                "reference": "fa70de353f38cf220d7849b9d43036326f08ee1c",
+                "shasum": ""
+            },
+            "require-dev": {
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+                "phpunit/phpunit": "^7.4.5",
+                "squizlabs/php_codesniffer": "^3.5.8",
+                "wp-coding-standards/wpcs": "^2.3.0",
+                "yoast/phpunit-polyfills": "^1.0",
+                "yoast/wp-test-utils": "^1.0"
+            },
+            "time": "2022-06-16T14:45:14+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Mike Wilkerson",
+                    "email": "mwilkerson@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Official Font Awesome WordPress plugin composer package.",
+            "homepage": "https://fontawesome.com",
+            "keywords": [
+                "font awesome",
+                "font-awesome",
+                "icon",
+                "icons",
+                "svg",
+                "webfont"
+            ],
+            "support": {
+                "email": "hello@fontawesome.com",
+                "issues": "https://github.com/FortAwesome/wordpress-fontawesome/issues",
+                "source": "https://github.com/FortAwesome/wordpress-fontawesome/tree/4.2.0"
+            },
+            "install-path": "../fortawesome/wordpress-fontawesome"
+        }
+    ],
+    "dev": true,
+    "dev-package-names": []
+}

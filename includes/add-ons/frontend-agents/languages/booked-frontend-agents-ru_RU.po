@@ -1,0 +1,194 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Booked Front-end Agents\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-06-28 15:29-0400\n"
+"PO-Revision-Date: 2017-06-28 15:30-0400\n"
+"Last-Translator: admin <admin@vidiguide.ru>\n"
+"Language-Team: Boxy Studio <justin@boxystudio.com>\n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10 >= 2 && n"
+"%10<=4 &&(n%100<10||n%100 >= 20)? 1 : 2);\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: _:1;gettext:1;dgettext:2;ngettext:1,2;dngettext:2,3;"
+"__:1;_e:1;_c:1;_n:1,2;_n_noop:1,2;_nc:1,2;__ngettext:1,2;"
+"__ngettext_noop:1,2;_x:1,2c;_ex:1,2c;_nx:1,2,4c;_nx_noop:1,2,3c;_n_js:1,2;"
+"_nx_js:1,2,3c;esc_attr__:1;esc_html__:1;esc_attr_e:1;esc_html_e:1;"
+"esc_attr_x:1,2c;esc_html_x:1,2c;comments_number_link:2,3;t:1;st:1;trans:1;"
+"transChoice:1,2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Generator: Poedit 2.0.2\n"
+"X-Loco-Target-Locale: ru_RU\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: booked-frontend-agents.php:58
+msgid "Are you sure you want to cancel this appointment?"
+msgstr "Вы уверены, что хотите отменить эту экскурсию?"
+
+#: booked-frontend-agents.php:59
+msgid "Are you sure you want to approve this appointment?"
+msgstr "Вы уверены, что хотите подтвредить эту экскурсию?"
+
+#: booked-frontend-agents.php:69
+msgid "Upcoming Appointments"
+msgstr "Будущие экскурсии"
+
+#: booked-frontend-agents.php:74
+msgid "Pending Appointments"
+msgstr "Ожидающие подтверждения"
+
+#: booked-frontend-agents.php:79
+msgid "Appointment History"
+msgstr "История заказов"
+
+#: booked-frontend-agents.php:84
+msgid "Edit Profile"
+msgstr "Редактировать профиль"
+
+#: booked-frontend-agents.php:117
+#, php-format
+msgid ""
+"In order to use the %s plugin, you need to have %s installed and active."
+msgstr ""
+"Для того, чтобы использовать плагин %s, вам нужно иметь %s установлен и "
+"активных."
+
+#: includes/ajax.php:82 includes/ajax.php:136
+msgid "Appointment Information"
+msgstr "Информация о бронировании"
+
+#: includes/ajax.php:89 includes/ajax.php:102
+msgid "Contact Information"
+msgstr "Контактная информация"
+
+#: includes/ajax.php:90 includes/ajax.php:103
+msgid "Name"
+msgstr "Имя"
+
+#: includes/ajax.php:91 includes/ajax.php:104
+msgid "Email"
+msgstr "Email"
+
+#: includes/ajax.php:105
+msgid "Phone"
+msgstr "Телефон"
+
+#: includes/ajax.php:131 includes/shortcodes.php:123
+#: includes/shortcodes.php:159
+msgid "to"
+msgstr "до"
+
+#: includes/ajax.php:138
+msgid "Date"
+msgstr "Дата"
+
+#: includes/ajax.php:139
+msgid "Time"
+msgstr "Время"
+
+#: includes/shortcodes.php:56
+#, php-format
+msgid "%s Pending Appointment"
+msgid_plural "%s Pending Appointments"
+msgstr[0] "%s Ожидает подтверждения"
+msgstr[1] "%s Ожидают подтверждения"
+msgstr[2] "%s Ожидают подтверждения"
+
+#: includes/shortcodes.php:58
+msgid "No pending appointments."
+msgstr "Отложенные Встречи."
+
+#: includes/shortcodes.php:62
+#, php-format
+msgid "%s Past Appointment"
+msgid_plural "%s Past Appointments"
+msgstr[0] "%s Прошлая экскурсия"
+msgstr[1] "%s Прошлые экскурсии"
+msgstr[2] "%s Прошлые экскурсии"
+
+#: includes/shortcodes.php:64
+msgid "No past appointments."
+msgstr "Нет прошедших встреч."
+
+#: includes/shortcodes.php:68
+#, php-format
+msgid "%s Upcoming Appointment"
+msgid_plural "%s Upcoming Appointments"
+msgstr[0] "%s Ближайшая экскурсия"
+msgstr[1] "%s Ближайшие экскурсии"
+msgstr[2] "%s Ближайшие экскурсии"
+
+#: includes/shortcodes.php:70
+msgid "No upcoming appointments."
+msgstr "Нет Открытых Встреч."
+
+#: includes/shortcodes.php:81
+msgid "Today"
+msgstr "Сегодня"
+
+#: includes/shortcodes.php:119 includes/shortcodes.php:155
+msgid "All day"
+msgstr "Весь день"
+
+#: includes/shortcodes.php:123 includes/shortcodes.php:159
+msgid "from"
+msgstr "с"
+
+#: includes/shortcodes.php:123 includes/shortcodes.php:159
+msgid "at"
+msgstr "в"
+
+#: includes/shortcodes.php:127
+msgid "pending"
+msgstr "ожидает подтверждения"
+
+#: includes/shortcodes.php:127
+msgid "approved"
+msgstr "подтверждено"
+
+#: includes/shortcodes.php:134
+msgid "Approve"
+msgstr "Подтвердить"
+
+#: includes/shortcodes.php:182
+msgid "(this user no longer exists)"
+msgstr "(пользователь с таким именем больше не существует)"
+
+#: includes/shortcodes.php:191
+msgid "This appointment has passed."
+msgstr "Это событие уже прошло."
+
+#: includes/shortcodes.php:198
+msgid "Additional information"
+msgstr "Дополнительная информация"
+
+#: includes/shortcodes.php:236
+msgid "Please log in to view your upcoming appointments."
+msgstr "Пожалуйста, войдите в личный кабинет, чтобы увидеть свое расписание."
+
+#~ msgid "Appointment with %s"
+#~ msgstr "Экскурсия с %s"
+
+#~ msgid "Google Calendar"
+#~ msgstr "Google Calendar"
+
+#~ msgid "Pending Appointment"
+#~ msgid_plural "Pending Appointments"
+#~ msgstr[0] "Ожидает подтверждения"
+#~ msgstr[1] "Ожидают подтверждения"
+#~ msgstr[2] ""
+
+#~ msgid "Past Appointment"
+#~ msgid_plural "Past Appointments"
+#~ msgstr[0] "Прошлая экскурсия"
+#~ msgstr[1] "Прошлые экскурсии"
+#~ msgstr[2] ""
+
+#~ msgid "Upcoming Appointment"
+#~ msgid_plural "Upcoming Appointments"
+#~ msgstr[0] "Ближайшая экскурсия"
+#~ msgstr[1] "Ближайшие экскурсии"
+#~ msgstr[2] ""

@@ -1,0 +1,1 @@
+&nbsp;<button class="cfButton button" data-type="paid-service-label">+ <?php _e('Product Selector', 'booked'); ?></button>

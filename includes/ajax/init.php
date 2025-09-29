@@ -4,6 +4,9 @@ if(!class_exists('Booked_AJAX')) {
 	class Booked_AJAX {
 
 		public function __construct() {
+			
+			// Close any active sessions to prevent REST API conflicts
+			add_action('init', array($this, 'close_session_for_ajax'), 1);
 
 			// ------------ Guests & Logged-in Users ------------ //
 
@@ -41,9 +44,19 @@ if(!class_exists('Booked_AJAX')) {
 
 		}
 		
+		/**
+		 * Close sessions for AJAX requests to prevent REST API conflicts
+		 */
+		public function close_session_for_ajax() {
+			if ( ( defined( 'DOING_AJAX' ) && DOING_AJAX ) && session_status() === PHP_SESSION_ACTIVE ) {
+				session_write_close();
+			}
+		}
+
 		public static function nonce_check( $nonce ){
-			if ( !isset($_POST['nonce']) || !wp_verify_nonce( $_POST['nonce'], $nonce ) ){
-				wp_die( 'Security check failed. Please refresh the page and try again.', 'Security Error', array( 'response' => 403 ) );
+			$nonce_value = isset($_POST['nonce']) ? sanitize_text_field($_POST['nonce']) : '';
+			if ( !wp_verify_nonce( $nonce_value, $nonce ) ){
+				wp_die( 'Security check failed. Please refresh the page and try again.', 'Security Error', array('response' => 403) );
 			}
 		}
 
@@ -135,22 +148,26 @@ if(!class_exists('Booked_AJAX')) {
 
 			booked_wpml_ajax();
 
-			if (isset($_POST['security']) && isset($_POST['username']) && isset($_POST['password'])):
+			$security = isset($_POST['security']) ? sanitize_text_field($_POST['security']) : '';
+			$username = isset($_POST['username']) ? sanitize_text_field($_POST['username']) : '';
+			$password = isset($_POST['password']) ? $_POST['password'] : ''; // Don't sanitize passwords
 
-				$nonce_check = wp_verify_nonce( $_POST['security'], 'ajax_login_nonce' );
+			if ($security && $username && $password):
+
+				$nonce_check = wp_verify_nonce( $security, 'ajax_login_nonce' );
 
 				if ($nonce_check){
 
-					if (is_email($_POST['username'])) {
-				        $user = get_user_by('email', $_POST['username']);
+					if (is_email($username)) {
+				        $user = get_user_by('email', $username);
 				    } else {
-						$user = get_user_by('login', $_POST['username']);
+						$user = get_user_by('login', $username);
 				    }
 
 				    $creds = array();
 
-				    if ($user && wp_check_password( $_POST['password'], $user->data->user_pass, $user->ID)) {
-				        $creds = array('user_login' => $user->data->user_login, 'user_password' => $_POST['password']);
+				    if ($user && wp_check_password( $password, $user->data->user_pass, $user->ID)) {
+				        $creds = array('user_login' => $user->data->user_login, 'user_password' => $password);
 				        $creds['remember'] = true;
 				    }
 
@@ -176,13 +193,16 @@ if(!class_exists('Booked_AJAX')) {
 
 			global $wpdb, $wp_hasher;
 
-			if (isset($_POST['security']) && isset($_POST['username'])):
+			$security = isset($_POST['security']) ? sanitize_text_field($_POST['security']) : '';
+			$username = isset($_POST['username']) ? sanitize_text_field($_POST['username']) : '';
 
-				$nonce_check = wp_verify_nonce( $_POST['security'], 'ajax_forgot_nonce' );
+			if ($security && $username):
+
+				$nonce_check = wp_verify_nonce( $security, 'ajax_forgot_nonce' );
 
 				if ($nonce_check){
 
-					$password_reset = booked_reset_password( $_POST['username'] );
+					$password_reset = booked_reset_password( $username );
 
 					if ( $password_reset ):
 						echo 'success';
@@ -202,9 +222,15 @@ if(!class_exists('Booked_AJAX')) {
 
 			booked_wpml_ajax();
 
+			// Sanitize and validate required POST data
+			$date = isset($_POST['date']) ? sanitize_text_field($_POST['date']) : '';
+			$timestamp = isset($_POST['timestamp']) ? absint($_POST['timestamp']) : 0;
+			$timeslot = isset($_POST['timeslot']) ? sanitize_text_field($_POST['timeslot']) : '';
+			$customer_type = isset($_POST['customer_type']) ? sanitize_text_field($_POST['customer_type']) : '';
+
 			$can_add_appt = apply_filters(
 				'booked_can_add_appt',
-				isset($_POST['date']) && isset($_POST['timestamp']) && isset($_POST['timeslot']) && isset($_POST['customer_type'])
+				!empty($date) && !empty($timestamp) && !empty($timeslot) && !empty($customer_type)
 			);
 
 			if ( $can_add_appt ):

@@ -48,8 +48,8 @@ if(!class_exists('Booked_Admin_AJAX')) {
 		
 		
 		public static function nonce_check( $nonce ){
-			if ( !isset($_POST['nonce']) || !wp_verify_nonce( $_POST['nonce'], $nonce ) ){
-				wp_die( 'Security check failed. Please refresh the page and try again.', 'Security Error', array( 'response' => 403 ) );
+			if ( !wp_verify_nonce( $_POST['nonce'], $nonce ) ){
+				die ( 'Required "nonce" value is not here, please let the developer know.');
 			}
 		}
 
@@ -63,10 +63,10 @@ if(!class_exists('Booked_Admin_AJAX')) {
 
 			booked_wpml_ajax();
 
-			$date = sanitize_text_field( $_POST['date'] );
+			$date = esc_html( $_POST['date'] );
 			$date = date( 'Y-m-d', strtotime( $date ) );
-			$timeslot = sanitize_text_field( $_POST['timeslot'] );
-			$calendar_id = absint( $_POST['calendar_id'] );
+			$timeslot = esc_html( $_POST['timeslot'] );
+			$calendar_id = esc_html( $_POST['calendar_id'] );
 
 			$disabled_timeslots = get_option( 'booked_disabled_timeslots', array() );
 

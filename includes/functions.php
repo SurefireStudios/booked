@@ -170,7 +170,7 @@ function booked_appointments_available( $year = false, $month = false, $day = fa
 
 	$args = array(
 		'post_type' => 'booked_appointments',
-		'posts_per_page' => 500,
+		'posts_per_page' => 100,
 		'post_status' => 'any',
 		'meta_query' => array(
 			array(
@@ -392,7 +392,7 @@ function booked_fe_calendar($year = false,$month = false,$calendar_id = false,$f
 
 	$args = array(
 		'post_type' => 'booked_appointments',
-		'posts_per_page' => 500,
+		'posts_per_page' => 100,
 		'post_status' => 'any',
 		'meta_query' => array(
 			array(
@@ -1670,12 +1670,16 @@ function booked_hidden_login_field(){
 
 add_action( 'wp_login_failed', 'booked_fe_login_fail' );  // hook failed login
 function booked_fe_login_fail( $username ) {
-	if ( isset( $_SERVER['HTTP_REFERER'] ) && isset( $_POST['booked_login_form'] ) ):
-		$referrer = $_SERVER['HTTP_REFERER'];
-		$referrer = explode('?',$referrer);
+	$http_referer = isset($_SERVER['HTTP_REFERER']) ? esc_url_raw($_SERVER['HTTP_REFERER']) : '';
+	$booked_login_form = isset($_POST['booked_login_form']) ? sanitize_text_field($_POST['booked_login_form']) : '';
+	
+	if ( $http_referer && $booked_login_form ):
+		$referrer = explode('?', $http_referer);
 		$referrer = $referrer[0];
-		if ( !isset($_REQUEST['woocommerce-login-nonce']) && !empty($referrer) && !strstr($referrer,'wp-login') && !strstr($referrer,'wp-admin') ) {
-			wp_redirect( $referrer . '?loginfailed' );
+		$woo_nonce = isset($_REQUEST['woocommerce-login-nonce']) ? sanitize_text_field($_REQUEST['woocommerce-login-nonce']) : '';
+		
+		if ( !$woo_nonce && !empty($referrer) && !strstr($referrer,'wp-login') && !strstr($referrer,'wp-admin') ) {
+			wp_safe_redirect( $referrer . '?loginfailed' );
 			exit;
 		}
 	endif;
@@ -1769,12 +1773,24 @@ function booked_profile_update_submit(){
 
 		$error = array();
 
-		if ( 'POST' == $_SERVER['REQUEST_METHOD'] && !empty( $_POST['action'] ) && $_POST['action'] == 'update-user' ) {
+		$request_method = isset($_SERVER['REQUEST_METHOD']) ? sanitize_text_field($_SERVER['REQUEST_METHOD']) : '';
+		$action = isset($_POST['action']) ? sanitize_text_field($_POST['action']) : '';
+		
+		if ( 'POST' == $request_method && !empty( $action ) && $action == 'update-user' ) {
+
+		    // Verify nonce for security
+		    if ( !wp_verify_nonce( $_POST['_wpnonce'], 'update-user' ) ) {
+		        $error[] = esc_html__('Security verification failed. Please try again.', 'booked');
+		        return;
+		    }
 
 		    /* Update user password. */
-		    if (isset($_POST['pass1']) && isset($_POST['pass2']) && $_POST['pass1'] && $_POST['pass2'] ) {
-		        if ( $_POST['pass1'] == $_POST['pass2'] )
-		            wp_update_user( array( 'ID' => $booked_current_user->ID, 'user_pass' => esc_attr( $_POST['pass1'] ) ) );
+		    $pass1 = isset($_POST['pass1']) ? $_POST['pass1'] : '';
+		    $pass2 = isset($_POST['pass2']) ? $_POST['pass2'] : '';
+		    
+		    if ( $pass1 && $pass2 ) {
+		        if ( $pass1 == $pass2 )
+		            wp_update_user( array( 'ID' => $booked_current_user->ID, 'user_pass' => $pass1 ) );
 		        else
 		            $error[] = esc_html__('The passwords you entered do not match.  Your password was not updated.', 'profile');
 		    }
@@ -1782,22 +1798,24 @@ function booked_profile_update_submit(){
 		    /* Update user information. */
 		    if ( isset( $_POST['url'] ) )
 		    	wp_update_user( array( 'ID' => $booked_current_user->ID, 'user_url' => esc_url( $_POST['url'] ) ) );
+		    	
 		    if ( isset( $_POST['email'] ) ){
+		    	$new_email = sanitize_email( $_POST['email'] );
+		    	$email_exists = email_exists( $new_email );
 
-		    	$email_exists = email_exists(esc_attr( $_POST['email'] ));
-
-		        if (!is_email(esc_attr( $_POST['email'] )))
+		        if (!is_email( $new_email ))
 		            $error[] = esc_html__('The Email you entered is not valid.  please try again.', 'profile');
 		        elseif( $email_exists && $email_exists != $booked_current_user->ID )
 		            $error[] = esc_html__('This email is already used by another user.  try a different one.', 'profile');
 		        else{
-		            wp_update_user( array ('ID' => $booked_current_user->ID, 'user_email' => esc_attr( $_POST['email'] )));
+		            wp_update_user( array ('ID' => $booked_current_user->ID, 'user_email' => $new_email ));
 		        }
 		    }
 
 		    if ( isset( $_POST['nickname'] ) ):
-		        update_user_meta( $booked_current_user->ID, 'nickname', esc_attr( $_POST['nickname'] ) );
-		        wp_update_user( array ('ID' => $booked_current_user->ID, 'display_name' => esc_attr( $_POST['nickname'] )));
+		        $nickname = sanitize_text_field( $_POST['nickname'] );
+		        update_user_meta( $booked_current_user->ID, 'nickname', $nickname );
+		        wp_update_user( array ('ID' => $booked_current_user->ID, 'display_name' => $nickname ));
 		    endif;
 
 			// Avatar Upload
@@ -1847,7 +1865,8 @@ function booked_wpml_ajax(){
 
 function booked_profile_content_appointments(){
 
-	if ( apply_filters( 'booked_sessions_enabled', true ) ){
+	// Only check sessions if they're enabled and active
+	if ( apply_filters( 'booked_sessions_enabled', false ) && session_status() === PHP_SESSION_ACTIVE ){
 		if (isset($_SESSION['appt_requested']) && isset($_SESSION['new_account'])){
 
 			$_SESSION['appt_requested'] = null;

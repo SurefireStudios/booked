@@ -1,15 +1,19 @@
 <?php
 
+// Ensure session is closed before any HTTP requests to prevent REST API conflicts
+if ( session_status() === PHP_SESSION_ACTIVE ) {
+	session_write_close();
+}
+
 do_action('booked_before_creating_appointment');
 
-// Sanitize and validate input data
-$date = isset($_POST['date']) ? sanitize_text_field($_POST['date']) : '';
-$title = isset($_POST['title']) ? sanitize_text_field($_POST['title']) : '';
-$timestamp = isset($_POST['timestamp']) ? absint($_POST['timestamp']) : 0;
-$timeslot = isset($_POST['timeslot']) ? sanitize_text_field($_POST['timeslot']) : '';
-$customer_type = isset($_POST['customer_type']) ? sanitize_text_field($_POST['customer_type']) : '';
+$date = isset($_POST['date']) ? esc_html( $_POST['date'] ) : '';
+$title = isset($_POST['title']) ? esc_html( $_POST['title'] ) : '';
+$timestamp = isset($_POST['timestamp']) ? esc_html( $_POST['timestamp'] ) : '';
+$timeslot = isset($_POST['timeslot']) ? esc_html( $_POST['timeslot'] ) : '';
+$customer_type = isset($_POST['customer_type']) ? esc_html( $_POST['customer_type'] ) : '';
 
-$calendar_id = (isset($_POST['calendar_id']) ? absint($_POST['calendar_id']) : false);
+$calendar_id = (isset($_POST['calendar_id']) ? esc_html( $_POST['calendar_id'] ) : false);
 $calendar_id_for_cf = $calendar_id;
 if ($calendar_id):
 	$calendar_id = array($calendar_id);
@@ -105,10 +109,10 @@ if ($appt_is_available):
 
 	if ($customer_type == 'guest'):
 
-		$name = sanitize_text_field($_POST['guest_name']);
-		$surname = isset($_POST['guest_surname']) && $_POST['guest_surname'] ? sanitize_text_field($_POST['guest_surname']) : false;
+		$name = esc_attr($_POST['guest_name']);
+		$surname = isset($_POST['guest_surname']) && $_POST['guest_surname'] ? esc_attr($_POST['guest_surname']) : false;
 		$fullname = ( $surname ? $name . ' ' . $surname : $name );
-		$email = isset($_POST['guest_email']) ? sanitize_email($_POST['guest_email']) : '';
+		$email = isset($_POST['guest_email']) ? esc_attr($_POST['guest_email']) : '';
 		$email_required = get_option('booked_require_guest_email_address',false);
 
 		if ( $name_requirements == 'require_surname' && !$surname ):
@@ -260,7 +264,7 @@ if ($appt_is_available):
 
 		endif;
 
-		if ( apply_filters( 'booked_sessions_enabled', true ) && session_status() === PHP_SESSION_ACTIVE ):
+		if ( apply_filters( 'booked_sessions_enabled', true ) ):
 			$_SESSION['appt_requested'] = 1;
 		endif;
 
@@ -270,11 +274,11 @@ if ($appt_is_available):
 
 	elseif ($customer_type == 'new'):
 
-		$name = sanitize_text_field($_POST['booked_appt_name']);
-		$surname = ( isset($_POST['booked_appt_surname']) && $_POST['booked_appt_surname'] ? sanitize_text_field($_POST['booked_appt_surname']) : false );
+		$name = esc_attr($_POST['booked_appt_name']);
+		$surname = ( isset($_POST['booked_appt_surname']) && $_POST['booked_appt_surname'] ? esc_attr($_POST['booked_appt_surname']) : false );
 		$fullname = ( $surname ? $name . ' ' . $surname : $name );
-		$email = sanitize_email($_POST['booked_appt_email']);
-		$password = $_POST['booked_appt_password']; // Don't sanitize password as it may contain special characters
+		$email = $_POST['booked_appt_email'];
+		$password = $_POST['booked_appt_password'];
 
 		if ( $name_requirements == 'require_surname' && !$surname ):
 
@@ -397,7 +401,7 @@ if ($appt_is_available):
 
 				endif;
 
-				if ( apply_filters( 'booked_sessions_enabled', true ) && session_status() === PHP_SESSION_ACTIVE ):
+				if ( apply_filters( 'booked_sessions_enabled', true ) ):
 					$_SESSION['appt_requested'] = 1;
 					$_SESSION['new_account'] = 1;
 				endif;
@@ -419,11 +423,11 @@ if ($appt_is_available):
 // register the user only
 elseif ( $is_new_registration ):
 
-	$name = sanitize_text_field($_POST['booked_appt_name']);
-	$surname = ( isset($_POST['booked_appt_surname']) && $_POST['booked_appt_surname'] ? sanitize_text_field($_POST['booked_appt_surname']) : false );
+	$name = esc_attr($_POST['booked_appt_name']);
+	$surname = ( isset($_POST['booked_appt_surname']) && $_POST['booked_appt_surname'] ? esc_attr($_POST['booked_appt_surname']) : false );
 	$fullname = ( $surname ? $name . ' ' . $surname : $name );
-	$email = sanitize_email($_POST['booked_appt_email']);
-	$password = $_POST['booked_appt_password']; // Don't sanitize password as it may contain special characters
+	$email = $_POST['booked_appt_email'];
+	$password = $_POST['booked_appt_password'];
 
 	if ( $name_requirements == 'require_surname' && !$surname ):
 
@@ -485,7 +489,7 @@ elseif ( $is_new_registration ):
 
 			endif;
 
-			if ( apply_filters( 'booked_sessions_enabled', true ) && session_status() === PHP_SESSION_ACTIVE ):
+			if ( apply_filters( 'booked_sessions_enabled', true ) ):
 				$_SESSION['appt_requested'] = 1;
 				$_SESSION['new_account'] = 1;
 			endif;
@@ -512,4 +516,7 @@ else:
 
 endif;
 
-session_write_close();
+// Safe session handling
+if ( session_status() === PHP_SESSION_ACTIVE ) {
+	session_write_close();
+}

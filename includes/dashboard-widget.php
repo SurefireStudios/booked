@@ -47,7 +47,7 @@ class BookedDashboardWidget {
 
 					$args = array(
 					   'post_type' => 'booked_appointments',
-					   'posts_per_page' => 5000,
+					   'posts_per_page' => 100,
 					   'post_status' => array( 'publish', 'future' ),
 					   'meta_key' => '_appointment_timestamp',
 					   'orderby' => 'meta_value_num',
@@ -69,7 +69,7 @@ class BookedDashboardWidget {
 
 					$args = array(
 						'post_type' => 'booked_appointments',
-						'posts_per_page' => 500,
+						'posts_per_page' => 100,
 						'post_status' => array( 'publish', 'future' ),
 						'meta_key' => '_appointment_timestamp',
 						'orderby' => 'meta_value_num',
@@ -83,7 +83,7 @@ class BookedDashboardWidget {
 			else:
 				$args = array(
 					'post_type' => 'booked_appointments',
-					'posts_per_page' => 500,
+					'posts_per_page' => 100,
 					'post_status' => array( 'publish', 'future' ),
 					'meta_key' => '_appointment_timestamp',
 					'orderby' => 'meta_value_num',

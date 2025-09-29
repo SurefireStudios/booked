@@ -3,14 +3,11 @@
 /*
 Plugin Name: Booked
 Plugin URI: https://github.com/SurefireStudios/booked
-Description: Powerful appointment booking made simple.
+Description: Powerful appointment booking made simple. Lightweight WordPress appointment booking plugin designed for modern sites. Built with PHP 8+ and the latest WordPress standards, it makes scheduling effortless for both site owners and clients.
 Version: 2.5.0
 Author: Surefire Studios
 Author URI: https://www.surefirestudios.io
 Text Domain: booked
-Requires at least: 5.0
-Tested up to: 6.8.2
-Requires PHP: 8.3
 */
 
 define( 'BOOKED_VERSION', '2.5.0' );
@@ -22,18 +19,34 @@ define( 'BOOKED_STYLESHEET_DIR', get_stylesheet_directory() );
 define( 'BOOKED_PLUGIN_TEMPLATES_DIR', BOOKED_PLUGIN_DIR . '/templates/' );
 define( 'BOOKED_AJAX_INCLUDES_DIR', BOOKED_PLUGIN_DIR . '/includes/ajax/' );
 
-// FontAwesome Support
-require_once __DIR__ . '/vendor/fortawesome/wordpress-fontawesome/index.php';
+/**
+ * Early REST API detection helper function
+ */
+function booked_is_rest_api_request() {
+	$request_uri = $_SERVER['REQUEST_URI'] ?? '';
+	return ( strpos( $request_uri, '/wp-json/' ) !== false || isset( $_GET['rest_route'] ) );
+}
 
-// Included Add-Ons
-require_once BOOKED_PLUGIN_DIR . '/includes/add-ons/init.php';
+// Only load FontAwesome for frontend and admin requests, skip for REST API
+if ( !booked_is_rest_api_request() ) {
+	require_once __DIR__ . '/vendor/fortawesome/wordpress-fontawesome/index.php';
+}
 
-// Booked Updates
-require_once BOOKED_PLUGIN_DIR . '/includes/updates/plugin-update-checker.php';
-$booked_update_check = PucFactory::buildUpdateChecker('http://boxyupdates.com/get/?action=get_metadata&slug=booked', __FILE__, 'booked');
+// Only load add-ons for non-REST API requests to improve performance
+if ( !booked_is_rest_api_request() ) {
+	require_once BOOKED_PLUGIN_DIR . '/includes/add-ons/init.php';
+}
 
-// Booked Mailer Functions
-require_once('includes/mailer_functions.php');
+// Only load update checker for admin requests to prevent REST API slowdowns
+if ( is_admin() && !( defined( 'DOING_AJAX' ) && DOING_AJAX ) && !booked_is_rest_api_request() ) {
+	require_once BOOKED_PLUGIN_DIR . '/includes/updates/plugin-update-checker.php';
+	$booked_update_check = PucFactory::buildUpdateChecker('http://boxyupdates.com/get/?action=get_metadata&slug=booked', __FILE__, 'booked');
+}
+
+// Only load mailer functions for non-REST API requests
+if ( !booked_is_rest_api_request() ) {
+	require_once('includes/mailer_functions.php');
+}
 
 if(!class_exists('booked_plugin')) {
 	class booked_plugin {
@@ -41,6 +54,16 @@ if(!class_exists('booked_plugin')) {
 		 * Construct the plugin object
 		 */
 		public function __construct() {
+
+			// Skip most plugin initialization for REST API requests to improve performance
+			if ( $this->is_rest_api_request() ) {
+				// Only register minimal REST API routes and return early
+				add_action('rest_api_init', array(&$this, 'register_rest_routes'));
+				return;
+			}
+
+			// Disable sessions early to prevent REST API conflicts
+			add_action('init', array($this, 'maybe_disable_sessions'), 1);
 
 			$this->booked_screens = apply_filters('booked_admin_booked_screens', array('booked-pending','booked-appointments','booked-settings','booked-welcome'));
 
@@ -77,18 +100,13 @@ if(!class_exists('booked_plugin')) {
 			add_action('admin_notices', array(&$this, 'booked_no_profile_page_notice' ));
 			add_action('parent_file', array(&$this, 'booked_tax_menu_correction'));
 
-			// REST API support for WordPress 6.8.2
-			add_action('rest_api_init', array(&$this, 'register_rest_routes'));
-
-			// Security headers for better protection
-			add_action('init', array(&$this, 'add_security_headers'));
-
 			add_action( 'booked_custom_calendars_add_form_fields', array(&$this, 'booked_calendars_add_custom_fields'), 10, 2 );
 			add_action( 'booked_custom_calendars_edit_form_fields', array(&$this, 'booked_calendars_edit_custom_fields'), 10, 2 );
 			add_action( 'create_booked_custom_calendars', array(&$this, 'booked_save_calendars_custom_fields'), 10, 2 );
 			add_action( 'edited_booked_custom_calendars', array(&$this, 'booked_save_calendars_custom_fields'), 10, 2 );
 
 			add_action('init', array(&$this, 'init'),10);
+			add_action('rest_api_init', array(&$this, 'register_rest_routes'));
 
 			// Prevent WooCommerce from Redirecting "Booking Agents" to the My Account page.
 			add_filter('woocommerce_prevent_admin_access', array(&$this, 'booked_wc_check_admin_access'));
@@ -96,32 +114,34 @@ if(!class_exists('booked_plugin')) {
 			// Allow other plugins/themes to apply Booked capabilities to other user roles
 			add_filter( 'booked_user_roles', array(&$this,'booked_user_roles_filter') );
 
-			// Email Reminders (Added in v1.8.0)
-			add_filter( 'cron_schedules', array(&$this,'cron_schedules'));
-			add_action( 'booked_send_admin_reminders', array($this, 'admin_reminders'), 20 );
-			add_action( 'booked_send_user_reminders', array($this, 'user_reminders'), 20 );
+			// Email Reminders (Added in v1.8.0) - Skip expensive operations for REST API
+			if ( !$this->is_rest_api_request() ) {
+				add_filter( 'cron_schedules', array(&$this,'cron_schedules'));
+				add_action( 'booked_send_admin_reminders', array($this, 'admin_reminders'), 20 );
+				add_action( 'booked_send_user_reminders', array($this, 'user_reminders'), 20 );
 
-			$user_email_content = get_option('booked_reminder_email',false);
-			$user_email_subject = get_option('booked_reminder_email_subject',false);
+				$user_email_content = get_option('booked_reminder_email',false);
+				$user_email_subject = get_option('booked_reminder_email_subject',false);
 
-			if ($user_email_content && $user_email_subject):
-				if ( !wp_next_scheduled('booked_send_user_reminders') ):
-					wp_schedule_event( time(),'booked_everyfive','booked_send_user_reminders' );
-			    endif;
-			else:
-				wp_clear_scheduled_hook( 'booked_send_user_reminders' );
-			endif;
+				if ($user_email_content && $user_email_subject):
+					if ( !wp_next_scheduled('booked_send_user_reminders') ):
+						wp_schedule_event( time(),'booked_everyfive','booked_send_user_reminders' );
+				    endif;
+				else:
+					wp_clear_scheduled_hook( 'booked_send_user_reminders' );
+				endif;
 
-			$admin_email_content = get_option('booked_admin_reminder_email',false);
-			$admin_email_subject = get_option('booked_admin_reminder_email_subject',false);
+				$admin_email_content = get_option('booked_admin_reminder_email',false);
+				$admin_email_subject = get_option('booked_admin_reminder_email_subject',false);
 
-			if ($admin_email_content && $admin_email_subject):
-				if ( !wp_next_scheduled('booked_send_admin_reminders') ):
-					wp_schedule_event(time(),'booked_everyfive','booked_send_admin_reminders');
-			    endif;
-			else:
-				wp_clear_scheduled_hook('booked_send_admin_reminders');
-			endif;
+				if ($admin_email_content && $admin_email_subject):
+					if ( !wp_next_scheduled('booked_send_admin_reminders') ):
+						wp_schedule_event(time(),'booked_everyfive','booked_send_admin_reminders');
+				    endif;
+				else:
+					wp_clear_scheduled_hook('booked_send_admin_reminders');
+				endif;
+			}
 
 		}
 
@@ -133,7 +153,7 @@ if(!class_exists('booked_plugin')) {
 
 			$args = array(
 				'post_type' => 'booked_appointments',
-				'posts_per_page' => 5000,
+				'posts_per_page' => 100,
 				'post_status' => array('publish','future'),
 				'meta_query' => array(
 					array(
@@ -200,7 +220,7 @@ if(!class_exists('booked_plugin')) {
 
 			$args = array(
 				'post_type' => 'booked_appointments',
-				'posts_per_page' => 500,
+				'posts_per_page' => 100,
 				'post_status' => array('publish','future'),
 				'meta_query' => array(
 					array(
@@ -376,11 +396,11 @@ if(!class_exists('booked_plugin')) {
 			// Include the Booked functions file.
 			require_once(sprintf("%s/includes/functions.php", BOOKED_PLUGIN_DIR));
 
-			// Start a session if none is started yet.
-			//Added check if headers sent - patch
-			if( !headers_sent() && session_status() === PHP_SESSION_NONE && apply_filters( 'booked_sessions_enabled', true ) ){
-		        session_start();
-		    }
+			// Sessions disabled by default to prevent REST API conflicts
+			// They can be enabled with add_filter('booked_sessions_enabled', '__return_true')
+			if ( apply_filters( 'booked_sessions_enabled', false ) && $this->needs_session() ) {
+				$this->handle_session_management();
+			}
 
 		    // Check to see if the plugin was updated.
 			$current_version = get_option('booked_version_check','1.6.20');
@@ -392,9 +412,248 @@ if(!class_exists('booked_plugin')) {
 				update_option('booked_version_check',BOOKED_VERSION);
 			endif;
 
-			//Site health issues fix - patch
-			session_write_close();
+		}
 
+		/**
+		 * Handle session management safely for PHP 8.3
+		 */
+		private function handle_session_management() {
+			// Don't start sessions for REST API, AJAX, or admin requests
+			if ( $this->is_rest_request() || $this->is_admin_ajax() || is_admin() ) {
+				return;
+			}
+			
+			// Only start session if needed and safe to do so
+			if ( !headers_sent() && session_status() === PHP_SESSION_NONE ) {
+				// Configure session settings for better security and PHP 8.3 compatibility
+				ini_set('session.cookie_httponly', 1);
+				ini_set('session.use_only_cookies', 1);
+				ini_set('session.cookie_samesite', 'Lax');
+				
+				session_start();
+				
+				// Close session immediately for better performance
+				add_action('wp_loaded', array($this, 'close_session'), 1);
+			}
+		}
+
+		/**
+		 * Check if this is a REST API request (early detection)
+		 */
+		private function is_rest_api_request() {
+			// Early REST API detection before WordPress fully loads
+			if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+				return true;
+			}
+			
+			// Check request URI for REST API endpoints
+			$request_uri = $_SERVER['REQUEST_URI'] ?? '';
+			if ( strpos( $request_uri, '/wp-json/' ) !== false ) {
+				return true;
+			}
+			
+			// Check for REST API query parameter
+			if ( isset( $_GET['rest_route'] ) ) {
+				return true;
+			}
+			
+			return false;
+		}
+
+		/**
+		 * Check if this is a REST API request
+		 */
+		private function is_rest_request() {
+			if ( defined( 'REST_REQUEST' ) && REST_REQUEST ) {
+				return true;
+			}
+			
+			$rest_prefix = trailingslashit( rest_get_url_prefix() );
+			$request_uri = esc_url_raw( wp_unslash( $_SERVER['REQUEST_URI'] ?? '' ) );
+			
+			return ( false !== strpos( $request_uri, $rest_prefix ) );
+		}
+
+		/**
+		 * Check if this is an admin AJAX request
+		 */
+		private function is_admin_ajax() {
+			return ( defined( 'DOING_AJAX' ) && DOING_AJAX );
+		}
+
+		/**
+		 * Check if we actually need a session for this request
+		 */
+		private function needs_session() {
+			// Always skip sessions - we'll start them only when needed for specific booking actions
+			return false;
+		}
+
+		/**
+		 * Maybe disable sessions for REST API and admin requests
+		 */
+		public function maybe_disable_sessions() {
+			// Force close any existing sessions for REST API, AJAX, or admin requests
+			if ( $this->is_rest_request() || $this->is_admin_ajax() || is_admin() || wp_doing_cron() ) {
+				if ( session_status() === PHP_SESSION_ACTIVE ) {
+					session_write_close();
+				}
+				// Prevent new sessions from starting
+				add_filter( 'booked_sessions_enabled', '__return_false', 999 );
+			}
+		}
+
+		/**
+		 * Start session only when needed for booking operations
+		 */
+		public function start_session_if_needed() {
+			if ( !headers_sent() && session_status() === PHP_SESSION_NONE && 
+				 !$this->is_rest_request() && !$this->is_admin_ajax() && !is_admin() ) {
+				
+				// Configure session settings
+				ini_set('session.cookie_httponly', 1);
+				ini_set('session.use_only_cookies', 1);
+				ini_set('session.cookie_samesite', 'Lax');
+				
+				session_start();
+			}
+		}
+
+		/**
+		 * Safely close session
+		 */
+		public function close_session() {
+			if ( session_status() === PHP_SESSION_ACTIVE ) {
+				session_write_close();
+			}
+		}
+
+		/**
+		 * Register REST API endpoints for better performance and compatibility
+		 */
+		public function register_rest_routes() {
+			register_rest_route('booked/v1', '/appointments', array(
+				'methods' => 'GET',
+				'callback' => array($this, 'get_appointments_rest'),
+				'permission_callback' => array($this, 'check_appointments_permission'),
+				'args' => array(
+					'calendar_id' => array(
+						'type' => 'integer',
+						'sanitize_callback' => 'absint',
+					),
+					'date' => array(
+						'type' => 'string',
+						'sanitize_callback' => 'sanitize_text_field',
+					),
+					'limit' => array(
+						'type' => 'integer',
+						'default' => 50,
+						'sanitize_callback' => 'absint',
+					),
+				),
+			));
+
+			register_rest_route('booked/v1', '/availability', array(
+				'methods' => 'GET',
+				'callback' => array($this, 'get_availability_rest'),
+				'permission_callback' => '__return_true',
+				'args' => array(
+					'calendar_id' => array(
+						'type' => 'integer',
+						'sanitize_callback' => 'absint',
+					),
+					'date' => array(
+						'type' => 'string',
+						'required' => true,
+						'sanitize_callback' => 'sanitize_text_field',
+					),
+				),
+			));
+		}
+
+		/**
+		 * REST API callback for appointments
+		 */
+		public function get_appointments_rest($request) {
+			$calendar_id = $request->get_param('calendar_id');
+			$date = $request->get_param('date');
+			$limit = min($request->get_param('limit'), 100); // Cap at 100
+
+			$args = array(
+				'post_type' => 'booked_appointments',
+				'posts_per_page' => $limit,
+				'post_status' => array('publish', 'future'),
+				'meta_key' => '_appointment_timestamp',
+				'orderby' => 'meta_value_num',
+				'order' => 'ASC',
+			);
+
+			if ($date) {
+				$start_timestamp = strtotime($date . ' 00:00:00');
+				$end_timestamp = strtotime($date . ' 23:59:59');
+				$args['meta_query'] = array(
+					array(
+						'key' => '_appointment_timestamp',
+						'value' => array($start_timestamp, $end_timestamp),
+						'compare' => 'BETWEEN',
+					)
+				);
+			}
+
+			if ($calendar_id) {
+				$args['tax_query'] = array(
+					array(
+						'taxonomy' => 'booked_custom_calendars',
+						'field' => 'term_id',
+						'terms' => $calendar_id,
+					)
+				);
+			}
+
+			$query = new WP_Query($args);
+			$appointments = array();
+
+			if ($query->have_posts()) {
+				while ($query->have_posts()) {
+					$query->the_post();
+					$appointments[] = array(
+						'id' => get_the_ID(),
+						'timestamp' => get_post_meta(get_the_ID(), '_appointment_timestamp', true),
+						'timeslot' => get_post_meta(get_the_ID(), '_appointment_timeslot', true),
+						'status' => get_post_status(),
+					);
+				}
+				wp_reset_postdata();
+			}
+
+			return rest_ensure_response($appointments);
+		}
+
+		/**
+		 * REST API callback for availability
+		 */
+		public function get_availability_rest($request) {
+			$calendar_id = $request->get_param('calendar_id');
+			$date = $request->get_param('date');
+
+			$year = date('Y', strtotime($date));
+			$month = date('m', strtotime($date));
+			$day = date('d', strtotime($date));
+
+			$availability = booked_appointments_available($year, $month, $day, $calendar_id, true);
+
+			return rest_ensure_response(array(
+				'date' => $date,
+				'calendar_id' => $calendar_id,
+				'availability' => $availability,
+			));
+		}
+
+		/**
+		 * Permission callback for appointments endpoint
+		 */
+		public function check_appointments_permission() {
+			return current_user_can('edit_booked_appointments') || current_user_can('read');
 		}
 
 		public function add_to_calendar_check($posts){
@@ -704,7 +963,7 @@ if(!class_exists('booked_plugin')) {
 			if ( $column_name == 'booked_appointments' ) {
 
 				$args = array(
-					'posts_per_page'   	=> 500,
+					'posts_per_page'   	=> 50,
 					'meta_key'   	   	=> '_appointment_timestamp',
 					'orderby'			=> 'meta_value_num',
 					'order'            	=> 'ASC',
@@ -942,176 +1201,6 @@ if(!class_exists('booked_plugin')) {
 
 		public static function booked_user_roles_filter( $booked_user_roles ) {
 			return $booked_user_roles;
-		}
-
-		/**
-		 * Register REST API routes for WordPress 6.8.2 compatibility
-		 */
-		public function register_rest_routes() {
-			register_rest_route('booked/v1', '/appointments', array(
-				'methods' => 'GET',
-				'callback' => array($this, 'get_appointments'),
-				'permission_callback' => array($this, 'check_permissions'),
-			));
-
-			register_rest_route('booked/v1', '/appointments', array(
-				'methods' => 'POST',
-				'callback' => array($this, 'create_appointment'),
-				'permission_callback' => array($this, 'check_permissions'),
-			));
-
-			register_rest_route('booked/v1', '/appointments/(?P<id>\d+)', array(
-				'methods' => 'PUT',
-				'callback' => array($this, 'update_appointment'),
-				'permission_callback' => array($this, 'check_permissions'),
-			));
-
-			register_rest_route('booked/v1', '/appointments/(?P<id>\d+)', array(
-				'methods' => 'DELETE',
-				'callback' => array($this, 'delete_appointment'),
-				'permission_callback' => array($this, 'check_permissions'),
-			));
-		}
-
-		/**
-		 * Check permissions for REST API requests
-		 */
-		public function check_permissions($request) {
-			// Check if user is logged in
-			if (!is_user_logged_in()) {
-				return false;
-			}
-			
-			// For GET requests, allow read access
-			if ($request->get_method() === 'GET') {
-				return current_user_can('read');
-			}
-			
-			// For other requests, require edit permissions
-			return current_user_can('edit_booked_appointments');
-		}
-
-		/**
-		 * Get appointments via REST API
-		 */
-		public function get_appointments($request) {
-			$args = array(
-				'post_type' => 'booked_appointments',
-				'posts_per_page' => 50,
-				'post_status' => 'publish',
-			);
-
-			$appointments = get_posts($args);
-			$formatted_appointments = array();
-
-			foreach ($appointments as $appointment) {
-				$formatted_appointments[] = array(
-					'id' => $appointment->ID,
-					'title' => $appointment->post_title,
-					'timestamp' => get_post_meta($appointment->ID, '_appointment_timestamp', true),
-					'timeslot' => get_post_meta($appointment->ID, '_appointment_timeslot', true),
-					'user_id' => get_post_meta($appointment->ID, '_appointment_user', true),
-				);
-			}
-
-			return rest_ensure_response($formatted_appointments);
-		}
-
-		/**
-		 * Create appointment via REST API
-		 */
-		public function create_appointment($request) {
-			$params = $request->get_params();
-			
-			// Validate required fields
-			if (empty($params['timestamp']) || empty($params['timeslot'])) {
-				return new WP_Error('missing_fields', 'Required fields missing', array('status' => 400));
-			}
-
-			$appointment_data = array(
-				'post_title' => sanitize_text_field(isset($params['title']) ? $params['title'] : 'Appointment'),
-				'post_content' => '',
-				'post_status' => 'publish',
-				'post_type' => 'booked_appointments',
-				'post_author' => get_current_user_id(),
-			);
-
-			$appointment_id = wp_insert_post($appointment_data);
-
-			if (is_wp_error($appointment_id)) {
-				return $appointment_id;
-			}
-
-			update_post_meta($appointment_id, '_appointment_timestamp', absint($params['timestamp']));
-			update_post_meta($appointment_id, '_appointment_timeslot', sanitize_text_field($params['timeslot']));
-			update_post_meta($appointment_id, '_appointment_user', get_current_user_id());
-
-			return rest_ensure_response(array('id' => $appointment_id, 'message' => 'Appointment created successfully'));
-		}
-
-		/**
-		 * Update appointment via REST API
-		 */
-		public function update_appointment($request) {
-			$appointment_id = $request['id'];
-			$params = $request->get_params();
-
-			if (!get_post($appointment_id)) {
-				return new WP_Error('not_found', 'Appointment not found', array('status' => 404));
-			}
-
-			$update_data = array('ID' => $appointment_id);
-			
-			if (isset($params['title'])) {
-				$update_data['post_title'] = sanitize_text_field($params['title']);
-			}
-
-			$result = wp_update_post($update_data);
-
-			if (isset($params['timestamp'])) {
-				update_post_meta($appointment_id, '_appointment_timestamp', absint($params['timestamp']));
-			}
-
-			if (isset($params['timeslot'])) {
-				update_post_meta($appointment_id, '_appointment_timeslot', sanitize_text_field($params['timeslot']));
-			}
-
-			return rest_ensure_response(array('id' => $appointment_id, 'message' => 'Appointment updated successfully'));
-		}
-
-		/**
-		 * Delete appointment via REST API
-		 */
-		public function delete_appointment($request) {
-			$appointment_id = $request['id'];
-
-			if (!get_post($appointment_id)) {
-				return new WP_Error('not_found', 'Appointment not found', array('status' => 404));
-			}
-
-			$result = wp_delete_post($appointment_id, true);
-
-			if (!$result) {
-				return new WP_Error('delete_failed', 'Failed to delete appointment', array('status' => 500));
-			}
-
-			return rest_ensure_response(array('message' => 'Appointment deleted successfully'));
-		}
-
-		/**
-		 * Add security headers for better protection
-		 */
-		public function add_security_headers() {
-			if (!headers_sent()) {
-				// Add X-Content-Type-Options header
-				header('X-Content-Type-Options: nosniff');
-				
-				// Add X-Frame-Options header
-				header('X-Frame-Options: SAMEORIGIN');
-				
-				// Add X-XSS-Protection header
-				header('X-XSS-Protection: 1; mode=block');
-			}
 		}
 
 	} // END class booked_plugin

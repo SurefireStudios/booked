@@ -142,7 +142,7 @@ if ($customer_type == 'guest'):
 	else:
 
 		if ( !is_email($email) ):
-			echo 'error###' . esc_html__( 'That email does not appear to be valid.','booked');
+			echo 'error###' . esc_html__( 'That email does not appear to be valid.','overbooked');
 		endif;
 
 	endif;

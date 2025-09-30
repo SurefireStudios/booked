@@ -13,8 +13,8 @@ $user_data = get_user_by( 'id', $booked_current_user->ID );
 
 if (empty($user_data)) {
 
-	echo '<h2>' . esc_html__('No profile here!','booked') . '</h2>';
-	echo '<p>' . esc_html__('Sorry, this user profile does not exist.','booked') . '</p>';
+	echo '<h2>' . esc_html__('No profile here!','overbooked') . '</h2>';
+	echo '<p>' . esc_html__('Sorry, this user profile does not exist.','overbooked') . '</p>';
 
 } else { ?>
 
@@ -33,9 +33,9 @@ if (empty($user_data)) {
 			<div class="booked-user">
 				<div class="booked-user-avatar"><?php echo booked_avatar($user_data->ID,50); ?></div>
 				<h3 class="<?php echo $h3_class; ?>">
-					<?php echo sprintf(esc_html__('Welcome back, %s!','booked'),'<strong>'.booked_get_name( $user_data->ID ).'</strong>'); ?>
+					<?php echo sprintf(esc_html__('Welcome back, %s!','overbooked'),'<strong>'.booked_get_name( $user_data->ID ).'</strong>'); ?>
 					<?php if ($my_profile): ?>
-						&nbsp;&nbsp;<a class="booked-logout-button" href="<?php echo wp_logout_url(get_permalink($post->ID)); ?>" title="<?php esc_html_e('Sign Out','booked'); ?>"><?php esc_html_e('Sign Out','booked'); ?></a>
+						&nbsp;&nbsp;<a class="booked-logout-button" href="<?php echo wp_logout_url(get_permalink($post->ID)); ?>" title="<?php esc_html_e('Sign Out','overbooked'); ?>"><?php esc_html_e('Sign Out','overbooked'); ?></a>
 					<?php endif; ?>
 				</h3>
 			</div>
@@ -48,17 +48,17 @@ if (empty($user_data)) {
 			
 			$default_tabs = array(
 				'appointments' => array(
-					'title' => esc_html__('Upcoming Appointments','booked'),
+					'title' => esc_html__('Upcoming Appointments','overbooked'),
 					'fa-icon' => 'calendar-days',
 					'class' => false
 				),
 				'history' => array(
-					'title' => esc_html__('Appointment History','booked'),
+					'title' => esc_html__('Appointment History','overbooked'),
 					'fa-icon' => 'calendar-check',
 					'class' => false
 				),
 				'edit' => array(
-					'title' => esc_html__('Edit Profile','booked'),
+					'title' => esc_html__('Edit Profile','overbooked'),
 					'fa-icon' => 'pen-to-square',
 					'class' => 'edit-button'
 				)

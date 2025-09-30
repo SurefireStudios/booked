@@ -146,7 +146,7 @@ function booked_agent_appointments($user_id,$only_count = false,$time_format = f
 			$appointments_array = apply_filters('booked_appointments_array', $appointments_array);
 		endif;
 	
-		wp_reset_query();
+		wp_reset_postdata();
 		if ($only_count):
 			return count($appointments_array);
 		else :

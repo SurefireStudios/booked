@@ -35,15 +35,15 @@
 	if (!current_user_can('manage_booked_options') && $booked_none_assigned):
 
 		echo '<div style="text-align:center;">';
-			echo '<br><br><h3>'.esc_html__('There are no calendars assigned to you.','booked').'</h3>';
-			echo '<p>'.esc_html__('Get in touch with the Administration of this site to get a calendar assigned to you.','booked').'</p>';
+			echo '<br><br><h3>'.esc_html__('There are no calendars assigned to you.','overbooked').'</h3>';
+			echo '<p>'.esc_html__('Get in touch with the Administration of this site to get a calendar assigned to you.','overbooked').'</p>';
 		echo '</div>';
 
 	else: ?>
 
-		<div class="topSavingState savingState"><i class="fa-solid fa-circle-notch fa-spin"></i>&nbsp;&nbsp;<?php esc_html_e('Updating, please wait...','booked'); ?></div>
+		<div class="topSavingState savingState"><i class="fa-solid fa-circle-notch fa-spin"></i>&nbsp;&nbsp;<?php esc_html_e('Updating, please wait...','overbooked'); ?></div>
 
-		<div class="booked-settings-title"><?php echo esc_html__('Booked Settings','booked'); ?></div>
+		<div class="booked-settings-title"><?php echo esc_html__('OverBooked Settings','overbooked'); ?></div>
 
 		<div id="booked-admin-panel-container">
 
@@ -52,31 +52,31 @@
 			$booked_settings_tabs[] = [
 				'access' => 'admin',
 				'slug' => 'general',
-				'content' => '<i class="fa-solid fa-gear"></i><span class="booked-tab-text">&nbsp;&nbsp;'.esc_html__('General','booked') . '</span>'
+				'content' => '<i class="fa-solid fa-gear"></i><span class="booked-tab-text">&nbsp;&nbsp;'.esc_html__('General','overbooked') . '</span>'
 			];
 			
 			$booked_settings_tabs[] = [
 				'access' => 'agent',
 				'slug' => 'defaults',
-				'content' => '<i class="fa-solid fa-clock"></i><span class="booked-tab-text">&nbsp;&nbsp;'.esc_html__('Time Slots','booked') . '</span><span class="savingState">&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-circle-notch fa-spin"></i></span>'
+				'content' => '<i class="fa-solid fa-clock"></i><span class="booked-tab-text">&nbsp;&nbsp;'.esc_html__('Time Slots','overbooked') . '</span><span class="savingState">&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-circle-notch fa-spin"></i></span>'
 			];
 			
 			$booked_settings_tabs[] = [
 				'access' => 'agent',
 				'slug' => 'custom-timeslots',
-				'content' => '<i class="fa-solid fa-clock"></i><span class="booked-tab-text">&nbsp;&nbsp;'.esc_html__('Custom Time Slots','booked') . '</span><span class="savingState">&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-circle-notch fa-spin"></i></span>'
+				'content' => '<i class="fa-solid fa-clock"></i><span class="booked-tab-text">&nbsp;&nbsp;'.esc_html__('Custom Time Slots','overbooked') . '</span><span class="savingState">&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-circle-notch fa-spin"></i></span>'
 			];
 			
 			$booked_settings_tabs[] = [
 				'access' => 'agent',
 				'slug' => 'custom-fields',
-				'content' => '<i class="fa-solid fa-pencil"></i><span class="booked-tab-text">&nbsp;&nbsp;'.esc_html__('Custom Fields','booked') . '</span>'
+				'content' => '<i class="fa-solid fa-pencil"></i><span class="booked-tab-text">&nbsp;&nbsp;'.esc_html__('Custom Fields','overbooked') . '</span>'
 			];
 			
 			$booked_settings_tabs[] = [
 				'access' => 'admin',
 				'slug' => 'email-settings',
-				'content' => '<i class="fa-solid fa-envelope"></i><span class="booked-tab-text">&nbsp;&nbsp;'.esc_html__('Emails','booked') . '</span>'
+				'content' => '<i class="fa-solid fa-envelope"></i><span class="booked-tab-text">&nbsp;&nbsp;'.esc_html__('Emails','overbooked') . '</span>'
 			];
 			
 			if ( class_exists('woocommerce') ):
@@ -84,7 +84,7 @@
 				$booked_settings_tabs[] = [
 					'access' => 'admin',
 					'slug' => 'woocommerce-settings',
-					'content' => '<i class="fa-solid fa-cart-shopping"></i><span class="booked-tab-text">&nbsp;&nbsp;'.esc_html__('WooCommerce','booked') . '</span>'
+					'content' => '<i class="fa-solid fa-cart-shopping"></i><span class="booked-tab-text">&nbsp;&nbsp;'.esc_html__('WooCommerce','overbooked') . '</span>'
 				];
 				
 			endif;
@@ -92,19 +92,19 @@
 			$booked_settings_tabs[] = [
 				'access' => 'admin',
 				'slug' => 'calendar-feeds',
-				'content' => '<i class="fa-solid fa-calendar-days"></i><span class="booked-tab-text">&nbsp;&nbsp;'.esc_html__('Calendar Feeds','booked') . '</span>'
+				'content' => '<i class="fa-solid fa-calendar-days"></i><span class="booked-tab-text">&nbsp;&nbsp;'.esc_html__('Calendar Feeds','overbooked') . '</span>'
 			];
 			
 			$booked_settings_tabs[] = [
 				'access' => 'admin',
 				'slug' => 'export-appointments',
-				'content' => '<i class="fa-solid fa-arrow-up-right-from-square"></i><span class="booked-tab-text">&nbsp;&nbsp;'.esc_html__('Export','booked') . '</span>'
+				'content' => '<i class="fa-solid fa-arrow-up-right-from-square"></i><span class="booked-tab-text">&nbsp;&nbsp;'.esc_html__('Export','overbooked') . '</span>'
 			];
 			
 			$booked_settings_tabs[] = [
 				'access' => 'admin',
 				'slug' => 'shortcodes',
-				'content' => '<i class="fa-solid fa-code"></i><span class="booked-tab-text">&nbsp;&nbsp;'.esc_html__('Shortcodes','booked') . '</span>'
+				'content' => '<i class="fa-solid fa-code"></i><span class="booked-tab-text">&nbsp;&nbsp;'.esc_html__('Shortcodes','overbooked') . '</span>'
 			];
 			
 			$booked_settings_tabs = apply_filters( 'booked_settings_tabs', $booked_settings_tabs );
@@ -147,14 +147,14 @@
 											<div class="section-head">
 												<?php $section_title = esc_html__('Booking Type', 'booked'); ?>
 												<h3><?php echo esc_attr($section_title); ?></h3>
-												<p><?php esc_html_e('You have the option to choose between "Registered" and "Guest" booking. Registered booking will require all appointments to be booked by a registered user (default). Guest booking will allow anyone with a name and email address to book an appointment.','booked'); ?></p>
+												<p><?php esc_html_e('You have the option to choose between "Registered" and "Guest" booking. Registered booking will require all appointments to be booked by a registered user (default). Guest booking will allow anyone with a name and email address to book an appointment.','overbooked'); ?></p>
 
 												<?php $option_name = 'booked_booking_type';
 												$booking_type = get_option($option_name,'registered'); ?>
 												<div class="select-box">
 													<select data-condition="booking_type" name="<?php echo $option_name; ?>">
-														<option value="registered"<?php echo ($booking_type == 'registered' ? ' selected="selected"' : ''); ?>><?php esc_html_e('Registered Booking','booked'); ?></option>
-														<option value="guest"<?php echo ($booking_type == 'guest' ? ' selected="selected"' : ''); ?>><?php esc_html_e('Guest Booking','booked'); ?></option>
+														<option value="registered"<?php echo ($booking_type == 'registered' ? ' selected="selected"' : ''); ?>><?php esc_html_e('Registered Booking','overbooked'); ?></option>
+														<option value="guest"<?php echo ($booking_type == 'guest' ? ' selected="selected"' : ''); ?>><?php esc_html_e('Guest Booking','overbooked'); ?></option>
 													</select>
 												</div><!-- /.select-box -->
 											</div><!-- /.section-body -->
@@ -169,11 +169,11 @@
 
 											<p style="margin:1.2em 0 10px;">
 												<input style="margin:-5px 5px 0 0;" id="booked_require_name" name="booked_registration_name_requirements[]" value="require_name"<?php if (!$selected_value || $selected_value == 'require_name'): echo ' checked="checked"'; endif; ?> type="radio">
-												<label class="checkbox-radio-label" for="booked_require_name"><strong><?php esc_html_e('Require "Name" only','booked'); ?></strong> &mdash; <?php esc_html_e('Require your customers to enter their name in a single text field.','booked'); ?></label><br>
+												<label class="checkbox-radio-label" for="booked_require_name"><strong><?php esc_html_e('Require "Name" only','overbooked'); ?></strong> &mdash; <?php esc_html_e('Require your customers to enter their name in a single text field.','overbooked'); ?></label><br>
 											</p>
 											<p style="margin:0 0 10px;">
 												<input style="margin:-5px 5px 0 0;" id="booked_require_surname" name="booked_registration_name_requirements[]" value="require_surname"<?php if ($selected_value == 'require_surname'): echo ' checked="checked"'; endif; ?> type="radio">
-												<label class="checkbox-radio-label" for="booked_require_surname"><strong><?php esc_html_e('Require "First Name" and "Last Name"','booked'); ?></strong> &mdash; <?php esc_html_e('Require your customers to enter their first and last name in two text fields.','booked'); ?></label><br>
+												<label class="checkbox-radio-label" for="booked_require_surname"><strong><?php esc_html_e('Require "First Name" and "Last Name"','overbooked'); ?></strong> &mdash; <?php esc_html_e('Require your customers to enter their first and last name in two text fields.','overbooked'); ?></label><br>
 											</p>
 
 											</div>
@@ -189,7 +189,7 @@
 
 												<p style="margin:1.2em 0 10px;">
 													<input style="margin:-4px 5px 0 0;" id="booked_require_guest_email_address" name="booked_require_guest_email_address" value="true"<?php if ($selected_value): echo ' checked="checked"'; endif; ?> type="checkbox">
-													<label class="checkbox-radio-label" for="booked_require_guest_email_address"><strong><?php esc_html_e('Require Email Address','booked'); ?></strong> &mdash; <?php esc_html_e('Require your guests to enter their email address.','booked'); ?></label>
+													<label class="checkbox-radio-label" for="booked_require_guest_email_address"><strong><?php esc_html_e('Require Email Address','overbooked'); ?></strong> &mdash; <?php esc_html_e('Require your guests to enter their email address.','overbooked'); ?></label>
 												</p>
 
 												</div>
@@ -212,24 +212,24 @@
 												endif; ?>
 
 												<p style="margin:1.2em 0 10px;"><input style="margin:-4px 5px 0 0;" data-condition="redirect_type" id="redirect_type_none" name="<?php echo $option_name; ?>" value=""<?php if (!$selected_value): echo ' checked="checked"'; endif; ?> type="radio">
-												<label class="checkbox-radio-label" for="redirect_type_none"><?php echo sprintf( esc_html__('%s Refresh the calendar list after booking.','booked'), '<strong>' . esc_html__('No Redirect','booked') . '</strong> &mdash; ' ); ?></label></p>
+												<label class="checkbox-radio-label" for="redirect_type_none"><?php echo sprintf( esc_html__('%s Refresh the calendar list after booking.','overbooked'), '<strong>' . esc_html__('No Redirect','overbooked') . '</strong> &mdash; ' ); ?></label></p>
 
 												<div class="condition-block booking_type" data-condition-val="registered" style="<?php if ($booking_type == 'registered'): ?>display:block; <?php endif; ?>">
 													<p style="margin:0 0 10px;">
 														<input style="margin:-4px 5px 0 0;" data-condition="redirect_type" id="redirect_type_detect" name="<?php echo $option_name; ?>" value="booked-profile"<?php if ($selected_value == 'booked-profile'): echo ' checked="checked"'; endif; ?> type="radio">
-														<label class="checkbox-radio-label" for="redirect_type_detect"><?php echo sprintf( esc_html__('%s Auto-detect the page with the [booked-profile] shortcode.','booked'), '<strong>' . esc_html__('Auto-Detect Profile Page','booked') . '</strong> &mdash; ' ); ?><?php if (!$detected_page_error && $detected_page): ?>&nbsp;&nbsp;&mdash;&nbsp;&nbsp;<strong><?php echo sprintf(esc_html__('Detected Page: %s','booked'),'<a href="'.get_permalink($detected_page).'">'.get_permalink($detected_page).'</a>'); ?></strong><?php endif; ?></label>
+														<label class="checkbox-radio-label" for="redirect_type_detect"><?php echo sprintf( esc_html__('%s Auto-detect the page with the [booked-profile] shortcode.','overbooked'), '<strong>' . esc_html__('Auto-Detect Profile Page','overbooked') . '</strong> &mdash; ' ); ?><?php if (!$detected_page_error && $detected_page): ?>&nbsp;&nbsp;&mdash;&nbsp;&nbsp;<strong><?php echo sprintf(esc_html__('Detected Page: %s','overbooked'),'<a href="'.get_permalink($detected_page).'">'.get_permalink($detected_page).'</a>'); ?></strong><?php endif; ?></label>
 													</p>
 												</div>
 
 												<?php if ($detected_page_error): ?>
 												<div style="margin:0 0 10px;">
-													<div class="condition-block redirect_type" data-condition-val="booked-profile" style="<?php if ($booked_redirect_type == 'booked-profile'): ?>display:block; <?php endif; ?>line-height:30px; padding:0 0 0 30px; margin:-5px 0 10px;"><?php echo sprintf(esc_html__( '%s We were not able to auto-detect. You need to %s with the %s shortcode.','booked' ),'<strong style="color:#DB5933;">'.esc_html__('Important:','booked').'</strong>','<strong><a href="'.get_admin_url().'post-new.php?post_type=page">'.esc_html__('create a page','booked').'</a></strong>','<code>[booked-profile]</code>'); ?></div>
+													<div class="condition-block redirect_type" data-condition-val="booked-profile" style="<?php if ($booked_redirect_type == 'booked-profile'): ?>display:block; <?php endif; ?>line-height:30px; padding:0 0 0 30px; margin:-5px 0 10px;"><?php echo sprintf(esc_html__( '%s We were not able to auto-detect. You need to %s with the %s shortcode.','overbooked' ),'<strong style="color:#DB5933;">'.esc_html__('Important:','overbooked').'</strong>','<strong><a href="'.get_admin_url().'post-new.php?post_type=page">'.esc_html__('create a page','overbooked').'</a></strong>','<code>[booked-profile]</code>'); ?></div>
 												</div>
 												<?php endif; ?>
 
 												<p style="margin:0;">
 													<input style="margin:-4px 5px 0 0;" data-condition="redirect_type" id="redirect_type_page" name="<?php echo $option_name; ?>" value="page"<?php if ($selected_value == 'page'): echo ' checked="checked"'; endif; ?> type="radio">
-													<label class="checkbox-radio-label" for="redirect_type_page"><?php echo sprintf( esc_html__('%s Choose a redirect page.','booked'), '<strong>' . esc_html__('Choose Specific Page','booked') . '</strong> &mdash; ' ); ?></label>
+													<label class="checkbox-radio-label" for="redirect_type_page"><?php echo sprintf( esc_html__('%s Choose a redirect page.','overbooked'), '<strong>' . esc_html__('Choose Specific Page','overbooked') . '</strong> &mdash; ' ); ?></label>
 												</p>
 
 												<?php $option_name = 'booked_appointment_success_redirect_page';
@@ -244,7 +244,7 @@
 												$selected_value = get_option($option_name); ?>
 												<div style="padding:15px 0 0 0;" class="condition-block redirect_type select-box<?php if ($booked_redirect_type == 'page'): ?> default<?php endif; ?>" data-condition-val="page">
 													<select name="<?php echo $option_name; ?>">
-														<option value=""<?php echo (!$selected_value ? ' selected="selected"' : ''); ?>><?php echo esc_html__('Choose a page','booked').'...'; ?></option>
+														<option value=""<?php echo (!$selected_value ? ' selected="selected"' : ''); ?>><?php echo esc_html__('Choose a page','overbooked').'...'; ?></option>
 														<?php if(!empty($pages)) :
 
 															foreach($pages as $p) :
@@ -265,7 +265,7 @@
 												<div class="section-head">
 													<?php $section_title = esc_html__('Login Redirect', 'booked'); ?>
 													<h3><?php echo esc_attr($section_title); ?></h3>
-													<p><?php esc_html_e('If you would like the login form to redirect somewhere else (instead of reloading the same page), you can choose a page here.','booked'); ?></p>
+													<p><?php esc_html_e('If you would like the login form to redirect somewhere else (instead of reloading the same page), you can choose a page here.','overbooked'); ?></p>
 
 													<?php $option_name = 'booked_login_redirect_page';
 
@@ -279,7 +279,7 @@
 													$selected_value = get_option($option_name); ?>
 													<div class="select-box">
 														<select name="<?php echo $option_name; ?>">
-															<option value=""><?php esc_html_e('Redirect to the same page','booked'); ?></option>
+															<option value=""><?php esc_html_e('Redirect to the same page','overbooked'); ?></option>
 															<?php if(!empty($pages)) :
 																foreach($pages as $p) :
 																	$entry_id = $p->ID;
@@ -297,7 +297,7 @@
 												<div class="section-head">
 													<?php $section_title = esc_html__('Custom Login Tab Content', 'booked'); ?>
 													<h3><?php echo esc_attr($section_title); ?></h3>
-													<p><?php esc_html_e('If you would like the login form to include a custom message (above the login form), you can add that here.','booked'); ?></p>
+													<p><?php esc_html_e('If you would like the login form to include a custom message (above the login form), you can add that here.','overbooked'); ?></p>
 
 													<?php $option_name = 'booked_custom_login_message';
 													$custom_content_value = get_option($option_name);
@@ -314,18 +314,18 @@
 											<div class="section-head">
 												<?php $section_title = esc_html__('Time Slot Intervals', 'booked'); ?>
 												<h3><?php echo esc_attr($section_title); ?></h3>
-												<p><?php esc_html_e('Choose the intervals you need for your appointment time slots. This will only affect the way default time slots are entered.','booked'); ?></p>
+												<p><?php esc_html_e('Choose the intervals you need for your appointment time slots. This will only affect the way default time slots are entered.','overbooked'); ?></p>
 
 												<?php $option_name = 'booked_timeslot_intervals';
 												$selected_value = get_option( $option_name, 5 );
 
 												$interval_options = apply_filters( 'booked_timeslot_interval_sizes', array(
-													'120'	=> esc_html__('Every 2 hours','booked'),
-													'60' 	=> esc_html__('Every 1 hour','booked'),
-													'30' 	=> esc_html__('Every 30 minutes','booked'),
-													'15' 	=> esc_html__('Every 15 minutes','booked'),
-													'10' 	=> esc_html__('Every 10 minutes','booked'),
-													'5' 	=> esc_html__('Every 5 minutes','booked'),
+													'120'	=> esc_html__('Every 2 hours','overbooked'),
+													'60' 	=> esc_html__('Every 1 hour','overbooked'),
+													'30' 	=> esc_html__('Every 30 minutes','overbooked'),
+													'15' 	=> esc_html__('Every 15 minutes','overbooked'),
+													'10' 	=> esc_html__('Every 10 minutes','overbooked'),
+													'5' 	=> esc_html__('Every 5 minutes','overbooked'),
 												) ); ?>
 
 												<div class="select-box">
@@ -342,33 +342,33 @@
 											<div class="section-head">
 												<?php $section_title = esc_html__('Appointment Buffer', 'booked'); ?>
 												<h3><?php echo esc_attr($section_title); ?></h3>
-												<p><?php esc_html_e('To prevent appointments from getting booked too close to the current date and/or time, you can set an appointment buffer. Available appointments time slots will be pushed up to a new date and time depending on which buffer amount you choose below.','booked'); ?></p>
+												<p><?php esc_html_e('To prevent appointments from getting booked too close to the current date and/or time, you can set an appointment buffer. Available appointments time slots will be pushed up to a new date and time depending on which buffer amount you choose below.','overbooked'); ?></p>
 
 												<?php $option_name = 'booked_appointment_buffer';
 												$selected_value = get_option($option_name);
 
 												$interval_options = array(
-													'0' 				=> esc_html__('No buffer','booked'),
-													'1' 				=> esc_html__('1 hour','booked'),
-													'2' 				=> esc_html__('2 hours','booked'),
-													'3' 				=> esc_html__('3 hours','booked'),
-													'4' 				=> esc_html__('4 hours','booked'),
-													'5' 				=> esc_html__('5 hours','booked'),
-													'6' 				=> esc_html__('6 hours','booked'),
-													'12' 				=> esc_html__('12 hours','booked'),
-													'24' 				=> esc_html__('24 hours','booked'),
-													'48' 				=> esc_html__('2 days','booked'),
-													'72' 				=> esc_html__('3 days','booked'),
-													'96' 				=> esc_html__('5 days','booked'),
-													'144' 				=> esc_html__('6 days','booked'),
-													'168' 				=> esc_html__('1 week','booked'),
-													'336' 				=> esc_html__('2 weeks','booked'),
-													'504' 				=> esc_html__('3 weeks','booked'),
-													'672' 				=> esc_html__('4 weeks','booked'),
-													'840' 				=> esc_html__('5 weeks','booked'),
-													'1008' 				=> esc_html__('6 weeks','booked'),
-													'1176' 				=> esc_html__('7 weeks','booked'),
-													'1344' 				=> esc_html__('8 weeks','booked'),
+													'0' 				=> esc_html__('No buffer','overbooked'),
+													'1' 				=> esc_html__('1 hour','overbooked'),
+													'2' 				=> esc_html__('2 hours','overbooked'),
+													'3' 				=> esc_html__('3 hours','overbooked'),
+													'4' 				=> esc_html__('4 hours','overbooked'),
+													'5' 				=> esc_html__('5 hours','overbooked'),
+													'6' 				=> esc_html__('6 hours','overbooked'),
+													'12' 				=> esc_html__('12 hours','overbooked'),
+													'24' 				=> esc_html__('24 hours','overbooked'),
+													'48' 				=> esc_html__('2 days','overbooked'),
+													'72' 				=> esc_html__('3 days','overbooked'),
+													'96' 				=> esc_html__('5 days','overbooked'),
+													'144' 				=> esc_html__('6 days','overbooked'),
+													'168' 				=> esc_html__('1 week','overbooked'),
+													'336' 				=> esc_html__('2 weeks','overbooked'),
+													'504' 				=> esc_html__('3 weeks','overbooked'),
+													'672' 				=> esc_html__('4 weeks','overbooked'),
+													'840' 				=> esc_html__('5 weeks','overbooked'),
+													'1008' 				=> esc_html__('6 weeks','overbooked'),
+													'1176' 				=> esc_html__('7 weeks','overbooked'),
+													'1344' 				=> esc_html__('8 weeks','overbooked'),
 												); ?>
 
 												<div class="select-box">
@@ -387,7 +387,7 @@
 											<div class="section-head">
 												<?php $section_title = esc_html__('Prevent Appointments Before Date', 'booked'); ?>
 												<h3><?php echo esc_attr($section_title); ?></h3>
-												<p><?php esc_html_e('To prevent appointments from getting booked before a certain date, you can choose that date below.','booked'); ?></p>
+												<p><?php esc_html_e('To prevent appointments from getting booked before a certain date, you can choose that date below.','overbooked'); ?></p>
 
 												<?php $option_name = 'booked_prevent_appointments_before';
 												$selected_value = get_option($option_name); ?>
@@ -403,7 +403,7 @@
 											<div class="section-head">
 												<?php $section_title = esc_html__('Prevent Appointments After Date', 'booked'); ?>
 												<h3><?php echo esc_attr($section_title); ?></h3>
-												<p><?php esc_html_e('To prevent appointments from getting booked after a certain date, you can choose that date below.','booked'); ?></p>
+												<p><?php esc_html_e('To prevent appointments from getting booked after a certain date, you can choose that date below.','overbooked'); ?></p>
 
 												<?php $option_name = 'booked_prevent_appointments_after';
 												$selected_value = get_option($option_name); ?>
@@ -419,36 +419,36 @@
 											<div class="section-head">
 												<?php $section_title = esc_html__('Cancellation Buffer', 'booked'); ?>
 												<h3><?php echo esc_attr($section_title); ?></h3>
-												<p><?php esc_html_e('To prevent appointments from getting cancelled too close to the appointment time, you can set a cancellation buffer.','booked'); ?></p>
+												<p><?php esc_html_e('To prevent appointments from getting cancelled too close to the appointment time, you can set a cancellation buffer.','overbooked'); ?></p>
 
 												<?php $option_name = 'booked_cancellation_buffer';
 												$selected_value = get_option($option_name);
 
 												$interval_options = array(
-													'0' 				=> esc_html__('No buffer','booked'),
-													'0.25' 				=> esc_html__('15 minutes','booked'),
-													'0.50' 				=> esc_html__('30 minutes','booked'),
-													'0.75' 				=> esc_html__('45 minutes','booked'),
-													'1' 				=> esc_html__('1 hour','booked'),
-													'2' 				=> esc_html__('2 hours','booked'),
-													'3' 				=> esc_html__('3 hours','booked'),
-													'4' 				=> esc_html__('4 hours','booked'),
-													'5' 				=> esc_html__('5 hours','booked'),
-													'6' 				=> esc_html__('6 hours','booked'),
-													'12' 				=> esc_html__('12 hours','booked'),
-													'24' 				=> esc_html__('24 hours','booked'),
-													'48' 				=> esc_html__('2 days','booked'),
-													'72' 				=> esc_html__('3 days','booked'),
-													'96' 				=> esc_html__('5 days','booked'),
-													'144' 				=> esc_html__('6 days','booked'),
-													'168' 				=> esc_html__('1 week','booked'),
-													'336' 				=> esc_html__('2 weeks','booked'),
-													'504' 				=> esc_html__('3 weeks','booked'),
-													'672' 				=> esc_html__('4 weeks','booked'),
-													'840' 				=> esc_html__('5 weeks','booked'),
-													'1008' 				=> esc_html__('6 weeks','booked'),
-													'1176' 				=> esc_html__('7 weeks','booked'),
-													'1344' 				=> esc_html__('8 weeks','booked'),
+													'0' 				=> esc_html__('No buffer','overbooked'),
+													'0.25' 				=> esc_html__('15 minutes','overbooked'),
+													'0.50' 				=> esc_html__('30 minutes','overbooked'),
+													'0.75' 				=> esc_html__('45 minutes','overbooked'),
+													'1' 				=> esc_html__('1 hour','overbooked'),
+													'2' 				=> esc_html__('2 hours','overbooked'),
+													'3' 				=> esc_html__('3 hours','overbooked'),
+													'4' 				=> esc_html__('4 hours','overbooked'),
+													'5' 				=> esc_html__('5 hours','overbooked'),
+													'6' 				=> esc_html__('6 hours','overbooked'),
+													'12' 				=> esc_html__('12 hours','overbooked'),
+													'24' 				=> esc_html__('24 hours','overbooked'),
+													'48' 				=> esc_html__('2 days','overbooked'),
+													'72' 				=> esc_html__('3 days','overbooked'),
+													'96' 				=> esc_html__('5 days','overbooked'),
+													'144' 				=> esc_html__('6 days','overbooked'),
+													'168' 				=> esc_html__('1 week','overbooked'),
+													'336' 				=> esc_html__('2 weeks','overbooked'),
+													'504' 				=> esc_html__('3 weeks','overbooked'),
+													'672' 				=> esc_html__('4 weeks','overbooked'),
+													'840' 				=> esc_html__('5 weeks','overbooked'),
+													'1008' 				=> esc_html__('6 weeks','overbooked'),
+													'1176' 				=> esc_html__('7 weeks','overbooked'),
+													'1344' 				=> esc_html__('8 weeks','overbooked'),
 												); ?>
 
 												<div class="select-box">
@@ -465,27 +465,27 @@
 											<div class="section-head">
 												<?php $section_title = esc_html__('Appointment Limit', 'booked'); ?>
 												<h3><?php echo esc_attr($section_title); ?></h3>
-												<p><?php esc_html_e('To prevent users from booking too many appointments, you can set an appointment limit.','booked'); ?></p>
+												<p><?php esc_html_e('To prevent users from booking too many appointments, you can set an appointment limit.','overbooked'); ?></p>
 
 												<?php $option_name = 'booked_appointment_limit';
 												$selected_value = get_option($option_name);
 
 												$interval_options = array(
-													'0' 				=> esc_html__('No limit','booked'),
-													'1' 				=> esc_html__('1 appointment','booked'),
-													'2' 				=> esc_html__('2 appointments','booked'),
-													'3' 				=> esc_html__('3 appointments','booked'),
-													'4' 				=> esc_html__('4 appointments','booked'),
-													'5' 				=> esc_html__('5 appointments','booked'),
-													'6' 				=> esc_html__('6 appointments','booked'),
-													'7' 				=> esc_html__('7 appointments','booked'),
-													'8' 				=> esc_html__('8 appointments','booked'),
-													'9' 				=> esc_html__('9 appointments','booked'),
-													'10' 				=> esc_html__('10 appointments','booked'),
-													'15' 				=> esc_html__('15 appointments','booked'),
-													'20' 				=> esc_html__('20 appointments','booked'),
-													'25' 				=> esc_html__('25 appointments','booked'),
-													'50' 				=> esc_html__('50 appointments','booked'),
+													'0' 				=> esc_html__('No limit','overbooked'),
+													'1' 				=> esc_html__('1 appointment','overbooked'),
+													'2' 				=> esc_html__('2 appointments','overbooked'),
+													'3' 				=> esc_html__('3 appointments','overbooked'),
+													'4' 				=> esc_html__('4 appointments','overbooked'),
+													'5' 				=> esc_html__('5 appointments','overbooked'),
+													'6' 				=> esc_html__('6 appointments','overbooked'),
+													'7' 				=> esc_html__('7 appointments','overbooked'),
+													'8' 				=> esc_html__('8 appointments','overbooked'),
+													'9' 				=> esc_html__('9 appointments','overbooked'),
+													'10' 				=> esc_html__('10 appointments','overbooked'),
+													'15' 				=> esc_html__('15 appointments','overbooked'),
+													'20' 				=> esc_html__('20 appointments','overbooked'),
+													'25' 				=> esc_html__('25 appointments','overbooked'),
+													'50' 				=> esc_html__('50 appointments','overbooked'),
 												); ?>
 
 												<div class="select-box">
@@ -502,14 +502,14 @@
 											<div class="section-head">
 												<?php $section_title = esc_html__('New Appointment Default', 'booked'); ?>
 												<h3><?php echo esc_attr($section_title); ?></h3>
-												<p><?php esc_html_e('Would you like your appointment requests to go into a pending list or should they be approved immediately?','booked'); ?></p>
+												<p><?php esc_html_e('Would you like your appointment requests to go into a pending list or should they be approved immediately?','overbooked'); ?></p>
 
 												<?php $option_name = 'booked_new_appointment_default';
 												$selected_value = get_option($option_name);
 
 												$interval_options = array(
-													'draft' 	=> esc_html__('Set as Pending','booked'),
-													'publish' 	=> esc_html__('Approve Immediately','booked')
+													'draft' 	=> esc_html__('Set as Pending','overbooked'),
+													'publish' 	=> esc_html__('Approve Immediately','overbooked')
 												); ?>
 
 												<div class="select-box">
@@ -533,49 +533,49 @@
 												$option_value = get_option($option_name,false); ?>
 
 												<input id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>"<?php echo $option_value ? ' checked="checked"' : ''; ?> type="checkbox">
-												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Hide "Default" in the calendar switcher','booked'); ?></label><br><br>
+												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Hide "Default" in the calendar switcher','overbooked'); ?></label><br><br>
 
 												<?php $option_name = 'booked_hide_weekends';
 												$option_value = get_option($option_name,false); ?>
 
 												<input id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>"<?php echo $option_value ? ' checked="checked"' : ''; ?> type="checkbox">
-												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Hide weekends in the calendar','booked'); ?></label><br><br>
+												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Hide weekends in the calendar','overbooked'); ?></label><br><br>
 
 												<?php $option_name = 'booked_hide_google_link';
 												$option_value = get_option($option_name,false); ?>
 
 												<input id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>"<?php echo $option_value ? ' checked="checked"' : ''; ?> type="checkbox">
-												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Hide "Add to Calender" button in the Profile appointment list','booked'); ?></label><br><br>
+												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Hide "Add to Calender" button in the Profile appointment list','overbooked'); ?></label><br><br>
 
 												<?php $option_name = 'booked_show_only_titles';
 												$option_value = get_option($option_name,false); ?>
 
 												<input id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>"<?php echo $option_value ? ' checked="checked"' : ''; ?> type="checkbox">
-												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Hide time slots (when a time slot title exists)','booked'); ?></label><br><br>
+												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Hide time slots (when a time slot title exists)','overbooked'); ?></label><br><br>
 
 												<?php $option_name = 'booked_hide_end_times';
 												$option_value = get_option($option_name,false); ?>
 
 												<input id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>"<?php echo $option_value ? ' checked="checked"' : ''; ?> type="checkbox">
-												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Hide end times (show only start times)','booked'); ?></label><br><br>
+												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Hide end times (show only start times)','overbooked'); ?></label><br><br>
 
 												<?php $option_name = 'booked_hide_available_timeslots';
 												$option_value = get_option($option_name,false); ?>
 
 												<input id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>"<?php echo $option_value ? ' checked="checked"' : ''; ?> type="checkbox">
-												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Hide the number of available time slots','booked'); ?></label><br><br>
+												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Hide the number of available time slots','overbooked'); ?></label><br><br>
 
 												<?php $option_name = 'booked_hide_unavailable_timeslots';
 												$option_value = get_option($option_name,false); ?>
 
 												<input id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>"<?php echo $option_value ? ' checked="checked"' : ''; ?> type="checkbox">
-												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Hide the already booked time slots (cannot be used with "Public Appointments")','booked'); ?></label><br><br>
+												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Hide the already booked time slots (cannot be used with "Public Appointments")','overbooked'); ?></label><br><br>
 
 												<?php $option_name = 'booked_public_appointments';
 												$option_value = get_option($option_name,false); ?>
 
 												<input id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>"<?php echo $option_value ? ' checked="checked"' : ''; ?> type="checkbox">
-												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Public Appointments (show names under booked appointments)','booked'); ?></label><br><br>
+												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Public Appointments (show names under booked appointments)','overbooked'); ?></label><br><br>
 
 											</div>
 										</div>
@@ -591,19 +591,19 @@
 												$option_value = get_option($option_name,false); ?>
 
 												<input id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>"<?php echo $option_value ? ' checked="checked"' : ''; ?> type="checkbox">
-												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Do not allow users to cancel their own appointments.','booked'); ?></label><br><br>
+												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Do not allow users to cancel their own appointments.','overbooked'); ?></label><br><br>
 
 												<?php $option_name = 'booked_redirect_non_admins';
 												$option_value = get_option($option_name,false); ?>
 
 												<input id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>"<?php echo $option_value ? ' checked="checked"' : ''; ?> type="checkbox">
-												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Redirect users (except Admins and Booking Agents) from the "/wp-admin/" URL.','booked'); ?></label><br><br>
+												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Redirect users (except Admins and Booking Agents) from the "/wp-admin/" URL.','overbooked'); ?></label><br><br>
 
 												<?php $option_name = 'booked_hide_admin_bar_menu';
 												$option_value = get_option($option_name,false); ?>
 
 												<input id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>"<?php echo $option_value ? ' checked="checked"' : ''; ?> type="checkbox">
-												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Hide "Appointments" menu from Admin Bar.','booked'); ?></label>
+												<label class="checkbox-radio-label" for="<?php echo $option_name; ?>"><?php esc_html_e('Hide "Appointments" menu from Admin Bar.','overbooked'); ?></label>
 
 											</div>
 										</div><!-- /.section-row -->
@@ -660,14 +660,14 @@
 
 										<div class="section-row">
 											<div class="section-head">
-												<p style="background:#fff; padding:13px 19px 12px; border-left:3px solid #aaa; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; box-shadow:0 1px 3px rgba(0,0,0,0.10); margin:0; font-size:15px; line-height:1.6;"><?php esc_html_e('If you DO NOT want to send emails for any of the actions listed below, just remove the email subject or content text (or both) and the email will not be sent for that notification.','booked'); ?></p>
+												<p style="background:#fff; padding:13px 19px 12px; border-left:3px solid #aaa; -moz-border-radius:3px; -webkit-border-radius:3px; border-radius:3px; box-shadow:0 1px 3px rgba(0,0,0,0.10); margin:0; font-size:15px; line-height:1.6;"><?php esc_html_e('If you DO NOT want to send emails for any of the actions listed below, just remove the email subject or content text (or both) and the email will not be sent for that notification.','overbooked'); ?></p>
 											</div>
 										</div>
 
 										<?php $email_template_tabs = apply_filters( 'booked_admin_email_template_tabs', array(
-											'customer-emails' => esc_html__('Customer Emails','booked'),
-											'admin-emails' => esc_html__('Admin/Agent Emails','booked'),
-											'email-settings' => esc_html__('Settings','booked')
+											'customer-emails' => esc_html__('Customer Emails','overbooked'),
+											'admin-emails' => esc_html__('Admin/Agent Emails','overbooked'),
+											'email-settings' => esc_html__('Settings','overbooked')
 										));
 
 										$tab_counter = 0; ?>
@@ -694,12 +694,12 @@
 													$section_title = esc_html__('Header/Logo Image', 'booked'); ?>
 
 													<h3><?php echo esc_attr($section_title); ?></h3>
-													<p><?php esc_html_e('Choose an image for your custom emails. Keep it 600px or less for best results.','booked'); ?></p>
+													<p><?php esc_html_e('Choose an image for your custom emails. Keep it 600px or less for best results.','overbooked'); ?></p>
 
 													<input id="<?php echo $option_name; ?>" name="<?php echo $option_name; ?>" value="<?php echo $booked_email_logo; ?>" type="hidden" />
-													<input id="booked_email_logo_button" class="button button-primary" name="booked_email_logo_button" type="button" value="<?php esc_html_e('Upload Logo','booked'); ?>" />
+													<input id="booked_email_logo_button" class="button button-primary" name="booked_email_logo_button" type="button" value="<?php esc_html_e('Upload Logo','overbooked'); ?>" />
 
-													<input id="booked_email_logo_button_remove"<?php echo ( !$booked_email_logo ? ' style="display:none;"' : '' ); ?> class="button" name="booked_email_logo_button_remove" type="button" value="<?php esc_html_e('Remove','booked'); ?>" />
+													<input id="booked_email_logo_button_remove"<?php echo ( !$booked_email_logo ? ' style="display:none;"' : '' ); ?> class="button" name="booked_email_logo_button_remove" type="button" value="<?php esc_html_e('Remove','overbooked'); ?>" />
 													<img src="<?php echo $booked_email_logo; ?>"<?php echo ( !$booked_email_logo ? ' style="display:none;"' : '' ); ?> id="booked_email_logo-img">
 
 												</div>
@@ -709,7 +709,7 @@
 												<div class="section-head">
 													<?php $section_title = esc_html__('Which Administrator or Booking Agent user should receive the notification emails by default?', 'booked'); ?>
 													<h3><?php echo esc_attr($section_title); ?></h3>
-													<p><?php esc_html_e('By default, Booked uses the "Settings > General > E-mail Address" setting. Also, each custom calendar can have their own user notification setting, this is just the default.','booked'); ?></p>
+													<p><?php esc_html_e('By default, OverBooked uses the "Settings > General > E-mail Address" setting. Also, each custom calendar can have their own user notification setting, this is just the default.','overbooked'); ?></p>
 
 													<?php $option_name = 'booked_default_email_user';
 
@@ -718,7 +718,7 @@
 													$selected_value = get_option($option_name); ?>
 													<div class="select-box">
 														<select name="<?php echo $option_name; ?>">
-															<option value=""><?php esc_html_e('Choose a default user for notifications','booked'); ?> ...</option>
+															<option value=""><?php esc_html_e('Choose a default user for notifications','overbooked'); ?> ...</option>
 															<?php if(!empty($allowed_users)) :
 																foreach($allowed_users as $u) :
 																	$user_id = $u->ID;
@@ -741,10 +741,10 @@
 												<div class="section-head">
 
 													<h3><?php echo esc_html__('Having Email Issues?', 'booked'); ?></h3>
-													<p style="margin-bottom:2.5em;"><?php echo sprintf( esc_html__('Try using an SMTP plugin like %s or %s','booked'), '<a href="https://wordpress.org/plugins/wp-mail-smtp/" target="_blank">WP Mail SMTP</a>', '<a href="https://wordpress.org/plugins/easy-wp-smtp/" target="_blank">Easy WP SMTP</a>' ); ?></p>
+													<p style="margin-bottom:2.5em;"><?php echo sprintf( esc_html__('Try using an SMTP plugin like %s or %s','overbooked'), '<a href="https://wordpress.org/plugins/wp-mail-smtp/" target="_blank">WP Mail SMTP</a>', '<a href="https://wordpress.org/plugins/easy-wp-smtp/" target="_blank">Easy WP SMTP</a>' ); ?></p>
 
 													<h3><?php echo esc_html__('Emails ONLY NOT sending to Admins/Agents?', 'booked'); ?></h3>
-													<p><?php esc_html_e('Some SMTP clients reject emails being sent "from" your customers. Google is one of them, but they simply change the name of the sender to prevent the rejection. Others do not. You can check the following option to "Force the sender name/email", but you will not be able to reply directly to the notification emails coming from customers.','booked'); ?></p>
+													<p><?php esc_html_e('Some SMTP clients reject emails being sent "from" your customers. Google is one of them, but they simply change the name of the sender to prevent the rejection. Others do not. You can check the following option to "Force the sender name/email", but you will not be able to reply directly to the notification emails coming from customers.','overbooked'); ?></p>
 
 													<p style="margin:1.2em 0 15px;">
 														<input data-condition="force_sender" style="margin:-4px 5px 0 0;" id="booked_email_force_sender" name="booked_email_force_sender" value="true"<?php if ($selected_value): echo ' checked="checked"'; endif; ?> type="checkbox">
@@ -756,11 +756,11 @@
 													</p>
 
 													<h3 style="margin-top:2em;"><?php echo esc_html__('Still not working?', 'booked'); ?></h3>
-													<p><?php esc_html_e('If you are still having issues, check the box below to disable the Booked mailer and let WordPress handle the emails completely.','booked'); ?></p>
+													<p><?php esc_html_e('If you are still having issues, check the box below to disable the OverBooked mailer and let WordPress handle the emails completely.','overbooked'); ?></p>
 
 													<p style="margin:1.2em 0 0;">
 														<input style="margin:-4px 5px 0 0;" id="booked_emailer_disabled" name="booked_emailer_disabled" value="true"<?php if ($selected_booked_mailer): echo ' checked="checked"'; endif; ?> type="checkbox">
-														<label class="checkbox-radio-label" for="booked_emailer_disabled"><strong><?php esc_html_e("Disable Booked mailer, let WordPress handle it.", "booked"); ?></strong></label>
+														<label class="checkbox-radio-label" for="booked_emailer_disabled"><strong><?php esc_html_e("Disable OverBooked mailer, let WordPress handle it.", "overbooked"); ?></strong></label>
 													</p>
 
 												</div>
@@ -773,38 +773,38 @@
 												<div class="section-head">
 													<?php $section_title = esc_html__('Customer Appointment Reminder', 'booked'); ?>
 													<h3><?php echo esc_attr($section_title); ?></h3>
-													<p><?php esc_html_e('When do you want to send out appointment reminders?','booked'); ?></p>
+													<p><?php esc_html_e('When do you want to send out appointment reminders?','overbooked'); ?></p>
 
 													<?php $option_name = 'booked_reminder_buffer';
 													$selected_value = get_option($option_name,30);
 
 													$interval_options = array(
-														'0' 				=> esc_html__('At appointment time','booked'),
-														'5' 				=> esc_html__('5 minutes before','booked'),
-														'10' 				=> esc_html__('10 minutes before','booked'),
-														'15' 				=> esc_html__('15 minutes before','booked'),
-														'30' 				=> esc_html__('30 minutes before','booked'),
-														'45' 				=> esc_html__('45 minutes before','booked'),
-														'60' 				=> esc_html__('1 hour before','booked'),
-														'120' 				=> esc_html__('2 hours before','booked'),
-														'180' 				=> esc_html__('3 hours before','booked'),
-														'240' 				=> esc_html__('4 hours before','booked'),
-														'300' 				=> esc_html__('5 hours before','booked'),
-														'360' 				=> esc_html__('6 hours before','booked'),
-														'720' 				=> esc_html__('12 hours before','booked'),
-														'1440' 				=> esc_html__('24 hours before','booked'),
-														'2880' 				=> esc_html__('2 days before','booked'),
-														'4320' 				=> esc_html__('3 days before','booked'),
-														'5760' 				=> esc_html__('4 days before','booked'),
-														'7200' 				=> esc_html__('5 days before','booked'),
-														'8640' 				=> esc_html__('6 days before','booked'),
-														'10080' 			=> esc_html__('1 week before','booked'),
-														'20160' 			=> esc_html__('2 weeks before','booked'),
-														'30240' 			=> esc_html__('3 weeks before','booked'),
-														'40320' 			=> esc_html__('4 weeks before','booked'),
-														'60480' 			=> esc_html__('6 weeks before','booked'),
-														'80640' 			=> esc_html__('2 months before','booked'),
-														'120960' 			=> esc_html__('3 months before','booked'),
+														'0' 				=> esc_html__('At appointment time','overbooked'),
+														'5' 				=> esc_html__('5 minutes before','overbooked'),
+														'10' 				=> esc_html__('10 minutes before','overbooked'),
+														'15' 				=> esc_html__('15 minutes before','overbooked'),
+														'30' 				=> esc_html__('30 minutes before','overbooked'),
+														'45' 				=> esc_html__('45 minutes before','overbooked'),
+														'60' 				=> esc_html__('1 hour before','overbooked'),
+														'120' 				=> esc_html__('2 hours before','overbooked'),
+														'180' 				=> esc_html__('3 hours before','overbooked'),
+														'240' 				=> esc_html__('4 hours before','overbooked'),
+														'300' 				=> esc_html__('5 hours before','overbooked'),
+														'360' 				=> esc_html__('6 hours before','overbooked'),
+														'720' 				=> esc_html__('12 hours before','overbooked'),
+														'1440' 				=> esc_html__('24 hours before','overbooked'),
+														'2880' 				=> esc_html__('2 days before','overbooked'),
+														'4320' 				=> esc_html__('3 days before','overbooked'),
+														'5760' 				=> esc_html__('4 days before','overbooked'),
+														'7200' 				=> esc_html__('5 days before','overbooked'),
+														'8640' 				=> esc_html__('6 days before','overbooked'),
+														'10080' 			=> esc_html__('1 week before','overbooked'),
+														'20160' 			=> esc_html__('2 weeks before','overbooked'),
+														'30240' 			=> esc_html__('3 weeks before','overbooked'),
+														'40320' 			=> esc_html__('4 weeks before','overbooked'),
+														'60480' 			=> esc_html__('6 weeks before','overbooked'),
+														'80640' 			=> esc_html__('2 months before','overbooked'),
+														'120960' 			=> esc_html__('3 months before','overbooked'),
 													); ?>
 
 													<div class="select-box">
@@ -815,7 +815,7 @@
 														</select>
 													</div><!-- /.select-box -->
 
-													<p><strong><?php esc_html_e('Please Note:','booked'); ?></strong> <?php esc_html_e('WordPress crons do not run unless someone visits your site. Because of this, some reminders might not get sent out. To prevent this from happening, you would need to setup cron to run from the server level using the following command:','booked'); ?></p>
+													<p><strong><?php esc_html_e('Please Note:','overbooked'); ?></strong> <?php esc_html_e('WordPress crons do not run unless someone visits your site. Because of this, some reminders might not get sent out. To prevent this from happening, you would need to setup cron to run from the server level using the following command:','overbooked'); ?></p>
 													<p><code>*/5 * * * * wget -q -O - <?php echo get_site_url(); ?>/wp-cron.php?doing_wp_cron</code></p>
 
 												</div><!-- /.section-body -->
@@ -838,7 +838,7 @@ Your friends at '.get_bloginfo('name');
 													$section_title = esc_html__('Customer Appointment Reminder Content', 'booked'); ?>
 
 													<h3><?php echo esc_attr($section_title); ?></h3>
-													<p><?php esc_html_e('This is the email content for appoinment reminders. Some tokens you can use:','booked'); ?></p>
+													<p><?php esc_html_e('This is the email content for appoinment reminders. Some tokens you can use:','overbooked'); ?></p>
 													<ul class="cp-list">
 														<?php $booked_mailer_tokens = booked_mailer_tokens();
 														foreach( $booked_mailer_tokens as $token => $desc ):
@@ -876,7 +876,7 @@ Your friends at '.get_bloginfo('name');
 													$section_title = esc_html__('User Registration', 'booked'); ?>
 
 													<h3><?php echo esc_attr($section_title); ?></h3>
-													<p><?php esc_html_e('The email content that is sent to the user upon registration (using the Booked registration form). Some tokens you can use:','booked'); ?></p>
+													<p><?php esc_html_e('The email content that is sent to the user upon registration (using the OverBooked registration form). Some tokens you can use:','overbooked'); ?></p>
 													<ul class="cp-list">
 														<li><strong>%name%</strong> &mdash; <?php esc_html_e("To display the person's name.","booked"); ?></li>
 														<li><strong>%email%</strong> &mdash; <?php esc_html_e("To display the person's email address.","booked"); ?></li>
@@ -913,7 +913,7 @@ Your friends at '.get_bloginfo('name');
 													$section_title = esc_html__('Appointment Confirmation', 'booked'); ?>
 
 													<h3><?php echo esc_attr($section_title); ?></h3>
-													<p><?php esc_html_e('The email content that is sent to the user upon appointment creation. Some tokens you can use:','booked'); ?></p>
+													<p><?php esc_html_e('The email content that is sent to the user upon appointment creation. Some tokens you can use:','overbooked'); ?></p>
 													<ul class="cp-list">
 														<?php $booked_mailer_tokens = booked_mailer_tokens();
 														foreach( $booked_mailer_tokens as $token => $desc ):
@@ -950,7 +950,7 @@ Your friends at '.get_bloginfo('name');
 													$section_title = esc_html__('Appointment Approval', 'booked'); ?>
 
 													<h3><?php echo esc_attr($section_title); ?></h3>
-													<p><?php esc_html_e('The email content that is sent to the user upon appointment approval. Some tokens you can use:','booked'); ?></p>
+													<p><?php esc_html_e('The email content that is sent to the user upon appointment approval. Some tokens you can use:','overbooked'); ?></p>
 													<ul class="cp-list">
 														<?php $booked_mailer_tokens = booked_mailer_tokens();
 														foreach( $booked_mailer_tokens as $token => $desc ):
@@ -987,7 +987,7 @@ Your friends at '.get_bloginfo('name');
 													$section_title = esc_html__('Appointment Cancellation', 'booked'); ?>
 
 													<h3><?php echo esc_attr($section_title); ?></h3>
-													<p><?php esc_html_e('The email content that is sent to the user upon appointment cancellation. Some tokens you can use:','booked'); ?></p>
+													<p><?php esc_html_e('The email content that is sent to the user upon appointment cancellation. Some tokens you can use:','overbooked'); ?></p>
 													<ul class="cp-list">
 														<?php $booked_mailer_tokens = booked_mailer_tokens();
 														foreach( $booked_mailer_tokens as $token => $desc ):
@@ -1014,38 +1014,38 @@ Your friends at '.get_bloginfo('name');
 												<div class="section-head">
 													<?php $section_title = esc_html__('Admin/Agent Appointment Reminder', 'booked'); ?>
 													<h3><?php echo esc_attr($section_title); ?></h3>
-													<p><?php esc_html_e('When do you want to send out appointment reminders?','booked'); ?></p>
+													<p><?php esc_html_e('When do you want to send out appointment reminders?','overbooked'); ?></p>
 
 													<?php $option_name = 'booked_admin_reminder_buffer';
 													$selected_value = get_option($option_name,30);
 
 													$interval_options = array(
-														'0' 				=> esc_html__('At appointment time','booked'),
-														'5' 				=> esc_html__('5 minutes before','booked'),
-														'10' 				=> esc_html__('10 minutes before','booked'),
-														'15' 				=> esc_html__('15 minutes before','booked'),
-														'30' 				=> esc_html__('30 minutes before','booked'),
-														'45' 				=> esc_html__('45 minutes before','booked'),
-														'60' 				=> esc_html__('1 hour before','booked'),
-														'120' 				=> esc_html__('2 hours before','booked'),
-														'180' 				=> esc_html__('3 hours before','booked'),
-														'240' 				=> esc_html__('4 hours before','booked'),
-														'300' 				=> esc_html__('5 hours before','booked'),
-														'360' 				=> esc_html__('6 hours before','booked'),
-														'720' 				=> esc_html__('12 hours before','booked'),
-														'1440' 				=> esc_html__('24 hours before','booked'),
-														'2880' 				=> esc_html__('2 days before','booked'),
-														'4320' 				=> esc_html__('3 days before','booked'),
-														'5760' 				=> esc_html__('4 days before','booked'),
-														'7200' 				=> esc_html__('5 days before','booked'),
-														'8640' 				=> esc_html__('6 days before','booked'),
-														'10080' 			=> esc_html__('1 week before','booked'),
-														'20160' 			=> esc_html__('2 weeks before','booked'),
-														'30240' 			=> esc_html__('3 weeks before','booked'),
-														'40320' 			=> esc_html__('4 weeks before','booked'),
-														'60480' 			=> esc_html__('6 weeks before','booked'),
-														'80640' 			=> esc_html__('2 months before','booked'),
-														'120960' 			=> esc_html__('3 months before','booked'),
+														'0' 				=> esc_html__('At appointment time','overbooked'),
+														'5' 				=> esc_html__('5 minutes before','overbooked'),
+														'10' 				=> esc_html__('10 minutes before','overbooked'),
+														'15' 				=> esc_html__('15 minutes before','overbooked'),
+														'30' 				=> esc_html__('30 minutes before','overbooked'),
+														'45' 				=> esc_html__('45 minutes before','overbooked'),
+														'60' 				=> esc_html__('1 hour before','overbooked'),
+														'120' 				=> esc_html__('2 hours before','overbooked'),
+														'180' 				=> esc_html__('3 hours before','overbooked'),
+														'240' 				=> esc_html__('4 hours before','overbooked'),
+														'300' 				=> esc_html__('5 hours before','overbooked'),
+														'360' 				=> esc_html__('6 hours before','overbooked'),
+														'720' 				=> esc_html__('12 hours before','overbooked'),
+														'1440' 				=> esc_html__('24 hours before','overbooked'),
+														'2880' 				=> esc_html__('2 days before','overbooked'),
+														'4320' 				=> esc_html__('3 days before','overbooked'),
+														'5760' 				=> esc_html__('4 days before','overbooked'),
+														'7200' 				=> esc_html__('5 days before','overbooked'),
+														'8640' 				=> esc_html__('6 days before','overbooked'),
+														'10080' 			=> esc_html__('1 week before','overbooked'),
+														'20160' 			=> esc_html__('2 weeks before','overbooked'),
+														'30240' 			=> esc_html__('3 weeks before','overbooked'),
+														'40320' 			=> esc_html__('4 weeks before','overbooked'),
+														'60480' 			=> esc_html__('6 weeks before','overbooked'),
+														'80640' 			=> esc_html__('2 months before','overbooked'),
+														'120960' 			=> esc_html__('3 months before','overbooked'),
 													); ?>
 
 													<div class="select-box">
@@ -1056,7 +1056,7 @@ Your friends at '.get_bloginfo('name');
 														</select>
 													</div><!-- /.select-box -->
 
-													<p><strong><?php esc_html_e('Please Note:','booked'); ?></strong> <?php esc_html_e('WordPress crons do not run unless someone visits your site. Because of this, some reminders might not get sent out. To prevent this from happening, you would need to setup cron to run from the server level using the following command:','booked'); ?></p>
+													<p><strong><?php esc_html_e('Please Note:','overbooked'); ?></strong> <?php esc_html_e('WordPress crons do not run unless someone visits your site. Because of this, some reminders might not get sent out. To prevent this from happening, you would need to setup cron to run from the server level using the following command:','overbooked'); ?></p>
 													<p><code>*/5 * * * * wget -q -O - <?php echo get_site_url(); ?>/wp-cron.php?doing_wp_cron</code></p>
 
 												</div><!-- /.section-body -->
@@ -1078,7 +1078,7 @@ $default_content = 'You have an appointment coming up soon! Here\'s the appointm
 													$section_title = esc_html__('Admin/Agent Appointment Reminder Content', 'booked'); ?>
 
 													<h3><?php echo esc_attr($section_title); ?></h3>
-													<p><?php esc_html_e('This is the email content for appoinment reminders. Some tokens you can use:','booked'); ?></p>
+													<p><?php esc_html_e('This is the email content for appoinment reminders. Some tokens you can use:','overbooked'); ?></p>
 													<ul class="cp-list">
 														<?php $booked_mailer_tokens = booked_mailer_tokens();
 														foreach( $booked_mailer_tokens as $token => $desc ):
@@ -1116,7 +1116,7 @@ Log into your website here: '.get_admin_url().' to approve this appointment.
 													$section_title = esc_html__('Appointment Request', 'booked'); ?>
 
 													<h3><?php echo esc_attr($section_title); ?></h3>
-													<p><?php esc_html_e('The email content that is sent (to the selected admin users above) upon appointment request. Some tokens you can use:','booked'); ?></p>
+													<p><?php esc_html_e('The email content that is sent (to the selected admin users above) upon appointment request. Some tokens you can use:','overbooked'); ?></p>
 													<ul class="cp-list">
 														<?php $booked_mailer_tokens = booked_mailer_tokens();
 														foreach( $booked_mailer_tokens as $token => $desc ):
@@ -1152,7 +1152,7 @@ Time: %time%
 													$section_title = esc_html__('Appointment Cancellation', 'booked'); ?>
 
 													<h3><?php echo esc_attr($section_title); ?></h3>
-													<p><?php esc_html_e('The email content that is sent (to the selected admin users above) upon cancellation. Some tokens you can use:','booked'); ?></p>
+													<p><?php esc_html_e('The email content that is sent (to the selected admin users above) upon cancellation. Some tokens you can use:','overbooked'); ?></p>
 													<ul class="cp-list">
 														<?php $booked_mailer_tokens = booked_mailer_tokens();
 														foreach( $booked_mailer_tokens as $token => $desc ):
@@ -1248,11 +1248,11 @@ Time: %time%
 									<?php if (!$booked_none_assigned && count($calendars) >= 1):
 
 										?><div id="booked-timeslotsSwitcher">
-											<p><strong><?php esc_html_e('Editing time slots for:','booked'); ?></strong></p>
+											<p><strong><?php esc_html_e('Editing time slots for:','overbooked'); ?></strong></p>
 											<?php
 
 											echo '<select name="bookedTimeslotsDisplayed">';
-											if (current_user_can('manage_booked_options')): echo '<option value="">'.esc_html__('Default Calendar','booked').'</option>'; endif;
+											if (current_user_can('manage_booked_options')): echo '<option value="">'.esc_html__('Default Calendar','overbooked').'</option>'; endif;
 
 											foreach($calendars as $calendar):
 
@@ -1279,8 +1279,8 @@ Time: %time%
 
 									<div id="timepickerTemplate" class="bookedClearFix">
 										<div class="timeslotTabs bookedClearFix">
-											<a class="addTimeslotTab active" href="#Single"><?php esc_html_e('Single','booked'); ?></a>
-											<a class="addTimeslotTab" href="#Bulk"><?php esc_html_e('Bulk','booked'); ?></a>
+											<a class="addTimeslotTab active" href="#Single"><?php esc_html_e('Single','overbooked'); ?></a>
+											<a class="addTimeslotTab" href="#Bulk"><?php esc_html_e('Bulk','overbooked'); ?></a>
 										</div>
 										<div class="tsTabContent tsSingle">
 											<?php echo booked_render_single_timeslot_form($timeslot_intervals); ?>
@@ -1288,7 +1288,7 @@ Time: %time%
 										<div class="tsTabContent tsBulk">
 											<?php echo booked_render_bulk_timeslot_form($timeslot_intervals); ?>
 										</div>
-										<span class="cancel button"><?php esc_html_e('Close','booked'); ?></span>
+										<span class="cancel button"><?php esc_html_e('Close','overbooked'); ?></span>
 									</div>
 
 								</div><!-- /templates -->
@@ -1353,7 +1353,7 @@ Time: %time%
 
 															        echo '<select name="booked_custom_calendar_id">';
 
-															            if (current_user_can('manage_booked_options')): echo '<option value="">'.__('Default Calendar','booked').'</option>'; endif;
+															            if (current_user_can('manage_booked_options')): echo '<option value="">'.__('Default Calendar','overbooked').'</option>'; endif;
 
 															            foreach($calendars as $calendar):
 
@@ -1387,7 +1387,7 @@ Time: %time%
 															<?php endif; ?>
 
 															<input id="vacationDayCheckbox" name="vacationDayCheckbox" type="checkbox" value="1"<?php if ($this_timeslot['vacationDayCheckbox']): echo ' checked="checked"'; endif; ?>>
-															<label for="vacationDayCheckbox"><?php esc_html_e('Disable appointments','booked'); ?></label>
+															<label for="vacationDayCheckbox"><?php esc_html_e('Disable appointments','overbooked'); ?></label>
 
 															<a href="#" class="deleteCustomTimeslot"><i class="fa-solid fa-xmark"></i></a>
 
@@ -1409,7 +1409,7 @@ Time: %time%
 
 															if (!empty($timeslots)):
 
-																echo '<div class="cts-header"><span class="slotsTitle">'.esc_html__('Spaces Available','booked').'</span>'.esc_html__('Time Slot','booked').'</div>';
+																echo '<div class="cts-header"><span class="slotsTitle">'.esc_html__('Spaces Available','overbooked').'</span>'.esc_html__('Time Slot','overbooked').'</div>';
 
 																foreach ($timeslots as $timeslot => $count):
 
@@ -1417,7 +1417,7 @@ Time: %time%
 																	$time_format = get_option('time_format');
 
 																	echo '<span class="timeslot" data-timeslot="'.$timeslot.'">';
-																		echo '<span class="slotsBlock"><span class="changeCount minus" data-count="-1"><i class="fa-solid fa-circle-minus"></i></span><span class="count"><em>'.$count.'</em> ' . _n('Space Available','Spaces Available',$count,'booked') . '</span><span class="changeCount add" data-count="1"><i class="fa-solid fa-circle-plus"></i></span></span>';
+																		echo '<span class="slotsBlock"><span class="changeCount minus" data-count="-1"><i class="fa-solid fa-circle-minus"></i></span><span class="count"><em>'.$count.'</em> ' . _n('Space Available','Spaces Available',$count,'overbooked') . '</span><span class="changeCount add" data-count="1"><i class="fa-solid fa-circle-plus"></i></span></span>';
 
 																		do_action( 'booked_single_custom_timeslot_start', $this_timeslot, $timeslot, $this_timeslot['booked_custom_calendar_id'] );
 
@@ -1429,7 +1429,7 @@ Time: %time%
 																		}
 
 																		if ($time[0] == '0000' && $time[1] == '2400'):
-																			echo '<span class="start"><i class="fa-solid fa-clock"></i>&nbsp;&nbsp;' . strtoupper(esc_html__('All day','booked')) . '</span>';
+																			echo '<span class="start"><i class="fa-solid fa-clock"></i>&nbsp;&nbsp;' . strtoupper(esc_html__('All day','overbooked')) . '</span>';
 																		else :
 																			echo '<span class="start"><i class="fa-solid fa-clock"></i>&nbsp;&nbsp;' . date_i18n($time_format,strtotime('2014-01-01 '.$time[0])) . '</span> &ndash; <span class="end">' . date_i18n($time_format,strtotime('2014-01-01 '.$time[1])) . '</span>';
 																		endif;
@@ -1446,8 +1446,8 @@ Time: %time%
 
 															?>
 
-															<button class="button addSingleTimeslot"><?php esc_html_e('+ Single Time Slot','booked'); ?></button>
-															<button class="button addBulkTimeslots"><?php esc_html_e('+ Bulk Time Slots','booked'); ?></button>
+															<button class="button addSingleTimeslot"><?php esc_html_e('+ Single Time Slot','overbooked'); ?></button>
+															<button class="button addBulkTimeslots"><?php esc_html_e('+ Bulk Time Slots','overbooked'); ?></button>
 
 														</div><?php
 
@@ -1460,9 +1460,9 @@ Time: %time%
 										</div>
 
 										<div class="section-row submit-section bookedClearFix" style="padding:0;">
-											<button class="button addCustomTimeslot"><?php esc_html_e('Add Date(s)','booked'); ?></button>
-											<input id="booked-saveCustomTimeslots" type="button" disabled="true" class="button saveCustomTimeslots" value="<?php esc_html_e('Save Custom Time Slots','booked'); ?>">
-											<div class="cts-updater savingState"><i class="fa-solid fa-circle-notch fa-spin"></i>&nbsp;&nbsp;<?php esc_html_e('Saving','booked'); ?>...</div>
+											<button class="button addCustomTimeslot"><?php esc_html_e('Add Date(s)','overbooked'); ?></button>
+											<input id="booked-saveCustomTimeslots" type="button" disabled="true" class="button saveCustomTimeslots" value="<?php esc_html_e('Save Custom Time Slots','overbooked'); ?>">
+											<div class="cts-updater savingState"><i class="fa-solid fa-circle-notch fa-spin"></i>&nbsp;&nbsp;<?php esc_html_e('Saving','overbooked'); ?>...</div>
 										</div><!-- /.section-row -->
 
 									</form>
@@ -1474,7 +1474,7 @@ Time: %time%
 										<?php if (!empty($calendars)):
 
 											echo '<select name="booked_custom_calendar_id">';
-												if (current_user_can('manage_booked_options')): echo '<option value="">'.esc_html__('Default Calendar','booked').'</option>'; endif;
+												if (current_user_can('manage_booked_options')): echo '<option value="">'.esc_html__('Default Calendar','overbooked').'</option>'; endif;
 
 												foreach($calendars as $calendar):
 
@@ -1496,27 +1496,27 @@ Time: %time%
 										<input type="hidden" name="booked_this_custom_timelots_details" value="">
 
 										<input id="vacationDayCheckbox" name="vacationDayCheckbox" type="checkbox" value="1">
-										<label for="vacationDayCheckbox"><?php esc_html_e('Disable appointments','booked'); ?></label>
+										<label for="vacationDayCheckbox"><?php esc_html_e('Disable appointments','overbooked'); ?></label>
 
 										<a href="#" class="deleteCustomTimeslot"><i class="fa-solid fa-xmark"></i></a>
 
 										<div class="customTimeslotsList"></div>
 
-										<button class="button addSingleTimeslot"><?php esc_html_e('+ Single Time Slot','booked'); ?></button>
-										<button class="button addBulkTimeslots"><?php esc_html_e('+ Bulk Time Slots','booked'); ?></button>
+										<button class="button addSingleTimeslot"><?php esc_html_e('+ Single Time Slot','overbooked'); ?></button>
+										<button class="button addBulkTimeslots"><?php esc_html_e('+ Bulk Time Slots','overbooked'); ?></button>
 
 									</div>
 
 									<div id="booked-customTimePickerTemplates">
 										<div class="customSingle bookedClearFix">
 											<?php echo booked_render_single_timeslot_form($timeslot_intervals,'custom'); ?>
-											<button class="button-primary addSingleTimeslot_button"><?php esc_html_e('Add','booked'); ?></button>
-											<button class="button cancel"><?php esc_html_e('Close','booked'); ?></button>
+											<button class="button-primary addSingleTimeslot_button"><?php esc_html_e('Add','overbooked'); ?></button>
+											<button class="button cancel"><?php esc_html_e('Close','overbooked'); ?></button>
 										</div>
 										<div class="customBulk bookedClearFix">
 											<?php echo booked_render_bulk_timeslot_form($timeslot_intervals,'custom'); ?>
-											<button class="button-primary addBulkTimeslots_button"><?php esc_html_e('Add','booked'); ?></button>
-											<button class="button cancel"><?php esc_html_e('Close','booked'); ?></button>
+											<button class="button-primary addBulkTimeslots_button"><?php esc_html_e('Add','overbooked'); ?></button>
+											<button class="button cancel"><?php esc_html_e('Close','overbooked'); ?></button>
 										</div>
 									</div>
 
@@ -1538,7 +1538,7 @@ Time: %time%
 													echo '<div id="booked-cfSwitcher" style="margin:0 0 30px;">';
 														echo '<select name="bookedCustomFieldsDisplayed">';
 
-															if (current_user_can('manage_booked_options')): echo '<option value="">'.esc_html__('Default Calendar','booked').'</option>'; endif;
+															if (current_user_can('manage_booked_options')): echo '<option value="">'.esc_html__('Default Calendar','overbooked').'</option>'; endif;
 
 															foreach($calendars as $calendar):
 
@@ -1567,60 +1567,60 @@ Time: %time%
 											<ul id="booked-cf-sortable-templates">
 
 												<li id="bookedCFTemplate-single-line-text-label" class="ui-state-default"><i class="main-handle fa-solid fa-bars"></i>
-													<small><?php esc_html_e('Single Line Text','booked'); ?></small>
-													<p><input class="cf-required-checkbox" type="checkbox" name="required" id="required"> <label for="required"><?php esc_html_e('Required Field','booked'); ?></label></p>
-													<input type="text" name="single-line-text-label" value="" placeholder="<?php esc_html_e('Enter a label for this field...','booked'); ?>" />
+													<small><?php esc_html_e('Single Line Text','overbooked'); ?></small>
+													<p><input class="cf-required-checkbox" type="checkbox" name="required" id="required"> <label for="required"><?php esc_html_e('Required Field','overbooked'); ?></label></p>
+													<input type="text" name="single-line-text-label" value="" placeholder="<?php esc_html_e('Enter a label for this field...','overbooked'); ?>" />
 													<span class="cf-delete"><i class="fa-solid fa-trash-can"></i></span>
 												</li>
 												<li id="bookedCFTemplate-paragraph-text-label" class="ui-state-default"><i class="main-handle fa-solid fa-bars"></i>
-													<small><?php esc_html_e('Paragraph Text','booked'); ?></small>
-													<p><input class="cf-required-checkbox" type="checkbox" name="required" id="required"> <label for="required"><?php esc_html_e('Required Field','booked'); ?></label></p>
-													<input type="text" name="paragraph-text-label" value="" placeholder="<?php esc_html_e('Enter a label for this field...','booked'); ?>" />
+													<small><?php esc_html_e('Paragraph Text','overbooked'); ?></small>
+													<p><input class="cf-required-checkbox" type="checkbox" name="required" id="required"> <label for="required"><?php esc_html_e('Required Field','overbooked'); ?></label></p>
+													<input type="text" name="paragraph-text-label" value="" placeholder="<?php esc_html_e('Enter a label for this field...','overbooked'); ?>" />
 													<span class="cf-delete"><i class="fa-solid fa-trash-can"></i></span>
 												</li>
 												<li id="bookedCFTemplate-checkboxes-label" class="ui-state-default"><i class="main-handle fa-solid fa-bars"></i>
-													<small><?php esc_html_e('Checkboxes','booked'); ?></small>
-													<p><input class="cf-required-checkbox" type="checkbox" name="required" id="required"> <label for="required"><?php esc_html_e('Required Field','booked'); ?></label></p>
-													<input type="text" name="checkboxes-label" value="" placeholder="<?php esc_html_e('Enter a label for this checkbox group...','booked'); ?>" />
+													<small><?php esc_html_e('Checkboxes','overbooked'); ?></small>
+													<p><input class="cf-required-checkbox" type="checkbox" name="required" id="required"> <label for="required"><?php esc_html_e('Required Field','overbooked'); ?></label></p>
+													<input type="text" name="checkboxes-label" value="" placeholder="<?php esc_html_e('Enter a label for this checkbox group...','overbooked'); ?>" />
 													<ul id="booked-cf-checkboxes"></ul>
-													<button class="cfButton button" data-type="single-checkbox">+ <?php esc_html_e('Checkbox','booked'); ?></button>
+													<button class="cfButton button" data-type="single-checkbox">+ <?php esc_html_e('Checkbox','overbooked'); ?></button>
 													<span class="cf-delete"><i class="fa-solid fa-trash-can"></i></span>
 												</li>
 												<li id="bookedCFTemplate-radio-buttons-label" class="ui-state-default"><i class="main-handle fa-solid fa-bars"></i>
-													<small><?php esc_html_e('Radio Buttons','booked'); ?></small>
-													<p><input class="cf-required-checkbox" type="checkbox" name="required" id="required"> <label for="required"><?php esc_html_e('Required Field','booked'); ?></label></p>
-													<input type="text" name="radio-buttons-label" value="" placeholder="<?php esc_html_e('Enter a label for this radio button group...','booked'); ?>" />
+													<small><?php esc_html_e('Radio Buttons','overbooked'); ?></small>
+													<p><input class="cf-required-checkbox" type="checkbox" name="required" id="required"> <label for="required"><?php esc_html_e('Required Field','overbooked'); ?></label></p>
+													<input type="text" name="radio-buttons-label" value="" placeholder="<?php esc_html_e('Enter a label for this radio button group...','overbooked'); ?>" />
 													<ul id="booked-cf-radio-buttons"></ul>
-													<button class="cfButton button" data-type="single-radio-button">+ <?php esc_html_e('Option','booked'); ?></button>
+													<button class="cfButton button" data-type="single-radio-button">+ <?php esc_html_e('Option','overbooked'); ?></button>
 													<span class="cf-delete"><i class="fa-solid fa-trash-can"></i></span>
 												</li>
 												<li id="bookedCFTemplate-drop-down-label" class="ui-state-default"><i class="main-handle fa-solid fa-bars"></i>
-													<small><?php esc_html_e('Drop Down','booked'); ?></small>
-													<p><input class="cf-required-checkbox" type="checkbox" name="required" id="required"> <label for="required"><?php esc_html_e('Required Field','booked'); ?></label></p>
-													<input type="text" name="drop-down-label" value="" placeholder="<?php esc_html_e('Enter a label for this drop-down group...','booked'); ?>" />
+													<small><?php esc_html_e('Drop Down','overbooked'); ?></small>
+													<p><input class="cf-required-checkbox" type="checkbox" name="required" id="required"> <label for="required"><?php esc_html_e('Required Field','overbooked'); ?></label></p>
+													<input type="text" name="drop-down-label" value="" placeholder="<?php esc_html_e('Enter a label for this drop-down group...','overbooked'); ?>" />
 													<ul id="booked-cf-drop-down"></ul>
-													<button class="cfButton button" data-type="single-drop-down">+ <?php esc_html_e('Option','booked'); ?></button>
+													<button class="cfButton button" data-type="single-drop-down">+ <?php esc_html_e('Option','overbooked'); ?></button>
 													<span class="cf-delete"><i class="fa-solid fa-trash-can"></i></span>
 												</li>
 												<li id="bookedCFTemplate-plain-text-content" class="ui-state-default"><i class="main-handle fa-solid fa-bars"></i>
-													<small><?php esc_html_e('Text Content','booked'); ?></small>
+													<small><?php esc_html_e('Text Content','overbooked'); ?></small>
 													<textarea name="plain-text-content"></textarea>
-													<small class="help-text"><?php esc_html_e('HTML allowed','booked'); ?></small>
+													<small class="help-text"><?php esc_html_e('HTML allowed','overbooked'); ?></small>
 													<span class="cf-delete"><i class="fa-solid fa-trash-can"></i></span>
 												</li>
 
 												<li id="bookedCFTemplate-single-checkbox" class="ui-state-default "><i class="sub-handle fa-solid fa-bars"></i>
 													<?php do_action('booked_before_custom_checkbox'); ?>
-													<input type="text" name="single-checkbox" value="" placeholder="<?php esc_html_e('Enter a label for this checkbox...','booked'); ?>" />
+													<input type="text" name="single-checkbox" value="" placeholder="<?php esc_html_e('Enter a label for this checkbox...','overbooked'); ?>" />
 													<span class="cf-delete"><i class="fa-solid fa-trash-can"></i></span>
 													<?php do_action('booked_after_custom_checkbox'); ?>
 												</li>
 												<li id="bookedCFTemplate-single-radio-button" class="ui-state-default "><i class="sub-handle fa-solid fa-bars"></i>
-													<input type="text" name="single-radio-button" value="" placeholder="<?php esc_html_e('Enter a label for this radio button...','booked'); ?>" />
+													<input type="text" name="single-radio-button" value="" placeholder="<?php esc_html_e('Enter a label for this radio button...','overbooked'); ?>" />
 													<span class="cf-delete"><i class="fa-solid fa-trash-can"></i></span>
 												</li>
 												<li id="bookedCFTemplate-single-drop-down" class="ui-state-default "><i class="sub-handle fa-solid fa-bars"></i>
-													<input type="text" name="single-drop-down" value="" placeholder="<?php esc_html_e('Enter a label for this option...','booked'); ?>" />
+													<input type="text" name="single-drop-down" value="" placeholder="<?php esc_html_e('Enter a label for this option...','overbooked'); ?>" />
 													<span class="cf-delete"><i class="fa-solid fa-trash-can"></i></span>
 												</li>
 
@@ -1633,8 +1633,8 @@ Time: %time%
 									<input id="booked_custom_fields" name="booked_custom_fields" value="" type="hidden" class="field" style="width:100%;">
 
 									<div class="section-row submit-section bookedClearFix" style="padding:0;">
-										<input id="booked-cf-saveButton" type="button" class="button button-primary" value="<?php esc_html_e('Save Custom Fields','booked'); ?>">
-										<div class="cf-updater savingState"><i class="fa-solid fa-circle-notch fa-spin"></i>&nbsp;&nbsp;<?php esc_html_e('Saving','booked'); ?>...</div>
+										<input id="booked-cf-saveButton" type="button" class="button button-primary" value="<?php esc_html_e('Save Custom Fields','overbooked'); ?>">
+										<div class="cf-updater savingState"><i class="fa-solid fa-circle-notch fa-spin"></i>&nbsp;&nbsp;<?php esc_html_e('Saving','overbooked'); ?>...</div>
 									</div><!-- /.section-row -->
 
 								</div><!-- /templates -->
@@ -1649,7 +1649,7 @@ Time: %time%
 										<div class="section-head">
 
 											<h3><?php echo esc_html__('Display the Default Calendar', 'booked'); ?></h3>
-											<p><?php esc_html_e('You can use this shortcode to display the front-end booking calendar. Use the "calendar" attribute to display a specific calendar. Use the "year" and/or "month" attributes to display a specific month and/or year. You can also use the "switcher" variable to add a calendar switcher dropdown above the calendar. Your users can then switch between each calendar you\'ve created.','booked'); ?></p>
+											<p><?php esc_html_e('You can use this shortcode to display the front-end booking calendar. Use the "calendar" attribute to display a specific calendar. Use the "year" and/or "month" attributes to display a specific month and/or year. You can also use the "switcher" variable to add a calendar switcher dropdown above the calendar. Your users can then switch between each calendar you\'ve created.','overbooked'); ?></p>
 											<p><input value="[booked-calendar]" type="text" readonly="readonly" class="field"></p>
 
 										</div>
@@ -1714,25 +1714,25 @@ Time: %time%
 
 										<div class="section-row">
 											<div class="section-head">
-												<h3><?php esc_html_e('Export Appointments','booked'); ?></h3>
-												<p><?php esc_html_e('You can export all appointments or specify what you want by choosing from the below options.','booked'); ?></p>
+												<h3><?php esc_html_e('Export Appointments','overbooked'); ?></h3>
+												<p><?php esc_html_e('You can export all appointments or specify what you want by choosing from the below options.','overbooked'); ?></p>
 												<br>
 												<div class="select-box">
-													<label class="booked-color-label" for="appointment_time"><?php esc_html_e('Appointment Dates','booked'); ?>:</label>
+													<label class="booked-color-label" for="appointment_time"><?php esc_html_e('Appointment Dates','overbooked'); ?>:</label>
 													<select name="appointment_time">
-														<option value="" selected="selected"><?php esc_html_e('Upcoming & Past','booked'); ?></option>
-														<option value="upcoming"><?php esc_html_e('Only Upcoming','booked'); ?></option>
-														<option value="past"><?php esc_html_e('Only Past','booked'); ?></option>
+														<option value="" selected="selected"><?php esc_html_e('Upcoming & Past','overbooked'); ?></option>
+														<option value="upcoming"><?php esc_html_e('Only Upcoming','overbooked'); ?></option>
+														<option value="past"><?php esc_html_e('Only Past','overbooked'); ?></option>
 													</select>
 												</div>
 
 												<br>
 												<div class="select-box">
-													<label class="booked-color-label" for="appointment_type"><?php esc_html_e('Approved and/or Pending','booked'); ?>:</label>
+													<label class="booked-color-label" for="appointment_type"><?php esc_html_e('Approved and/or Pending','overbooked'); ?>:</label>
 													<select name="appointment_type">
-														<option value="any" selected="selected"><?php esc_html_e('Approved & Pending','booked'); ?></option>
-														<option value="publish"><?php esc_html_e('Only Approved','booked'); ?></option>
-														<option value="draft"><?php esc_html_e('Only Pending','booked'); ?></option>
+														<option value="any" selected="selected"><?php esc_html_e('Approved & Pending','overbooked'); ?></option>
+														<option value="publish"><?php esc_html_e('Only Approved','overbooked'); ?></option>
+														<option value="draft"><?php esc_html_e('Only Pending','overbooked'); ?></option>
 													</select>
 												</div>
 
@@ -1740,9 +1740,9 @@ Time: %time%
 
 													<br>
 													<div class="select-box">
-														<label class="booked-color-label" for="calendar_id"><?php esc_html_e('Calendar','booked'); ?>:</label>
+														<label class="booked-color-label" for="calendar_id"><?php esc_html_e('Calendar','overbooked'); ?>:</label>
 														<select name="calendar_id">
-															<option value="" selected="selected"><?php esc_html_e('All Calendars','booked'); ?></option>
+															<option value="" selected="selected"><?php esc_html_e('All Calendars','overbooked'); ?></option>
 															<?php
 															foreach($calendars as $calendar):
 																?><option value="<?php echo $calendar->term_id; ?>"><?php echo $calendar->name; ?></option><?php
@@ -1758,7 +1758,7 @@ Time: %time%
 
 										<div class="section-row submit-section" style="padding:0;">
 											<p class="submit">
-												<button class="button-primary"><i class="fa-solid fa-arrow-up-right-from-square"></i>&nbsp;&nbsp;<?php esc_html_e('Export Appointments to CSV','booked'); ?></button>
+												<button class="button-primary"><i class="fa-solid fa-arrow-up-right-from-square"></i>&nbsp;&nbsp;<?php esc_html_e('Export Appointments to CSV','overbooked'); ?></button>
 											</p>
 										</div>
 

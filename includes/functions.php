@@ -462,7 +462,7 @@ function booked_fe_calendar($year = false,$month = false,$calendar_id = false,$f
 					<span class="monthName">
 						<?php echo date_i18n("F Y", strtotime($year.'-'.$month.'-01')); ?>
 						<?php if ($monthShown != $currentMonth): ?>
-							<a href="#" class="backToMonth" data-goto="<?php echo $currentMonth; ?>"><?php esc_html_e('Back to','booked'); ?> <?php echo date_i18n('F',strtotime($currentMonth)); ?></a>
+							<a href="#" class="backToMonth" data-goto="<?php echo $currentMonth; ?>"><?php esc_html_e('Back to','overbooked'); ?> <?php echo date_i18n('F',strtotime($currentMonth)); ?></a>
 						<?php endif; ?>
 					</span>
 					<?php if (!$no_next_link): ?><a href="#" data-goto="<?php echo $next_month; ?>" class="page-right"><i class="fa-solid fa-arrow-right"></i></a><?php endif; ?>
@@ -654,7 +654,7 @@ function booked_fe_calendar($year = false,$month = false,$calendar_id = false,$f
 						$day_count++;
 
 						$html = '<div data-date="'.$check_year.'-'.$check_month.'-'.$date.'" class="bc-col '.implode(' ',$classes).'">';
-						$html .= '<span class="date'.(!$hide_available_count && $appointments_left > 0 && !in_array('prev-date',$classes) && !in_array('blur',$classes) ? ' tooltipster" title="'.sprintf( _n('%d Available','%d Available',$appointments_left,'booked'),$appointments_left) : (!$hide_available_count && !$appointments_left && $booked_pa_active && !in_array('prev-date',$classes) && !in_array('blur',$classes) ? ' tooltipster" title="'.esc_html__('None Available','booked').'"' : '')).'"><span class="number">'. $date .'</span></span>';
+						$html .= '<span class="date'.(!$hide_available_count && $appointments_left > 0 && !in_array('prev-date',$classes) && !in_array('blur',$classes) ? ' tooltipster" title="'.sprintf( _n('%d Available','%d Available',$appointments_left,'overbooked'),$appointments_left) : (!$hide_available_count && !$appointments_left && $booked_pa_active && !in_array('prev-date',$classes) && !in_array('blur',$classes) ? ' tooltipster" title="'.esc_html__('None Available','overbooked').'"' : '')).'"><span class="number">'. $date .'</span></span>';
 						$html .= '</div>';
 
 						$combined_date = $year.'-'.$check_month.'-'.$date;
@@ -851,7 +851,7 @@ function booked_fe_calendar_date_content($date,$calendar_id = false){
 					$temp_count++;
 
 					if ($timeslot_parts[0] == '0000' && $timeslot_parts[1] == '2400'):
-						$timeslotText = esc_html__('All day','booked');
+						$timeslotText = esc_html__('All day','overbooked');
 					else :
 						$timeslotText = date_i18n($time_format,strtotime($timeslot_parts[0])) . (!get_option('booked_hide_end_times') ? ' &ndash; '.date_i18n($time_format,strtotime($timeslot_parts[1])) : '');
 					endif;
@@ -866,7 +866,7 @@ function booked_fe_calendar_date_content($date,$calendar_id = false){
 					if ($hide_unavailable_timeslots && !$available):
 						$html = '';
 					else:
-						$button_text = (!$spots_available || !$available ? esc_html__('Unavailable','booked') : esc_html( _x('Book Appointment','Book a Single Appointment', 'booked') ) );
+						$button_text = (!$spots_available || !$available ? esc_html__('Unavailable','overbooked') : esc_html( _x('Book Appointment','Book a Single Appointment', 'booked') ) );
 						$html = '<div class="timeslot bookedClearFix'.($title && $only_titles == true ? ' booked-hide-time' : '').($hide_available_count || !$available ? ' timeslot-count-hidden' : '').(!$available ? ' timeslot-unavailable' : '').($title ? ' has-title ' : '').'">';
 
 							$html .= '<span class="timeslot-time'.($public_appointments ? ' booked-public-appointments' : '').'">';
@@ -886,7 +886,7 @@ function booked_fe_calendar_date_content($date,$calendar_id = false){
 								endif;
 
 								if ($public_appointments && !empty($appts_in_this_timeslot)):
-									$html .= '<span class="booked-public-appointment-title">'._n('Appointments in this time slot:','Appointments in this time slot:',count($appts_in_this_timeslot),'booked').'</span>';
+									$html .= '<span class="booked-public-appointment-title">'._n('Appointments in this time slot:','Appointments in this time slot:',count($appts_in_this_timeslot),'overbooked').'</span>';
 									$html .= '<ul class="booked-public-appointment-list">';
 									foreach($appts_in_this_timeslot as $appt_id):
 
@@ -922,7 +922,7 @@ function booked_fe_calendar_date_content($date,$calendar_id = false){
 
 			if (!$temp_count):
 
-				echo '<p>'.esc_html__('There are no appointment time slots available for this day.','booked').'</p>';
+				echo '<p>'.esc_html__('There are no appointment time slots available for this day.','overbooked').'</p>';
 
 			endif;
 
@@ -931,12 +931,14 @@ function booked_fe_calendar_date_content($date,$calendar_id = false){
 		*/
 
 		} else {
-			echo '<p>'.esc_html__('There are no appointment time slots available for this day.','booked').'</p>';
+			echo '<p>'.esc_html__('There are no appointment time slots available for this day.','overbooked').'</p>';
 		}
 
 		$appt_list_html = ob_get_clean();
 
-		echo '<h2><span>' . sprintf( _n( esc_html(_x( 'Available Appointment on %s', 'Single Appointment', 'booked' )), esc_html(_x( 'Available Appointments on %s', 'Multiple Appointments', 'booked' )), $total_available ), '</span><strong>'.$date_display.'</strong><span>') . '</span></h2>';
+		$single_text = _x( 'Available Appointment on %s', 'Single Appointment', 'overbooked' );
+		$plural_text = _x( 'Available Appointments on %s', 'Multiple Appointments', 'overbooked' );
+		echo '<h2><span>' . sprintf( _n( $single_text, $plural_text, $total_available, 'overbooked' ), '</span><strong>'.$date_display.'</strong><span>') . '</span></h2>';
 		echo $appt_list_html;
 
 	echo '</div>';
@@ -1107,10 +1109,10 @@ function booked_fe_appointment_list_content($date,$calendar_id = false,$force_da
 
 		echo '<div class="booked-list-view-nav" data-calendar-id="'.$calendar_id.'">';
 			if ($showing_prev):
-				echo '<button data-date="'.date_i18n('Y-m-d',strtotime($prev_day)).'" class="booked-list-view-date-prev bb-small"><i class="fa-solid fa-arrow-left"></i>&nbsp;&nbsp;'.esc_html__('Previous','booked').'</button>';
+				echo '<button data-date="'.date_i18n('Y-m-d',strtotime($prev_day)).'" class="booked-list-view-date-prev bb-small"><i class="fa-solid fa-arrow-left"></i>&nbsp;&nbsp;'.esc_html__('Previous','overbooked').'</button>';
 			endif;
 			if ($showing_next):
-				echo '<button data-date="'.date_i18n('Y-m-d',strtotime($next_day)).'" class="booked-list-view-date-next bb-small">'.esc_html__('Next','booked').'&nbsp;&nbsp;<i class="fa-solid fa-arrow-right"></i></button>';
+				echo '<button data-date="'.date_i18n('Y-m-d',strtotime($next_day)).'" class="booked-list-view-date-next bb-small">'.esc_html__('Next','overbooked').'&nbsp;&nbsp;<i class="fa-solid fa-arrow-right"></i></button>';
 			endif;
 			echo '<span class="booked-datepicker-wrap"><input data-min-date="'.$earliest_date.'" class="booked_list_date_picker" value="'.date_i18n('Y-m-d',strtotime($date)).'" type="hidden"><a href="#" class="booked_list_date_picker_trigger"><i class="fa-solid fa-calendar-days"></i></a></span>';
 		echo '</div>';
@@ -1224,7 +1226,7 @@ function booked_fe_appointment_list_content($date,$calendar_id = false,$force_da
 					$temp_count++;
 
 					if ($timeslot_parts[0] == '0000' && $timeslot_parts[1] == '2400'):
-						$timeslotText = esc_html__('All day','booked');
+						$timeslotText = esc_html__('All day','overbooked');
 					else :
 						$timeslotText = date_i18n($time_format,strtotime($timeslot_parts[0])) . (!get_option('booked_hide_end_times') ? ' &ndash; '.date_i18n($time_format,strtotime($timeslot_parts[1])) : '');
 					endif;
@@ -1239,7 +1241,7 @@ function booked_fe_appointment_list_content($date,$calendar_id = false,$force_da
 					if ($hide_unavailable_timeslots && !$available):
 						$html = '';
 					else:
-						$button_text = (!$spots_available || !$available ? esc_html__('Unavailable','booked') : esc_html( _x('Book Appointment','Book a Single Appointment', 'booked') ));
+						$button_text = (!$spots_available || !$available ? esc_html__('Unavailable','overbooked') : esc_html( _x('Book Appointment','Book a Single Appointment', 'booked') ));
 						$html = '<div class="timeslot bookedClearFix'.($title && $only_titles == true ? ' booked-hide-time' : '').($hide_available_count || !$available ? ' timeslot-count-hidden' : '').(!$available ? ' timeslot-unavailable' : '').($title ? ' has-title ' : '').'">';
 							$html .= '<span class="timeslot-time'.($public_appointments ? ' booked-public-appointments' : '').'">';
 
@@ -1250,9 +1252,9 @@ function booked_fe_appointment_list_content($date,$calendar_id = false,$force_da
 								}
 
 								$html .= '<span class="timeslot-range"><i class="fa-solid fa-clock"></i>&nbsp;&nbsp;' . $timeslotText . '</span>';
-								if (!$hide_available_count): $html .= '<span class="spots-available'.($spots_available == 0 ? ' empty' : '').'">'.sprintf(_n('%d space available','%d spaces available',$spots_available,'booked'),$spots_available).'</span>'; endif;
+								if (!$hide_available_count): $html .= '<span class="spots-available'.($spots_available == 0 ? ' empty' : '').'">'.sprintf(_n('%d space available','%d spaces available',$spots_available,'overbooked'),$spots_available).'</span>'; endif;
 								if ($public_appointments && !empty($appts_in_this_timeslot)):
-									$html .= '<span class="booked-public-appointment-title">'._n('Appointments in this time slot:','Appointments in this time slot:',count($appts_in_this_timeslot),'booked').'</span>';
+									$html .= '<span class="booked-public-appointment-title">'._n('Appointments in this time slot:','Appointments in this time slot:',count($appts_in_this_timeslot),'overbooked').'</span>';
 									$html .= '<ul class="booked-public-appointment-list">';
 									foreach($appts_in_this_timeslot as $appt_id):
 
@@ -1278,7 +1280,7 @@ function booked_fe_appointment_list_content($date,$calendar_id = false,$force_da
 
 			if (!$temp_count):
 
-				echo '<p>'.esc_html__('There are no appointment time slots available for this day.','booked').'</p>';
+				echo '<p>'.esc_html__('There are no appointment time slots available for this day.','overbooked').'</p>';
 
 			endif;
 
@@ -1287,13 +1289,13 @@ function booked_fe_appointment_list_content($date,$calendar_id = false,$force_da
 		*/
 
 		} else {
-			echo '<p>'.esc_html__('There are no appointment time slots available for this day.','booked').'</p>';
+			echo '<p>'.esc_html__('There are no appointment time slots available for this day.','overbooked').'</p>';
 		}
 
 		$appt_list_html = ob_get_clean();
 
 		echo '<div class="booked-appt-list-header">';
-			echo '<h2'.(!$showing_prev ? ' class="booked-no-prev"' : '').'><span>'.sprintf(_n('Available Appointment on %s','Available Appointments on %s',$total_available,'booked'),'</span><strong>'.$date_display.'</strong>').'</h2>';
+			echo '<h2'.(!$showing_prev ? ' class="booked-no-prev"' : '').'><span>'.sprintf(_n('Available Appointment on %s','Available Appointments on %s',$total_available,'overbooked'),'</span><strong>'.$date_display.'</strong>').'</h2>';
 			echo $appt_list_button_html;
 		echo '</div>';
 
@@ -1351,11 +1353,11 @@ function booked_reset_password($user_login){
     $hashed = $wp_hasher->HashPassword( $key );
     $wpdb->update( $wpdb->users, array( 'user_activation_key' => $hashed ), array( 'user_login' => $user_login ) );
 
-    $message = esc_html__('Someone requested that the password be reset for the following account:','booked') . "\r\n\r\n";
+    $message = esc_html__('Someone requested that the password be reset for the following account:','overbooked') . "\r\n\r\n";
     $message .= network_home_url( '/' ) . "\r\n\r\n";
-    $message .= sprintf(esc_html__('Username: %s','booked'), $user_login) . "\r\n\r\n";
-    $message .= esc_html__('If this was a mistake, just ignore this email and nothing will happen.','booked') . "\r\n\r\n";
-    $message .= esc_html__('To reset your password, visit the following address:','booked') . "\r\n\r\n";
+    $message .= sprintf(esc_html__('Username: %s','overbooked'), $user_login) . "\r\n\r\n";
+    $message .= esc_html__('If this was a mistake, just ignore this email and nothing will happen.','overbooked') . "\r\n\r\n";
+    $message .= esc_html__('To reset your password, visit the following address:','overbooked') . "\r\n\r\n";
     $message .= '<' . network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') . ">\r\n";
 
     if ( is_multisite() ):
@@ -1364,7 +1366,7 @@ function booked_reset_password($user_login){
         $blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
     endif;
 
-    $title = sprintf( esc_html__('[%s] Password Reset','booked'), $blogname );
+    $title = sprintf( esc_html__('[%s] Password Reset','overbooked'), $blogname );
 
     $title = apply_filters('retrieve_password_title', $title);
     $message = apply_filters('retrieve_password_message', $message, $key);
@@ -1604,7 +1606,7 @@ function booked_custom_fields($calendar_id = false){
 					?><div class="field">
 						<label class="field-label"><?php echo $field['value']; ?><?php if ($is_required): ?><i class="required-asterisk fa-solid fa-asterisk"></i><?php endif; ?></label>
 						<input id="booked-select-label-<?php echo esc_attr($field['name']); ?>" type="hidden" name="<?php echo esc_attr($field['name']); ?>" />
-						<select id="booked-select-<?php echo esc_attr($field['name']); ?>" <?php echo $data_attributes ?> <?php if ($is_required): echo ' required="required"'; endif; ?> name="<?php echo esc_attr($field['name']); ?>"><option value=""><?php esc_html_e('Choose...','booked'); ?></option><?php
+						<select id="booked-select-<?php echo esc_attr($field['name']); ?>" <?php echo $data_attributes ?> <?php if ($is_required): echo ' required="required"'; endif; ?> name="<?php echo esc_attr($field['name']); ?>"><option value=""><?php esc_html_e('Choose...','overbooked'); ?></option><?php
 					$look_for_subs = 'dropdowns';
 
 				break;
@@ -1829,14 +1831,14 @@ function booked_profile_update_submit(){
 
 				    $attachment_id = media_handle_upload( 'avatar', 0 );
 				    if ( is_wp_error( $attachment_id ) ) {
-				        $error[] = esc_html__('Error uploading avatar.','booked');
+				        $error[] = esc_html__('Error uploading avatar.','overbooked');
 				    } else {
 				        update_user_meta( $booked_current_user->ID, 'avatar', $attachment_id );
 				    }
 
 			    } else {
 
-			    	$error[] = esc_html__('Avatar uploader security check failed.','booked');
+			    	$error[] = esc_html__('Avatar uploader security check failed.','overbooked');
 
 			    }
 			endif;
@@ -1872,7 +1874,7 @@ function booked_profile_content_appointments(){
 			$_SESSION['appt_requested'] = null;
 			$_SESSION['new_account'] = null;
 
-			echo '<p class="booked-form-notice">'.esc_html__('Your appointment has been requested! We have also set up an account for you. Your login information has been sent via email. When logged in, you can view your upcoming appointments below. Be sure to change your password to something more memorable by using the Edit Profile tab above.','booked').'</p>';
+			echo '<p class="booked-form-notice">'.esc_html__('Your appointment has been requested! We have also set up an account for you. Your login information has been sent via email. When logged in, you can view your upcoming appointments below. Be sure to change your password to something more memorable by using the Edit Profile tab above.','overbooked').'</p>';
 
 		} else if (isset($_SESSION['appt_requested'])){
 
@@ -1881,9 +1883,9 @@ function booked_profile_content_appointments(){
 			$appointment_default_status = get_option('booked_new_appointment_default','draft');
 
 			if ($appointment_default_status == 'draft'):
-				echo '<p class="booked-form-notice">'.esc_html__('Your appointment has been requested! It will be updated below if approved.','booked').'</p>';
+				echo '<p class="booked-form-notice">'.esc_html__('Your appointment has been requested! It will be updated below if approved.','overbooked').'</p>';
 			else :
-				echo '<p class="booked-form-notice">'.esc_html__('Your appointment has been added to our calendar!','booked').'</p>';
+				echo '<p class="booked-form-notice">'.esc_html__('Your appointment has been added to our calendar!','overbooked').'</p>';
 			endif;
 
 		}
@@ -1903,14 +1905,14 @@ function booked_profile_content_edit(){
 
 	$booked_current_user = wp_get_current_user();
 
-	echo '<h4><i class="fa-solid fa-pen-to-square" style="position:relative; top:-1px;"></i>&nbsp;&nbsp;'.esc_html__('Edit Profile','booked').'</h4>'; ?>
+	echo '<h4><i class="fa-solid fa-pen-to-square" style="position:relative; top:-1px;"></i>&nbsp;&nbsp;'.esc_html__('Edit Profile','overbooked').'</h4>'; ?>
 
     <form method="post" enctype="multipart/form-data" id="booked-page-form" action="<?php the_permalink(); ?>">
 
 	    <div class="bookedClearFix">
             <p class="form-avatar">
                 <label for="avatar"><?php esc_html_e('Update Avatar', 'booked'); ?><?php if (BOOKED_DEMO_MODE): ?> <span class="not-bold"><?php esc_html_e('(disabled in demo)', 'cooked'); ?></span><?php endif; ?></label><br>
-                <span class="booked-upload-wrap"><span><?php esc_html_e('Choose image ...','booked'); ?></span><input<?php if (BOOKED_DEMO_MODE): ?> disabled<?php endif; ?> class="field" name="avatar" type="file" id="avatar" value="" /></span>
+                <span class="booked-upload-wrap"><span><?php esc_html_e('Choose image ...','overbooked'); ?></span><input<?php if (BOOKED_DEMO_MODE): ?> disabled<?php endif; ?> class="field" name="avatar" type="file" id="avatar" value="" /></span>
                 <?php wp_nonce_field( 'avatar_upload', 'avatar_nonce' ); ?>
                 <span class="hint-p"><?php esc_html_e('Recommended size: 100px by 100px or larger', 'booked'); ?></span>
             </p><!-- .form-nickname -->

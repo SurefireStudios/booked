@@ -117,7 +117,7 @@ if ($appt_is_available):
 
 		if ( $name_requirements == 'require_surname' && !$surname ):
 
-			echo 'error###'.esc_html__('Your full name is required to book an appointment.','booked');
+			echo 'error###'.esc_html__('Your full name is required to book an appointment.','overbooked');
 
 		else:
 
@@ -184,13 +184,13 @@ if ($appt_is_available):
 			else :
 
 				if ($email && !is_email($email)):
-					$errors[] = esc_html__('The email address you have entered doesn\'t appear to be valid.','booked');
+					$errors[] = esc_html__('The email address you have entered doesn\'t appear to be valid.','overbooked');
 				elseif ($email_required && !$email):
-					$errors[] = esc_html__('Your name and a valid email address are required to book an appointment.','booked');
+					$errors[] = esc_html__('Your name and a valid email address are required to book an appointment.','overbooked');
 				elseif (!$name):
-					$errors[] = esc_html__('Your name is required to book an appointment.','booked');
+					$errors[] = esc_html__('Your name is required to book an appointment.','overbooked');
 				else:
-					$errors[] = esc_html__('An unknown error occured.','booked');
+					$errors[] = esc_html__('An unknown error occured.','overbooked');
 				endif;
 
 				echo 'error###'.implode('
@@ -282,7 +282,7 @@ if ($appt_is_available):
 
 		if ( $name_requirements == 'require_surname' && !$surname ):
 
-			echo 'error###'.esc_html__('Your full name is required to book an appointment.','booked');
+			echo 'error###'.esc_html__('Your full name is required to book an appointment.','overbooked');
 
 		else:
 
@@ -431,7 +431,7 @@ elseif ( $is_new_registration ):
 
 	if ( $name_requirements == 'require_surname' && !$surname ):
 
-		echo 'error###'.esc_html__('Your full name is required to book an appointment.','booked');
+		echo 'error###'.esc_html__('Your full name is required to book an appointment.','overbooked');
 
 	else:
 
@@ -496,7 +496,7 @@ elseif ( $is_new_registration ):
 
 			do_action('booked_new_appointment_created', $post_id);
 
-	        echo 'success###' . esc_html__('Registration has been successful.','booked');
+	        echo 'success###' . esc_html__('Registration has been successful.','overbooked');
 
 		else :
 
@@ -510,7 +510,7 @@ else:
 
 	$error_message = apply_filters(
 		'booked_availability_error_message',
-		esc_html__('Sorry, someone just booked this appointment before you could. Please choose a different booking time.','booked')
+		esc_html__('Sorry, someone just booked this appointment before you could. Please choose a different booking time.','overbooked')
 	);
 	echo 'error###' . $error_message;
 

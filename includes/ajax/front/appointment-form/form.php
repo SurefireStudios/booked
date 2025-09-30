@@ -39,7 +39,7 @@ if ( $is_user_logged_in && $appointment_limit ) {
 			<div class="field">
 				<span class="checkbox-radio-block">
 					<input data-condition="customer_choice" type="radio" name="customer_choice[]" id="customer_new" value="new" checked="checked">
-					<label for="customer_new"><?php esc_html_e('New customer','booked'); ?></label>
+					<label for="customer_new"><?php esc_html_e('New customer','overbooked'); ?></label>
 				</span>
 			</div>
 		<?php endif; ?>
@@ -47,7 +47,7 @@ if ( $is_user_logged_in && $appointment_limit ) {
 		<div class="field">
 			<span class="checkbox-radio-block">
 				<input data-condition="customer_choice" type="radio" name="customer_choice[]" id="customer_current" value="current"<?php echo ( !get_option('users_can_register') ? ' checked="checked"' : '' ); ?>>
-				<label for="customer_current"><?php esc_html_e('Current customer','booked'); ?></label>
+				<label for="customer_current"><?php esc_html_e('Current customer','overbooked'); ?></label>
 			</span>
 		</div>
 	</form>
@@ -79,7 +79,7 @@ if ( $is_user_logged_in && $appointment_limit ) {
 
 			<div class="field">
 				<input name="submit" type="submit" class="button button-primary" value="<?php esc_html_e('Sign in', 'booked') ?>">
-				<button class="cancel button"><?php esc_html_e('Cancel','booked'); ?></button>
+				<button class="cancel button"><?php esc_html_e('Cancel','overbooked'); ?></button>
 			</div>
 		</form>
 
@@ -100,7 +100,7 @@ if ( $is_user_logged_in && $appointment_limit ) {
 
 				<div class="field">
 					<input name="submit_forgot" type="submit" class="button button-primary" value="<?php esc_html_e('Reset Password', 'booked') ?>">
-					<button class="booked-forgot-goback button"><?php esc_html_e('Go Back','booked'); ?></button>
+					<button class="booked-forgot-goback button"><?php esc_html_e('Go Back','overbooked'); ?></button>
 				</div>
 			</form>
 		<?php endif; ?>
@@ -167,7 +167,7 @@ if ( $is_user_logged_in && $appointment_limit ) {
 			$captcha_file = rtrim(get_bloginfo('wpurl'), '/') . '/wp-content/plugins/really-simple-captcha/tmp/' . $captcha_image; //construct the absolute URL of the captcha image
 			?>
 			<p class="captcha">
-				<label for="captcha_code"><?php esc_html_e('Please enter the following text:','booked'); ?></label>
+				<label for="captcha_code"><?php esc_html_e('Please enter the following text:','overbooked'); ?></label>
 				<img class="captcha-image" src="<?php echo $rsc_url ?>tmp/<?php echo $captcha_image ?>">
 			</p>
 
@@ -185,10 +185,10 @@ if ( $is_user_logged_in && $appointment_limit ) {
 
 		<div class="field">
 			<?php if ( $error_message ): ?>
-				<button class="cancel button"><?php esc_html_e('Okay','booked'); ?></button>
+				<button class="cancel button"><?php esc_html_e('Okay','overbooked'); ?></button>
 			<?php else: ?>
 				<input type="submit" id="submit-request-appointment" class="button button-primary" value="<?php echo ( $new_appointment_default == 'draft' ? esc_html( _n( 'Request Appointment', 'Request Appointments', $total_appts, 'booked' ) ) : esc_html( _n( 'Book Appointment', 'Book Appointments', $total_appts, 'booked' ) ) ); ?>">
-				<button class="cancel button"><?php esc_html_e('Cancel','booked'); ?></button>
+				<button class="cancel button"><?php esc_html_e('Cancel','overbooked'); ?></button>
 			<?php endif; ?>
 		</div>
 	</form>

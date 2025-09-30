@@ -53,21 +53,21 @@ class Booked_FEA_Shortcodes {
 
 					if ($pending):
 						if ($total_appts):
-							echo '<h4>'.sprintf(_n('%s Pending Appointment','%s Pending Appointments',$total_appts,'booked'),'<span class="count">'.number_format($total_appts).'</span>').'</h4>';
+							echo '<h4>'.sprintf(_n('%s Pending Appointment','%s Pending Appointments',$total_appts,'overbooked'),'<span class="count">'.number_format($total_appts).'</span>').'</h4>';
 						else:
-							echo '<p class="booked-no-margin">'.__('No pending appointments.','booked').'</p>';
+							echo '<p class="booked-no-margin">'.__('No pending appointments.','overbooked').'</p>';
 						endif;
 					elseif ($historic):
 						if ($total_appts):
-							echo '<h4>'.sprintf(_n('%s Past Appointment','%s Past Appointments',$total_appts,'booked'),'<span class="count">'.number_format($total_appts).'</span>').'</h4>';
+							echo '<h4>'.sprintf(_n('%s Past Appointment','%s Past Appointments',$total_appts,'overbooked'),'<span class="count">'.number_format($total_appts).'</span>').'</h4>';
 						else:
-							echo '<p class="booked-no-margin">'.__('No past appointments.','booked').'</p>';
+							echo '<p class="booked-no-margin">'.__('No past appointments.','overbooked').'</p>';
 						endif;	
 					else:
 						if ($total_appts):
-							echo '<h4>'.sprintf(_n('%s Upcoming Appointment','%s Upcoming Appointments',$total_appts,'booked'),'<span class="count">'.number_format($total_appts).'</span>').'</h4>';
+							echo '<h4>'.sprintf(_n('%s Upcoming Appointment','%s Upcoming Appointments',$total_appts,'overbooked'),'<span class="count">'.number_format($total_appts).'</span>').'</h4>';
 						else:
-							echo '<p class="booked-no-margin">'.__('No upcoming appointments.','booked').'</p>';
+							echo '<p class="booked-no-margin">'.__('No upcoming appointments.','overbooked').'</p>';
 						endif;
 					endif;
 				
@@ -78,7 +78,7 @@ class Booked_FEA_Shortcodes {
 						$today = date_i18n($date_format);
 						$date_display = date_i18n($date_format,$appt['timestamp']);
 						if ($date_display == $today){
-							$date_display = __('Today','booked');
+							$date_display = __('Today','overbooked');
 							$day_name = '';
 						} else {
 							$day_name = date_i18n('l',$appt['timestamp']).', ';
@@ -116,22 +116,22 @@ class Booked_FEA_Shortcodes {
 						endif;
 
 						if ($timeslots[0] == '0000' && $timeslots[1] == '2400'):
-							$timeslotText = __('All day','booked');
+							$timeslotText = __('All day','overbooked');
 							$google_date_startend_end = date('Ymd',strtotime(date('Y-m-d',$appt['timestamp']) . '+ 1 Day'));
 							$google_time_end = '0000';
 						else :
-							$timeslotText = (!get_option('booked_hide_end_times') ? __('from','booked').' ' : __('at','booked').' ') . $time_start . (!get_option('booked_hide_end_times') ? ' ' . __('to','booked').' '.$time_end : '');
+							$timeslotText = (!get_option('booked_hide_end_times') ? __('from','overbooked').' ' : __('at','overbooked').' ') . $time_start . (!get_option('booked_hide_end_times') ? ' ' . __('to','overbooked').' '.$time_end : '');
 							$google_date_startend_end = $google_date_startend;
 						endif;
 
-						$status = ($appt['status'] !== 'publish' && $appt['status'] !== 'future' ? __('pending','booked') : __('approved','booked'));
+						$status = ($appt['status'] !== 'publish' && $appt['status'] !== 'future' ? __('pending','overbooked') : __('approved','overbooked'));
 						$status_class = $appt['status'] !== 'publish' && $appt['status'] !== 'future' ? 'pending' : 'approved';
 						
 						echo '<div class="appt-block bookedClearFix" data-appt-id="'.$appt['post_id'].'">';
 						
 							$default_button_html = '<div class="booked-fea-buttons">';
 								$default_button_html .= '<a href="#" class="delete"'.($calendar_id ? ' data-calendar-id="'.$calendar_id.'"' : '').'><i class="fa-solid fa-xmark"></i></a>';
-								$default_button_html .= ($status_class == 'pending' ? '<button data-appt-id="'.$appt['post_id'].'" class="approve button button-primary">'.__('Approve','booked').'</button>' : '');
+								$default_button_html .= ($status_class == 'pending' ? '<button data-appt-id="'.$appt['post_id'].'" class="approve button button-primary">'.__('Approve','overbooked').'</button>' : '');
 							$default_button_html .=	'</div>';
 						
 							$default_button_html = apply_filters('booked_fea_shortcode_appointments_buttons', $default_button_html, $appt['post_id']);
@@ -152,11 +152,11 @@ class Booked_FEA_Shortcodes {
 							$late_date = current_time('timestamp');
 	
 							if ($timeslots[0] == '0000' && $timeslots[1] == '2400'):
-								$timeslotText = __('All day','booked');
+								$timeslotText = __('All day','overbooked');
 								$atc_date_startend_end = date('Y-m-d',strtotime(date('Y-m-d',$appt['timestamp']) . '+ 1 Day'));
 								$atc_time_end = '00:00:00';
 							else :
-								$timeslotText = (!get_option('booked_hide_end_times') ? __('from','booked').' ' : __('at','booked').' ') . $time_start . (!get_option('booked_hide_end_times') ? ' ' . __('to','booked').' '.$time_end : '');
+								$timeslotText = (!get_option('booked_hide_end_times') ? __('from','overbooked').' ' : __('at','overbooked').' ') . $time_start . (!get_option('booked_hide_end_times') ? ' ' . __('to','overbooked').' '.$time_end : '');
 								$atc_date_startend_end = $atc_date_startend;
 							endif;
 							
@@ -179,7 +179,7 @@ class Booked_FEA_Shortcodes {
 										$display_name = $user_info->user_login;
 									endif;
 								else :
-									$user_display = __('(this user no longer exists)','booked');
+									$user_display = __('(this user no longer exists)','overbooked');
 								endif;
 							else :
 								$user_display = '<a href="#" class="user" data-user-id="0">'.$appt['guest_name'].'</a>';
@@ -188,14 +188,14 @@ class Booked_FEA_Shortcodes {
 						
 							echo $user_display;
 							echo '<br>';
-							if ($late_date > $date_to_compare): echo '<span class="late-appt">' . __('This appointment has passed.','booked') . '</span><br>'; endif;
+							if ($late_date > $date_to_compare): echo '<span class="late-appt">' . __('This appointment has passed.','overbooked') . '</span><br>'; endif;
 							if ($appt['calendar_id']): echo '<strong style="color:#000">'.$appt['calendar_id'][0]->name.'</strong><br>'; endif;
 							echo '<i class="fa-solid fa-calendar-days"></i>'.$day_name.', '.$date_display;
 							echo '&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>'.$timeslotText;
 							
 							do_action('booked_shortcode_appointments_additional_information', $appt['post_id']);
 							$cf_meta_value = apply_filters('booked_fea_cf_metavalue',$cf_meta_value);
-							echo ($cf_meta_value ? '<br><i class="fa-solid fa-circle-info"></i><a href="#" class="booked-show-cf">'.__('Additional information','booked').'</a><div class="cf-meta-values-hidden">'.$cf_meta_value.'</div>' : '');
+							echo ($cf_meta_value ? '<br><i class="fa-solid fa-circle-info"></i><a href="#" class="booked-show-cf">'.__('Additional information','overbooked').'</a><div class="cf-meta-values-hidden">'.$cf_meta_value.'</div>' : '');
 							
 							if (!$historic):
 								if ($appt_date_time >= $date_to_compare):
@@ -233,7 +233,7 @@ class Booked_FEA_Shortcodes {
 
 		else :
 
-			return '<p>'.__('Please log in to view your upcoming appointments.','booked').'</p>';
+			return '<p>'.__('Please log in to view your upcoming appointments.','overbooked').'</p>';
 
 		endif;
 

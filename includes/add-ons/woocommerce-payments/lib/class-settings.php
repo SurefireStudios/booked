@@ -118,7 +118,9 @@ class Booked_WC_Settings_Fields {
 
 		// Register our setting so that $_POST handling is done for us and
 	 	// our callback function just has to echo the <input>
-	 	register_setting($this->options_name, $this->options_name);
+	 	register_setting($this->options_name, $this->options_name, array(
+			'sanitize_callback' => array($this, 'sanitize_settings')
+		));
 	}
 
 	public function field_section() {
@@ -233,6 +235,25 @@ class Booked_WC_Settings_Fields {
 
 	public function booked_schedule_sort($a, $b) {
 		return $a['interval'] - $b['interval'];
+	}
+
+	/**
+	 * Sanitize settings input
+	 */
+	public function sanitize_settings($input) {
+		if (!is_array($input)) {
+			return sanitize_text_field($input);
+		}
+		
+		$sanitized = array();
+		foreach ($input as $key => $value) {
+			if (is_array($value)) {
+				$sanitized[$key] = $this->sanitize_settings($value);
+			} else {
+				$sanitized[$key] = sanitize_text_field($value);
+			}
+		}
+		return $sanitized;
 	}
 
 }

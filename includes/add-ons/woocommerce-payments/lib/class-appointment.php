@@ -139,7 +139,7 @@ class Booked_WC_Appointment {
 			} else {
 
 				if ($timeslots[0] == '0000' && $timeslots[1] == '2400') {
-					$timeslotText = $day_year . ' (' . esc_html__('All day','booked') . ')';
+					$timeslotText = $day_year . ' (' . esc_html__('All day','overbooked') . ')';
 				} else if ( !$hide_end_times ) {
 					$timeslotText = sprintf(__('from %1$s to %2$s on %3$s', 'booked'), $time_start, $time_end, $day_year);
 				} else if ( $hide_end_times ) {

@@ -467,7 +467,7 @@ class Booked_WC_Functions {
 		if ($appointment->order_id):
 			$status_class = $status !== 'publish' && $status !== 'future' ? 'pending' : 'approved';
 			$button_html = '<div class="booked-fea-buttons">';
-				$button_html .= ($status_class == 'pending' ? '<button data-appt-id="'.$appt_id.'" class="approve button button-primary">'.__('Approve','booked').'</button>' : '');
+				$button_html .= ($status_class == 'pending' ? '<button data-appt-id="'.$appt_id.'" class="approve button button-primary">'.__('Approve','overbooked').'</button>' : '');
 			$button_html .=	'</div>';
 			return $button_html;
 		else:

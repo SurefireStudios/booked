@@ -34,12 +34,12 @@ class BookedShortcodes {
 			if ( $name_requirements == 'require_surname' && isset($_POST['booked_reg_surname']) && !$_POST['booked_reg_surname'] ):
 
 				$registration_complete = 'error';
-				$booked_reg_errors[] = esc_html__('A first and last name are required to register.','booked');
+				$booked_reg_errors[] = esc_html__('A first and last name are required to register.','overbooked');
 
 			elseif ( !isset($_POST['booked_reg_name']) || isset($_POST['booked_reg_name']) && !$_POST['booked_reg_name'] ):
 
 				$registration_complete = 'error';
-				$booked_reg_errors[] = esc_html__('A name is required to register.','booked');
+				$booked_reg_errors[] = esc_html__('A name is required to register.','overbooked');
 
 			else:
 
@@ -127,7 +127,7 @@ class BookedShortcodes {
 			$args['orderby'] = 'include';
 		}
 
-		if (!get_option('booked_hide_default_calendar')): $args['show_option_all'] = esc_html__('Default Calendar','booked'); endif;
+		if (!get_option('booked_hide_default_calendar')): $args['show_option_all'] = esc_html__('Default Calendar','overbooked'); endif;
 
 		return str_replace( "\n", '', wp_dropdown_categories( $args ) );
 
@@ -172,7 +172,7 @@ class BookedShortcodes {
 						'orderby'		=> 'name',
 						'order'			=> 'ASC'
 					);
-					if (!get_option('booked_hide_default_calendar')): $args['show_option_all'] = esc_html__('Default Calendar','booked'); endif;
+					if (!get_option('booked_hide_default_calendar')): $args['show_option_all'] = esc_html__('Default Calendar','overbooked'); endif;
 					echo '<div class="booked-calendarSwitcher '.$atts['style'].'"><p><i class="fa-solid fa-calendar-days"></i>' . str_replace( "\n", '', wp_dropdown_categories( $args ) ) . '</p></div>';
 				endif;
 
@@ -240,15 +240,15 @@ class BookedShortcodes {
 
 					if ($historic):
 						if ($total_appts):
-							echo '<h4><span class="count">' . number_format($total_appts) . '</span> ' . _n('Past Appointment','Past Appointments',$total_appts,'booked') . '</h4>';
+							echo '<h4><span class="count">' . number_format($total_appts) . '</span> ' . _n('Past Appointment','Past Appointments',$total_appts,'overbooked') . '</h4>';
 						else:
-							echo '<p class="booked-no-margin">'.esc_html__('No past appointments.','booked').'</p>';
+							echo '<p class="booked-no-margin">'.esc_html__('No past appointments.','overbooked').'</p>';
 						endif;
 					else:
 						if ($total_appts):
-							echo '<h4><span class="count">' . number_format($total_appts) . '</span> ' . _n('Upcoming Appointment','Upcoming Appointments',$total_appts,'booked') . '</h4>';
+							echo '<h4><span class="count">' . number_format($total_appts) . '</span> ' . _n('Upcoming Appointment','Upcoming Appointments',$total_appts,'overbooked') . '</h4>';
 						else:
-							echo '<p class="booked-no-margin">'.esc_html__('No upcoming appointments.','booked').'</p>';
+							echo '<p class="booked-no-margin">'.esc_html__('No upcoming appointments.','overbooked').'</p>';
 						endif;
 					endif;
 
@@ -257,7 +257,7 @@ class BookedShortcodes {
 						$today = date_i18n($date_format);
 						$date_display = date_i18n($date_format,$appt['timestamp']);
 						if ($date_display == $today){
-							$date_display = esc_html__('Today','booked');
+							$date_display = esc_html__('Today','overbooked');
 							$day_name = '';
 						} else {
 							$day_name = date_i18n('l',$appt['timestamp']).', ';
@@ -295,19 +295,19 @@ class BookedShortcodes {
 						endif;
 
 						$timeslotText = '';
-						$status = ($appt['status'] != 'publish' && $appt['status'] != 'future' ? esc_html__('pending','booked') : esc_html__('approved','booked'));
+						$status = ($appt['status'] != 'publish' && $appt['status'] != 'future' ? esc_html__('pending','overbooked') : esc_html__('approved','overbooked'));
 						$status_class = $appt['status'] != 'publish' && $appt['status'] != 'future' ? 'pending' : 'approved';
 						$ts_title = get_post_meta($appt['post_id'], '_appointment_title',true);
 
 						if ($timeslots[0] == '0000' && $timeslots[1] == '2400'):
 							if ($only_titles && !$ts_title || !$only_titles):
-								$timeslotText = esc_html__('All day','booked');
+								$timeslotText = esc_html__('All day','overbooked');
 							endif;
 							$atc_date_startend_end = date_i18n('Y-m-d',strtotime(date_i18n('Y-m-d',$appt['timestamp']) . '+ 1 Day'));
 							$atc_time_end = '00:00:00';
 						else :
 							if ($only_titles && !$ts_title || !$only_titles):
-								$timeslotText = (!get_option('booked_hide_end_times') ? esc_html__('from','booked').' ' : esc_html__('at','booked').' ') . $time_start . (!get_option('booked_hide_end_times') ? ' &ndash; '.$time_end : '');
+								$timeslotText = (!get_option('booked_hide_end_times') ? esc_html__('from','overbooked').' ' : esc_html__('at','overbooked').' ') . $time_start . (!get_option('booked_hide_end_times') ? ' &ndash; '.$time_end : '');
 							endif;
 							$atc_date_startend_end = $atc_date_startend;
 						endif;
@@ -318,13 +318,13 @@ class BookedShortcodes {
 									echo '<span class="status-block">'.($status_class == 'pending' ? '<i class="fa-solid fa-circle"></i>' : '<i class="fa-solid fa-circle-dot"></i>').'&nbsp;&nbsp;'.$status.'</span>';
 								endif;
 							endif;
-							echo (!empty($appt['calendar_id']) ? '<i class="fa-solid fa-calendar-days"></i><strong>'.esc_html__('Calendar','booked').':</strong> '.$appt['calendar_id'][0]->name.'<br>' : '');
+							echo (!empty($appt['calendar_id']) ? '<i class="fa-solid fa-calendar-days"></i><strong>'.esc_html__('Calendar','overbooked').':</strong> '.$appt['calendar_id'][0]->name.'<br>' : '');
 
 							echo '<i class="fa-solid fa-clock"></i>'.($ts_title ? '<strong>'.$ts_title.':</strong>&nbsp;&nbsp;' : '').$day_name.$date_display.'&nbsp;&nbsp;' . $timeslotText;
 
 							do_action('booked_shortcode_appointments_additional_information', $appt['post_id']);
 
-							echo ($cf_meta_value ? '<br><i class="fa-solid fa-circle-info"></i><a href="#" class="booked-show-cf">'.esc_html__('Additional information','booked').'</a><div class="cf-meta-values-hidden">'.$cf_meta_value.'</div>' : '');
+							echo ($cf_meta_value ? '<br><i class="fa-solid fa-circle-info"></i><a href="#" class="booked-show-cf">'.esc_html__('Additional information','overbooked').'</a><div class="cf-meta-values-hidden">'.$cf_meta_value.'</div>' : '');
 
 							if (!$historic):
 
@@ -337,7 +337,7 @@ class BookedShortcodes {
 
 								ob_start();
 								booked_add_to_calendar_button($calendar_button_array,$cf_meta_value);
-								if ( apply_filters('booked_shortcode_appointments_allow_cancel', true, $appt['post_id']) && !get_option('booked_dont_allow_user_cancellations',false) ) { if ( $appt_date_time >= $date_to_compare ) { echo '<a href="#" data-appt-id="'.$appt['post_id'].'" class="cancel">'.esc_html__('Cancel Appointment','booked').'</a>'; } }
+								if ( apply_filters('booked_shortcode_appointments_allow_cancel', true, $appt['post_id']) && !get_option('booked_dont_allow_user_cancellations',false) ) { if ( $appt_date_time >= $date_to_compare ) { echo '<a href="#" data-appt-id="'.$appt['post_id'].'" class="cancel">'.esc_html__('Cancel Appointment','overbooked').'</a>'; } }
 								do_action('booked_shortcode_appointments_buttons', $appt['post_id']);
 								$buttons_content = ob_get_clean();
 
@@ -362,7 +362,7 @@ class BookedShortcodes {
 
 		else :
 
-			return '<p>'.esc_html__('Please log in to view your upcoming appointments.','booked').'</p>';
+			return '<p>'.esc_html__('Please log in to view your upcoming appointments.','overbooked').'</p>';
 
 		endif;
 
@@ -384,9 +384,9 @@ class BookedShortcodes {
 				<div id="booked-page-form">
 
 					<ul class="booked-tabs login bookedClearFix">
-						<li<?php if ( !isset($_POST['booked_reg_submit'] ) ) { ?> class="active"<?php } ?>><a href="#login"><i class="fa-solid fa-lock"></i><?php esc_html_e('Sign In','booked'); ?></a></li>
-						<?php if ( get_option('users_can_register') ): ?><li<?php if ( isset($_POST['booked_reg_submit'] ) ) { ?> class="active"<?php } ?>><a href="#register"><i class="fa-solid fa-pencil"></i><?php esc_html_e('Register','booked'); ?></a></li><?php endif; ?>
-						<li><a href="#forgot"><i class="fa-solid fa-circle-question"></i><?php esc_html_e('Forgot Password','booked'); ?></a></li>
+						<li<?php if ( !isset($_POST['booked_reg_submit'] ) ) { ?> class="active"<?php } ?>><a href="#login"><i class="fa-solid fa-lock"></i><?php esc_html_e('Sign In','overbooked'); ?></a></li>
+						<?php if ( get_option('users_can_register') ): ?><li<?php if ( isset($_POST['booked_reg_submit'] ) ) { ?> class="active"<?php } ?>><a href="#register"><i class="fa-solid fa-pencil"></i><?php esc_html_e('Register','overbooked'); ?></a></li><?php endif; ?>
+						<li><a href="#forgot"><i class="fa-solid fa-circle-question"></i><?php esc_html_e('Forgot Password','overbooked'); ?></a></li>
 					</ul>
 
 					<div id="profile-login" class="booked-tab-content">
@@ -394,8 +394,8 @@ class BookedShortcodes {
 						<?php if (isset($reset) && $reset == true) { ?>
 
 							<p class="booked-form-notice">
-							<strong><?php esc_html_e('Success!','booked'); ?></strong><br />
-							<?php esc_html_e('Check your email to reset your password.','booked'); ?>
+							<strong><?php esc_html_e('Success!','overbooked'); ?></strong><br />
+							<?php esc_html_e('Check your email to reset your password.','overbooked'); ?>
 							</p>
 
 						<?php } ?>
@@ -403,8 +403,8 @@ class BookedShortcodes {
 						<?php $login_redirect = get_option('booked_login_redirect_page') ? get_option('booked_login_redirect_page') : $post->ID; ?>
 
 						<div class="booked-form-wrap bookedClearFix">
-							<div class="booked-custom-error"><?php esc_html_e('Both fields are required to log in.','booked'); ?></div>
-							<?php if (isset($_GET['loginfailed'])): ?><div class="booked-custom-error not-hidden"><?php esc_html_e('Sorry, those login credentials are incorrect.','booked'); ?></div><?php endif; ?>
+							<div class="booked-custom-error"><?php esc_html_e('Both fields are required to log in.','overbooked'); ?></div>
+							<?php if (isset($_GET['loginfailed'])): ?><div class="booked-custom-error not-hidden"><?php esc_html_e('Sorry, those login credentials are incorrect.','overbooked'); ?></div><?php endif; ?>
 
 							<?php $custom_login_form_message = get_option('booked_custom_login_message',false);
 							if ($custom_login_form_message):
@@ -412,7 +412,7 @@ class BookedShortcodes {
 							endif;
 
 							add_filter( 'login_form_top', 'booked_hidden_login_field' );
-							echo wp_login_form( array( 'echo' => false, 'redirect' => get_the_permalink($login_redirect), 'label_username' => esc_html__( 'Email Address','booked' ) ) );
+							echo wp_login_form( array( 'echo' => false, 'redirect' => get_the_permalink($login_redirect), 'label_username' => esc_html__( 'Email Address','overbooked' ) ) );
 							remove_filter( 'login_form_top', 'booked_hidden_login_field' );
 
 							?>
@@ -447,15 +447,15 @@ class BookedShortcodes {
 
 					<div id="profile-forgot" class="booked-tab-content">
 						<div class="booked-form-wrap bookedClearFix">
-							<div class="booked-custom-error"><?php esc_html_e('An email address is required to reset your password.','booked'); ?></div>
+							<div class="booked-custom-error"><?php esc_html_e('An email address is required to reset your password.','overbooked'); ?></div>
 							<form method="post" action="<?php echo site_url('wp-login.php?action=lostpassword', 'login_post') ?>" class="wp-user-form">
 								<p class="username">
-									<label for="user_login"><?php esc_html_e('What is your email address?','booked'); ?></label>
+									<label for="user_login"><?php esc_html_e('What is your email address?','overbooked'); ?></label>
 									<input type="text" name="user_login" value="" size="20" id="user_login" tabindex="1001" />
 								</p>
 
 								<?php do_action('login_form', 'resetpass'); ?>
-								<input type="submit" name="user-submit" value="<?php esc_html_e('Reset my password','booked'); ?>" class="user-submit button-primary" tabindex="1002" />
+								<input type="submit" name="user-submit" value="<?php esc_html_e('Reset my password','overbooked'); ?>" class="user-submit button-primary" tabindex="1002" />
 								<input type="hidden" name="redirect_to" value="<?php the_permalink(); ?>?reset=true" />
 								<input type="hidden" name="user-cookie" value="1" />
 

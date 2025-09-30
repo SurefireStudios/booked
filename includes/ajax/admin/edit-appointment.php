@@ -18,7 +18,7 @@ $_timestamp_time = date( 'H:i:s', strtotime( $_timeslots[0] ) );
 if ( $appt_id ):
 
 	if ( $email && !is_email($email) ):
-		echo 'error###' . esc_html__( 'That email does not appear to be valid.','booked');
+		echo 'error###' . esc_html__( 'That email does not appear to be valid.','overbooked');
 		wp_die();
 	endif;
 

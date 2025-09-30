@@ -33,7 +33,7 @@
 				<i class="fa-solid fa-calendar-days"></i><?php
 
 				echo '<select name="bookedCalendarDisplayed">';
-				if (current_user_can('manage_booked_options')): echo '<option value="">'.esc_html__('All Calendars','booked').'</option>'; endif;
+				if (current_user_can('manage_booked_options')): echo '<option value="">'.esc_html__('All Calendars','overbooked').'</option>'; endif;
 
 				foreach($calendars as $calendar):
 
@@ -62,8 +62,8 @@
 	if (!current_user_can('manage_booked_options') && $booked_none_assigned):
 
 		echo '<div style="text-align:center;">';
-			echo '<br><br><h3>'.esc_html__('There are no calendars assigned to you.','booked').'</h3>';
-			echo '<p>'.esc_html__('Get in touch with the Administration of this site to get a calendar assigned to you.','booked').'</p>';
+			echo '<br><br><h3>'.esc_html__('There are no calendars assigned to you.','overbooked').'</h3>';
+			echo '<p>'.esc_html__('Get in touch with the Administration of this site to get a calendar assigned to you.','overbooked').'</p>';
 		echo '</div>';
 
 	else:

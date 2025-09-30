@@ -18,7 +18,7 @@ $calendar_id = (isset($_POST['calendar_id']) ? intval($_POST['calendar_id']) : f
 if ($calendar_id): $calendar_obj = get_term($calendar_id,'booked_custom_calendars'); $calendar_name = $calendar_obj->name; else: $calendar_name = ''; endif;
 
 if ($timeslot_parts[0] == '0000' && $timeslot_parts[1] == '2400'):
-	$timeslotText = esc_html__('All day','booked');
+	$timeslotText = esc_html__('All day','overbooked');
 else :
 	$timeslotText = date_i18n($time_format,strtotime($timeslot_parts[0])).' &ndash; '.date_i18n($time_format,strtotime($timeslot_parts[1]));
 endif;
@@ -26,7 +26,7 @@ endif;
 ?>
 <div class="booked-scrollable">
 
-	<p class="booked-title-bar"><small><?php esc_html_e('New Appointment','booked'); ?></small></p>
+	<p class="booked-title-bar"><small><?php esc_html_e('New Appointment','overbooked'); ?></small></p>
 
 	<?php if ($calendar_name): ?><p class="booked-calendar-name"><?php echo $calendar_name; ?></p><?php endif; ?>
 
@@ -42,15 +42,15 @@ endif;
 		<?php $guest_booking = (get_option('booked_booking_type','registered') == 'guest' ? true : false); ?>
 
 		<div class="field">
-			<input data-condition="customer_type" type="radio" name="customer_type" id="customer_current" value="current" checked> <label for="customer_current"><?php esc_html_e('Current Customer','booked'); ?></label>
+			<input data-condition="customer_type" type="radio" name="customer_type" id="customer_current" value="current" checked> <label for="customer_current"><?php esc_html_e('Current Customer','overbooked'); ?></label>
 		</div>
 		<div class="field">
-			<input data-condition="customer_type" type="radio" name="customer_type" id="customer_new" value="new"> <label for="customer_new"><?php esc_html_e('New Customer','booked'); ?></label>
+			<input data-condition="customer_type" type="radio" name="customer_type" id="customer_new" value="new"> <label for="customer_new"><?php esc_html_e('New Customer','overbooked'); ?></label>
 		</div>
 
 		<?php if ($guest_booking): ?>
 			<div class="field">
-				<input data-condition="customer_type" type="radio" name="customer_type" id="customer_guest" value="guest"> <label for="customer_guest"><?php esc_html_e('Guest','booked'); ?></label>
+				<input data-condition="customer_type" type="radio" name="customer_type" id="customer_guest" value="guest"> <label for="customer_guest"><?php esc_html_e('Guest','overbooked'); ?></label>
 			</div>
 		<?php endif; ?>
 
@@ -58,7 +58,7 @@ endif;
 
 		<div class="condition-block customer_type default" id="condition-current" data-condition-val="current">
 			<div class="field">
-				<select data-placeholder="<?php esc_html_e('Select a customer','booked'); ?>..." id="userList" name="user_id">
+				<select data-placeholder="<?php esc_html_e('Select a customer','overbooked'); ?>..." id="userList" name="user_id">
 					<option></option>
 					<?php foreach($user_array as $user): ?>
 						<option value="<?php echo $user->ID; ?>"><?php echo booked_get_name($user->ID); ?></option>
@@ -71,18 +71,18 @@ endif;
 
 			<?php if (isset($name_requirements) && $name_requirements == 'require_surname'): ?>
 				<div class="field">
-					<input value="" placeholder="<?php esc_html_e('First Name','booked'); ?>..." type="text" class="textfield" name="name" />
-					<input value="" placeholder="<?php esc_html_e('Last Name','booked'); ?>..." type="text" class="textfield" name="surname" />
+					<input value="" placeholder="<?php esc_html_e('First Name','overbooked'); ?>..." type="text" class="textfield" name="name" />
+					<input value="" placeholder="<?php esc_html_e('Last Name','overbooked'); ?>..." type="text" class="textfield" name="surname" />
 				</div>
 			<?php else: ?>
 				<div class="field">
-					<input value="" placeholder="<?php esc_html_e('Name','booked'); ?>..." type="text" class="large textfield" name="name" />
+					<input value="" placeholder="<?php esc_html_e('Name','overbooked'); ?>..." type="text" class="large textfield" name="name" />
 				</div>
 			<?php endif; ?>
 
 			<div class="field">
-				<input value="" placeholder="<?php esc_html_e('Email Address','booked'); ?>..." type="email" class="textfield" name="email" />
-				<input value="" placeholder="<?php esc_html_e('Choose a password','booked'); ?>..." type="password" class="textfield" name="password" />
+				<input value="" placeholder="<?php esc_html_e('Email Address','overbooked'); ?>..." type="email" class="textfield" name="email" />
+				<input value="" placeholder="<?php esc_html_e('Choose a password','overbooked'); ?>..." type="password" class="textfield" name="password" />
 			</div>
 		</div>
 
@@ -92,18 +92,18 @@ endif;
 
 				<?php if (isset($name_requirements) && $name_requirements == 'require_surname'): ?>
 					<div class="field">
-						<input value="" placeholder="<?php esc_html_e('First Name','booked'); ?>..." type="text" class="textfield" name="guest_name" />
-						<input value="" placeholder="<?php esc_html_e('Last Name','booked'); ?>..." type="text" class="textfield" name="guest_surname" />
+						<input value="" placeholder="<?php esc_html_e('First Name','overbooked'); ?>..." type="text" class="textfield" name="guest_name" />
+						<input value="" placeholder="<?php esc_html_e('Last Name','overbooked'); ?>..." type="text" class="textfield" name="guest_surname" />
 					</div>
 				<?php else: ?>
 					<div class="field">
-						<input value="" placeholder="<?php esc_html_e('Name','booked'); ?>..." type="text" class="large textfield" name="guest_name" />
+						<input value="" placeholder="<?php esc_html_e('Name','overbooked'); ?>..." type="text" class="large textfield" name="guest_name" />
 					</div>
 				<?php endif; ?>
 
 				<?php if ( $email_required ): ?>
 				<div class="field">
-					<input value="" placeholder="<?php esc_html_e('Email Address','booked'); ?>" type="email" class="large textfield" name="guest_email" />
+					<input value="" placeholder="<?php esc_html_e('Email Address','overbooked'); ?>" type="email" class="large textfield" name="guest_email" />
 				</div>
 				<?php endif; ?>
 
@@ -121,8 +121,8 @@ endif;
 		<input type="hidden" name="title" value="<?php echo esc_attr($title); ?>" />
 
 		<div class="field">
-			<input type="submit" class="button button-primary" value="<?php esc_html_e('Create Appointment','booked'); ?>">
-			<button class="cancel button"><?php esc_html_e('Cancel','booked'); ?></button>
+			<input type="submit" class="button button-primary" value="<?php esc_html_e('Create Appointment','overbooked'); ?>">
+			<button class="cancel button"><?php esc_html_e('Cancel','overbooked'); ?></button>
 		</div>
 
 	</form>

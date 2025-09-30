@@ -89,12 +89,12 @@ CALSCALE:GREGORIAN<?php echo "\r\n"; ?>
 				if ( !empty($user_info) ):
 					$email = $user_info->user_email;
 				else:
-					$display_name = esc_html__('[No name]','booked');
-					$email = esc_html__('[No email]','booked');
+					$display_name = esc_html__('[No name]','overbooked');
+					$email = esc_html__('[No email]','overbooked');
 				endif;
 			else:
-				$display_name = esc_html__('[No name]','booked');
-				$email = esc_html__('[No email]','booked');
+				$display_name = esc_html__('[No name]','overbooked');
+				$email = esc_html__('[No email]','overbooked');
 			endif;
 
 		else:

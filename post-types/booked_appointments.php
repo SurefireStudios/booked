@@ -45,7 +45,7 @@ if(!class_exists('booked_appointments_post_type')) {
 					'show_in_admin_bar' => false,
 					'public' => false,
 					'has_archive' => false,
-					'description' => esc_html__('Appointments','booked'),
+					'description' => esc_html__('Appointments','overbooked'),
 					'supports' => array(
 						'title','author'
 					),

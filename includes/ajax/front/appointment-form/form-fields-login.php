@@ -3,8 +3,8 @@
 </div>
 	
 <div class="field">
-	<input value="" placeholder="<?php esc_html_e('Email Address','booked'); ?> ..." class="textfield large" id="username" name="username" type="text" >
+	<input value="" placeholder="<?php esc_html_e('Email Address','overbooked'); ?> ..." class="textfield large" id="username" name="username" type="text" >
 </div>
 <div class="field">
-	<input value="" placeholder="<?php esc_html_e('Password','booked'); ?> ..." class="textfield large" id="password" name="password" type="password" >
+	<input value="" placeholder="<?php esc_html_e('Password','overbooked'); ?> ..." class="textfield large" id="password" name="password" type="password" >
 </div>

@@ -29,12 +29,12 @@ function booked_add_to_calendar_button($dates,$cf_meta_value){
 
 		wp_enqueue_script('booked-atc');
 
-		?><div title="<?php esc_attr_e('Add to Calendar','booked'); ?>" class="addeventatc atc-style-booked google-cal-button">
-		    <?php esc_html_e('Add to Calendar','booked'); ?>
+		?><div title="<?php esc_attr_e('Add to Calendar','overbooked'); ?>" class="addeventatc atc-style-booked google-cal-button">
+		    <?php esc_html_e('Add to Calendar','overbooked'); ?>
 		    <span class="start"><?php echo $dates['atc_date_startend']; ?> <?php echo $dates['atc_time_start']; ?></span>
 		    <span class="end"><?php echo $dates['atc_date_startend_end']; ?> <?php echo $dates['atc_time_end']; ?></span>
 		    <span class="timezone"><?php echo booked_get_timezone_string(); ?></span>
-		    <span class="title"><?php echo sprintf(esc_html__('Appointment with %s','booked'),get_bloginfo('name')); ?></span>
+		    <span class="title"><?php echo sprintf(esc_html__('Appointment with %s','overbooked'),get_bloginfo('name')); ?></span>
 		    <span class="description"><?php echo strip_tags(str_replace('<br>','
 ',$cf_meta_value)); ?></span>
 		    <span class="location"><?php echo get_bloginfo('name'); ?></span>
@@ -224,7 +224,7 @@ function booked_registration_validation( $email, $password, $captcha_value = fal
 
 	if ($captcha_value):
 		if ($captcha_value != $captcha_from_user):
-			$reg_errors->add('captcha', esc_html__('The text you\'ve entered does not match the image.','booked'));
+			$reg_errors->add('captcha', esc_html__('The text you\'ve entered does not match the image.','overbooked'));
 		else :
 			$captcha = new ReallySimpleCaptcha();
 			$captcha->remove($captcha_value);
@@ -232,23 +232,23 @@ function booked_registration_validation( $email, $password, $captcha_value = fal
 	endif;
 
 	if ( !$email || !$password ) {
-	    $reg_errors->add('field', esc_html__('All fields are required to register.','booked'));
+	    $reg_errors->add('field', esc_html__('All fields are required to register.','overbooked'));
 	}
 
 	if ( username_exists( $email ) ) {
-    	$reg_errors->add('user_name', esc_html__('That username already exists.','booked'));
+    	$reg_errors->add('user_name', esc_html__('That username already exists.','overbooked'));
     }
 
     if ( ! validate_username( $email ) ) {
-	    $reg_errors->add( 'username_invalid', esc_html__('That name is not valid.','booked'));
+	    $reg_errors->add( 'username_invalid', esc_html__('That name is not valid.','overbooked'));
 	}
 
     if ( !is_email( $email ) ) {
-	    $reg_errors->add( 'email_invalid', esc_html__('That email address is not valid.','booked'));
+	    $reg_errors->add( 'email_invalid', esc_html__('That email address is not valid.','overbooked'));
 	}
 
 	if ( email_exists( $email ) ) {
-	    $reg_errors->add( 'email', esc_html__('That email is already in use.','booked'));
+	    $reg_errors->add( 'email', esc_html__('That email is already in use.','overbooked'));
 	}
 
 	if ( is_wp_error( $reg_errors ) ) {
@@ -299,7 +299,7 @@ function booked_complete_registration() {
 
 		endif;
 
-        return '<p class="booked-form-notice"><strong>'.esc_html__('Success!','booked').'</strong><br />'.esc_html__('Registration complete, please check your email for login information.','booked').'</p>';
+        return '<p class="booked-form-notice"><strong>'.esc_html__('Success!','overbooked').'</strong><br />'.esc_html__('Registration complete, please check your email for login information.','overbooked').'</p>';
 
     } else {
 	    return false;
@@ -339,28 +339,28 @@ function booked_registration_form($name, $surname, $email, $password){
 	?><form action="" method="post" class="wp-user-form">
 
 		<p class="name">
-			<label for="name"><?php echo ( $name_requirements == 'require_surname' ? esc_html__('First Name','booked') : esc_html__('Your Name','booked') ); ?></label>
+			<label for="name"><?php echo ( $name_requirements == 'require_surname' ? esc_html__('First Name','overbooked') : esc_html__('Your Name','overbooked') ); ?></label>
 			<input type="text" name="booked_reg_name" value="<?php echo ( isset( $name ) ? $name : null ); ?>" id="name" tabindex="101" />
 		</p>
 		<?php if ($name_requirements == 'require_surname'): ?>
 		<p class="surname">
-			<label for="surname"><?php esc_html_e('Last Name','booked'); ?></label>
+			<label for="surname"><?php esc_html_e('Last Name','overbooked'); ?></label>
 			<input type="text" name="booked_reg_surname" value="<?php echo ( isset( $surname ) ? $surname : null ); ?>" id="surname" tabindex="102" />
 		</p>
 		<?php endif; ?>
 		<p class="email">
-			<label for="email"><?php esc_html_e('Email Address','booked'); ?></label>
+			<label for="email"><?php esc_html_e('Email Address','overbooked'); ?></label>
 			<input type="email" name="booked_reg_email" value="<?php echo ( isset( $email ) ? $email : null ); ?>" id="email" tabindex="103" />
 		</p>
 		<p class="password">
-			<label for="password"><?php esc_html_e('Choose a Password','booked'); ?></label>
+			<label for="password"><?php esc_html_e('Choose a Password','overbooked'); ?></label>
 			<input type="password" name="booked_reg_password" value="<?php echo ( isset( $password ) ? $password : null ); ?>" id="password" tabindex="104" />
 		</p>
 
 		<?php if (class_exists('ReallySimpleCaptcha')) :
 
 			?><p class="captcha">
-				<label for="captcha_code"><?php esc_html_e('Please enter the following text:','booked'); ?></label><?php
+				<label for="captcha_code"><?php esc_html_e('Please enter the following text:','overbooked'); ?></label><?php
 
 				$rsc_url = WP_PLUGIN_URL . '/really-simple-captcha/';
 
@@ -379,7 +379,7 @@ function booked_registration_form($name, $surname, $email, $password){
 
 		endif; ?>
 
-		<input type="submit" name="booked_reg_submit" value="<?php esc_html_e('Register','booked'); ?>" class="user-submit button-primary" tabindex="105" />
+		<input type="submit" name="booked_reg_submit" value="<?php esc_html_e('Register','overbooked'); ?>" class="user-submit button-primary" tabindex="105" />
 
 	</form><?php
 

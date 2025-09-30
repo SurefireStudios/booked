@@ -1,0 +1,538 @@
+/* OverBooked Modern CSS Overrides */
+/* Modern color palette and design system */
+
+:root {
+  /* Modern Color Palette */
+  --overbooked-primary: #3b82f6;
+  --overbooked-primary-hover: #2563eb;
+  --overbooked-primary-light: #dbeafe;
+  --overbooked-secondary: #6366f1;
+  --overbooked-success: #10b981;
+  --overbooked-warning: #f59e0b;
+  --overbooked-error: #ef4444;
+  --overbooked-info: #06b6d4;
+  
+  /* Neutral Colors */
+  --overbooked-gray-50: #f9fafb;
+  --overbooked-gray-100: #f3f4f6;
+  --overbooked-gray-200: #e5e7eb;
+  --overbooked-gray-300: #d1d5db;
+  --overbooked-gray-400: #9ca3af;
+  --overbooked-gray-500: #6b7280;
+  --overbooked-gray-600: #4b5563;
+  --overbooked-gray-700: #374151;
+  --overbooked-gray-800: #1f2937;
+  --overbooked-gray-900: #111827;
+  
+  /* Typography */
+  --overbooked-font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --overbooked-font-mono: 'SF Mono', Monaco, Inconsolata, 'Roboto Mono', Consolas, 'Courier New', monospace;
+  
+  /* Spacing Scale */
+  --overbooked-space-1: 0.25rem;
+  --overbooked-space-2: 0.5rem;
+  --overbooked-space-3: 0.75rem;
+  --overbooked-space-4: 1rem;
+  --overbooked-space-5: 1.25rem;
+  --overbooked-space-6: 1.5rem;
+  --overbooked-space-8: 2rem;
+  --overbooked-space-10: 2.5rem;
+  --overbooked-space-12: 3rem;
+  
+  /* Border Radius */
+  --overbooked-radius-sm: 0.375rem;
+  --overbooked-radius: 0.5rem;
+  --overbooked-radius-md: 0.75rem;
+  --overbooked-radius-lg: 1rem;
+  --overbooked-radius-xl: 1.5rem;
+  
+  /* Shadows */
+  --overbooked-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --overbooked-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+  --overbooked-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --overbooked-shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --overbooked-shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  /* Transitions */
+  --overbooked-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --overbooked-transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Modern Button Styles */
+body #booked-profile-page input[type=submit],
+body #booked-profile-page button,
+body .booked-list-view input[type=submit],
+body .booked-list-view button,
+body .booked-calendar input[type=submit],
+body .booked-calendar button,
+body .booked-modal input[type=submit],
+body .booked-modal button {
+  font-family: var(--overbooked-font-sans);
+  font-weight: 500;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding: var(--overbooked-space-3) var(--overbooked-space-4);
+  border-radius: var(--overbooked-radius);
+  border: 1px solid var(--overbooked-gray-300);
+  background: white;
+  color: var(--overbooked-gray-700);
+  box-shadow: var(--overbooked-shadow-sm);
+  transition: var(--overbooked-transition);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--overbooked-space-2);
+}
+
+body #booked-profile-page input[type=submit]:hover,
+body #booked-profile-page button:hover,
+body .booked-list-view input[type=submit]:hover,
+body .booked-list-view button:hover,
+body .booked-calendar input[type=submit]:hover,
+body .booked-calendar button:hover,
+body .booked-modal input[type=submit]:hover,
+body .booked-modal button:hover {
+  background: var(--overbooked-gray-50);
+  border-color: var(--overbooked-gray-400);
+  color: var(--overbooked-gray-900);
+  box-shadow: var(--overbooked-shadow);
+  transform: translateY(-1px);
+}
+
+/* Primary Button Variant */
+body .booked-button-primary,
+body .button-primary.booked-button,
+body input[type=submit].booked-button-primary,
+body button.booked-button-primary {
+  background: var(--overbooked-primary) !important;
+  border-color: var(--overbooked-primary) !important;
+  color: white !important;
+}
+
+body .booked-button-primary:hover,
+body .button-primary.booked-button:hover,
+body input[type=submit].booked-button-primary:hover,
+body button.booked-button-primary:hover {
+  background: var(--overbooked-primary-hover) !important;
+  border-color: var(--overbooked-primary-hover) !important;
+  color: white !important;
+}
+
+/* Modern Card Components */
+.booked-card {
+  background: white;
+  border-radius: var(--overbooked-radius-lg);
+  box-shadow: var(--overbooked-shadow);
+  border: 1px solid var(--overbooked-gray-200);
+  overflow: hidden;
+  transition: var(--overbooked-transition);
+}
+
+.booked-card:hover {
+  box-shadow: var(--overbooked-shadow-md);
+  transform: translateY(-2px);
+}
+
+.booked-card-header {
+  padding: var(--overbooked-space-6);
+  border-bottom: 1px solid var(--overbooked-gray-200);
+  background: var(--overbooked-gray-50);
+}
+
+.booked-card-body {
+  padding: var(--overbooked-space-6);
+}
+
+.booked-card-footer {
+  padding: var(--overbooked-space-6);
+  border-top: 1px solid var(--overbooked-gray-200);
+  background: var(--overbooked-gray-50);
+}
+
+/* Modern Calendar Styles */
+.booked-calendar {
+  font-family: var(--overbooked-font-sans);
+  border-radius: var(--overbooked-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--overbooked-shadow);
+  border: 1px solid var(--overbooked-gray-200);
+}
+
+.booked-calendar-wrap {
+  background: white;
+}
+
+.booked-calendar table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.booked-calendar th {
+  background: var(--overbooked-gray-50);
+  color: var(--overbooked-gray-700);
+  font-weight: 600;
+  font-size: 0.875rem;
+  padding: var(--overbooked-space-4);
+  border-bottom: 1px solid var(--overbooked-gray-200);
+}
+
+.booked-calendar td {
+  border-right: 1px solid var(--overbooked-gray-100);
+  border-bottom: 1px solid var(--overbooked-gray-100);
+  transition: var(--overbooked-transition);
+}
+
+.booked-calendar td:hover {
+  background: var(--overbooked-primary-light);
+}
+
+.booked-calendar .date {
+  padding: var(--overbooked-space-4);
+  min-height: 80px;
+  position: relative;
+}
+
+.booked-calendar .date .date-number {
+  font-weight: 600;
+  color: var(--overbooked-gray-700);
+  font-size: 0.875rem;
+}
+
+.booked-calendar .date.today {
+  background: var(--overbooked-primary-light);
+}
+
+.booked-calendar .date.today .date-number {
+  color: var(--overbooked-primary);
+  font-weight: 700;
+}
+
+/* Modern Modal Styles */
+.booked-modal {
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.booked-modal-wrap {
+  background: white;
+  border-radius: var(--overbooked-radius-xl);
+  box-shadow: var(--overbooked-shadow-xl);
+  border: none;
+  max-width: 500px;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+.booked-modal .modal-header {
+  background: var(--overbooked-gray-50);
+  padding: var(--overbooked-space-6);
+  border-bottom: 1px solid var(--overbooked-gray-200);
+}
+
+.booked-modal .modal-header h2 {
+  font-family: var(--overbooked-font-sans);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--overbooked-gray-900);
+  margin: 0;
+}
+
+.booked-modal .modal-body {
+  padding: var(--overbooked-space-6);
+}
+
+.booked-modal .modal-footer {
+  background: var(--overbooked-gray-50);
+  padding: var(--overbooked-space-6);
+  border-top: 1px solid var(--overbooked-gray-200);
+  display: flex;
+  gap: var(--overbooked-space-3);
+  justify-content: flex-end;
+}
+
+/* Modern Form Styles */
+.booked-form-field {
+  margin-bottom: var(--overbooked-space-5);
+}
+
+.booked-form-field label {
+  display: block;
+  font-family: var(--overbooked-font-sans);
+  font-weight: 500;
+  font-size: 0.875rem;
+  color: var(--overbooked-gray-700);
+  margin-bottom: var(--overbooked-space-2);
+}
+
+.booked-form-field input[type="text"],
+.booked-form-field input[type="email"],
+.booked-form-field input[type="password"],
+.booked-form-field input[type="tel"],
+.booked-form-field textarea,
+.booked-form-field select {
+  width: 100%;
+  padding: var(--overbooked-space-3);
+  border: 1px solid var(--overbooked-gray-300);
+  border-radius: var(--overbooked-radius);
+  font-family: var(--overbooked-font-sans);
+  font-size: 0.875rem;
+  transition: var(--overbooked-transition);
+  background: white;
+}
+
+.booked-form-field input:focus,
+.booked-form-field textarea:focus,
+.booked-form-field select:focus {
+  outline: none;
+  border-color: var(--overbooked-primary);
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Modern Alert/Notice Styles */
+.booked-alert {
+  padding: var(--overbooked-space-4);
+  border-radius: var(--overbooked-radius);
+  border: 1px solid;
+  margin-bottom: var(--overbooked-space-4);
+  font-family: var(--overbooked-font-sans);
+  font-size: 0.875rem;
+}
+
+.booked-alert-success {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+  color: #166534;
+}
+
+.booked-alert-warning {
+  background: #fffbeb;
+  border-color: #fed7aa;
+  color: #92400e;
+}
+
+.booked-alert-error {
+  background: #fef2f2;
+  border-color: #fecaca;
+  color: #991b1b;
+}
+
+.booked-alert-info {
+  background: #f0f9ff;
+  border-color: #bae6fd;
+  color: #0c4a6e;
+}
+
+/* Modern Badge/Tag Styles */
+.booked-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--overbooked-space-1) var(--overbooked-space-3);
+  border-radius: var(--overbooked-radius);
+  font-size: 0.75rem;
+  font-weight: 500;
+  font-family: var(--overbooked-font-sans);
+}
+
+.booked-badge-primary {
+  background: var(--overbooked-primary-light);
+  color: var(--overbooked-primary);
+}
+
+.booked-badge-success {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.booked-badge-warning {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.booked-badge-error {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+/* Modern Loading States */
+.booked-loading {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--overbooked-space-2);
+  color: var(--overbooked-gray-500);
+  font-family: var(--overbooked-font-sans);
+  font-size: 0.875rem;
+}
+
+.booked-spinner {
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--overbooked-gray-200);
+  border-top: 2px solid var(--overbooked-primary);
+  border-radius: 50%;
+  animation: booked-spin 1s linear infinite;
+}
+
+@keyframes booked-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Modern Typography */
+.booked-heading-1 {
+  font-family: var(--overbooked-font-sans);
+  font-size: 2.25rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--overbooked-gray-900);
+  margin-bottom: var(--overbooked-space-6);
+}
+
+.booked-heading-2 {
+  font-family: var(--overbooked-font-sans);
+  font-size: 1.875rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--overbooked-gray-900);
+  margin-bottom: var(--overbooked-space-5);
+}
+
+.booked-heading-3 {
+  font-family: var(--overbooked-font-sans);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--overbooked-gray-900);
+  margin-bottom: var(--overbooked-space-4);
+}
+
+.booked-text-muted {
+  color: var(--overbooked-gray-500);
+}
+
+.booked-text-small {
+  font-size: 0.875rem;
+}
+
+/* Modern Responsive Grid */
+.booked-grid {
+  display: grid;
+  gap: var(--overbooked-space-6);
+}
+
+.booked-grid-cols-1 { grid-template-columns: repeat(1, 1fr); }
+.booked-grid-cols-2 { grid-template-columns: repeat(2, 1fr); }
+.booked-grid-cols-3 { grid-template-columns: repeat(3, 1fr); }
+.booked-grid-cols-4 { grid-template-columns: repeat(4, 1fr); }
+
+@media (max-width: 768px) {
+  .booked-grid-cols-2,
+  .booked-grid-cols-3,
+  .booked-grid-cols-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Modern Flexbox Utilities */
+.booked-flex {
+  display: flex;
+}
+
+.booked-flex-col {
+  flex-direction: column;
+}
+
+.booked-items-center {
+  align-items: center;
+}
+
+.booked-justify-center {
+  justify-content: center;
+}
+
+.booked-justify-between {
+  justify-content: space-between;
+}
+
+.booked-gap-2 { gap: var(--overbooked-space-2); }
+.booked-gap-3 { gap: var(--overbooked-space-3); }
+.booked-gap-4 { gap: var(--overbooked-space-4); }
+.booked-gap-6 { gap: var(--overbooked-space-6); }
+
+/* Modern Spacing Utilities */
+.booked-p-4 { padding: var(--overbooked-space-4); }
+.booked-p-6 { padding: var(--overbooked-space-6); }
+.booked-py-4 { padding-top: var(--overbooked-space-4); padding-bottom: var(--overbooked-space-4); }
+.booked-px-4 { padding-left: var(--overbooked-space-4); padding-right: var(--overbooked-space-4); }
+
+.booked-m-4 { margin: var(--overbooked-space-4); }
+.booked-mb-4 { margin-bottom: var(--overbooked-space-4); }
+.booked-mt-6 { margin-top: var(--overbooked-space-6); }
+
+/* Enhanced Animations */
+@keyframes booked-slide-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes booked-slide-in-down {
+  0% {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes booked-fade-in-scale {
+  0% {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.booked-animate-slide-in-up {
+  animation: booked-slide-in-up 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.booked-animate-slide-in-down {
+  animation: booked-slide-in-down 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.booked-animate-fade-in-scale {
+  animation: booked-fade-in-scale 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark Mode Support (Optional) */
+@media (prefers-color-scheme: dark) {
+  .booked-dark-mode {
+    --overbooked-gray-50: #1f2937;
+    --overbooked-gray-100: #374151;
+    --overbooked-gray-200: #4b5563;
+    --overbooked-gray-300: #6b7280;
+    --overbooked-gray-400: #9ca3af;
+    --overbooked-gray-500: #d1d5db;
+    --overbooked-gray-600: #e5e7eb;
+    --overbooked-gray-700: #f3f4f6;
+    --overbooked-gray-800: #f9fafb;
+    --overbooked-gray-900: #ffffff;
+  }
+}
+
+/* Fix for fadeout animation bug */
+@keyframes booked-fadeout {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}

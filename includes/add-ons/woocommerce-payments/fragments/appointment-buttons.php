@@ -66,7 +66,7 @@ if ( !$appointment->is_paid && $appointment->payment_status == 'awaiting_checkou
 
 	if ( $appt_date_time >= $date_to_compare) {
 		if (!$appointment->is_paid || $appointment->is_paid && $appointment->order_id == 'manual'){
-			echo '<a href="#" data-appt-id="'.$appointment_id.'" class="cancel">'.__('Cancel Appointment','booked').'</a>';
+			echo '<a href="#" data-appt-id="'.$appointment_id.'" class="cancel">'.__('Cancel Appointment','overbooked').'</a>';
 		}
 	}
 }

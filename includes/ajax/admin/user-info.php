@@ -2,7 +2,7 @@
 
 echo '<div class="booked-scrollable">';
 
-	echo '<p class="booked-title-bar"><small>'.esc_html__('Edit Appointment','booked').'</small></p>';
+	echo '<p class="booked-title-bar"><small>'.esc_html__('Edit Appointment','overbooked').'</small></p>';
 
 	$appt_id = ( isset($_POST['appt_id']) ? esc_html( $_POST['appt_id'] ) : false );
 
@@ -43,9 +43,9 @@ echo '<div class="booked-scrollable">';
 			$time_end = date_i18n($time_format,strtotime($timeslots[1]));
 
 			if ($timeslots[0] == '0000' && $timeslots[1] == '2400'):
-				$timeslotText = esc_html__('All day','booked');
+				$timeslotText = esc_html__('All day','overbooked');
 			else :
-				$timeslotText = $time_start.' '.esc_html__('to','booked').' '.$time_end;
+				$timeslotText = $time_start.' '.esc_html__('to','overbooked').' '.$time_end;
 			endif;
 
 			$year = date_i18n( 'Y', $timestamp );
@@ -86,10 +86,10 @@ echo '<div class="booked-scrollable">';
 
 			if (isset($name_requirements[0]) && $name_requirements[0] == 'require_surname'): ?>
 				<div class="field">
-					<input value="<?php echo $first_name; ?>" placeholder="<?php esc_html_e('First Name','booked'); ?>..." type="text" class="textfield" name="name"<?php if ( $user_id && user_can( $user_id, 'manage_options' ) ):
+					<input value="<?php echo $first_name; ?>" placeholder="<?php esc_html_e('First Name','overbooked'); ?>..." type="text" class="textfield" name="name"<?php if ( $user_id && user_can( $user_id, 'manage_options' ) ):
 						echo ' readonly="true"';
 					endif; ?> />
-					<input value="<?php echo $last_name; ?>" placeholder="<?php esc_html_e('Last Name','booked'); ?>..." type="text" class="textfield" name="surname"<?php if ( $user_id && user_can( $user_id, 'manage_options' ) ):
+					<input value="<?php echo $last_name; ?>" placeholder="<?php esc_html_e('Last Name','overbooked'); ?>..." type="text" class="textfield" name="surname"<?php if ( $user_id && user_can( $user_id, 'manage_options' ) ):
 						echo ' readonly="true"';
 					endif; ?> />
 				</div>
@@ -97,7 +97,7 @@ echo '<div class="booked-scrollable">';
 				<div class="field">
 					<input
 						value="<?php echo $first_name . ( $last_name ? ' ' . $last_name : '' ); ?>"
-						placeholder="<?php esc_html_e('Name','booked'); ?>..."
+						placeholder="<?php esc_html_e('Name','overbooked'); ?>..."
 						type="text"
 						class="large textfield"
 						name="name"<?php
@@ -112,7 +112,7 @@ echo '<div class="booked-scrollable">';
 				?><div class="field">
 					<input
 						value="<?php echo $customer_email; ?>"
-						placeholder="<?php esc_html_e('Email Address','booked'); ?>..."
+						placeholder="<?php esc_html_e('Email Address','overbooked'); ?>..."
 						type="email"
 						class="large textfield"
 						name="email"<?php
@@ -125,7 +125,7 @@ echo '<div class="booked-scrollable">';
 
 			if ($customer_phone):
 				?><div class="field">
-					<input value="<?php echo $customer_phone; ?>" placeholder="<?php esc_html_e('Phone Number','booked'); ?>..." type="tel" class="large textfield" name="phone"<?php
+					<input value="<?php echo $customer_phone; ?>" placeholder="<?php esc_html_e('Phone Number','overbooked'); ?>..." type="tel" class="large textfield" name="phone"<?php
 						if ( $user_id && user_can( $user_id, 'manage_options' ) ):
 							echo ' readonly="true"';
 						endif;
@@ -153,7 +153,7 @@ echo '<div class="booked-scrollable">';
 			<input type="hidden" name="calendar_id" value="<?php echo $calendar_id; ?>" /><?php
 
 			?><div class="field">
-				<input type="submit" class="button button-primary" value="<?php esc_html_e('Update Appointment','booked'); ?>">
+				<input type="submit" class="button button-primary" value="<?php esc_html_e('Update Appointment','overbooked'); ?>">
 			</div><?php
 
 		endif;

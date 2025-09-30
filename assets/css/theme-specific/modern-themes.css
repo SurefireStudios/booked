@@ -1,0 +1,101 @@
+/* Modern Theme Integration for OverBooked */
+/* Optimized for modern WordPress themes like Twenty Twenty-Four, Astra, GeneratePress, etc. */
+
+/* Integration with modern WordPress block themes */
+.wp-site-blocks .booked-calendar,
+.wp-block-group .booked-calendar,
+.entry-content .booked-calendar {
+  margin: var(--overbooked-space-8) 0;
+}
+
+/* Better integration with WordPress admin bar */
+body.admin-bar .booked-modal {
+  top: 32px;
+}
+
+@media screen and (max-width: 782px) {
+  body.admin-bar .booked-modal {
+    top: 46px;
+  }
+}
+
+/* Integration with common theme containers */
+.container .booked-calendar,
+.site-content .booked-calendar,
+.entry-content .booked-calendar,
+.post-content .booked-calendar {
+  width: 100%;
+  max-width: none;
+}
+
+/* Better typography integration */
+.booked-calendar,
+.booked-modal,
+.booked-form {
+  font-family: inherit;
+}
+
+/* Responsive improvements for mobile-first themes */
+@media (max-width: 768px) {
+  .booked-calendar table {
+    font-size: 0.875rem;
+  }
+  
+  .booked-calendar .date {
+    min-height: 60px;
+    padding: var(--overbooked-space-2);
+  }
+  
+  .booked-modal-wrap {
+    margin: var(--overbooked-space-4);
+    max-width: calc(100vw - 2rem);
+  }
+}
+
+/* Integration with popular page builders */
+.elementor-widget-container .booked-calendar,
+.vc_column_container .booked-calendar,
+.fl-module-content .booked-calendar {
+  margin: 0;
+}
+
+/* Better contrast for accessibility */
+.booked-calendar .date:focus,
+.booked-calendar .date:focus-visible {
+  outline: 2px solid var(--overbooked-primary);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .booked-calendar {
+    border: 2px solid;
+  }
+  
+  .booked-calendar td {
+    border-width: 1px;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .booked-calendar *,
+  .booked-modal *,
+  .booked-form * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .booked-calendar {
+    box-shadow: none;
+    border: 1px solid #000;
+  }
+  
+  .booked-modal {
+    display: none !important;
+  }
+}

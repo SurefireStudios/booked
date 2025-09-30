@@ -12,7 +12,7 @@ class BookedDashboardWidget {
 
 		wp_add_dashboard_widget(
 	        'booked_upcoming_appointments',
-	        '<span><i class="fa-regular fa-calendar-days"></i>&nbsp;&nbsp;'.esc_html__('Upcoming Appointments','booked') . '</span>',
+	        '<span><i class="fa-regular fa-calendar-days"></i>&nbsp;&nbsp;'.esc_html__('Upcoming Appointments','overbooked') . '</span>',
 	        array($this, 'booked_dashboard_widget_function')
 	    );
 
@@ -163,7 +163,7 @@ class BookedDashboardWidget {
 					$late_date = current_time('timestamp');
 
 					if ($timeslots[0] == '0000' && $timeslots[1] == '2400'):
-						$timeslotText = esc_html__('All day','booked');
+						$timeslotText = esc_html__('All day','overbooked');
 					else :
 						$timeslotText = $time_start.'&ndash;'.$time_end;
 					endif;
@@ -178,14 +178,14 @@ class BookedDashboardWidget {
 							if (isset($user_info->ID)):
 								echo '<a href="#" class="user" data-user-id="'.$user_info->ID.'"><i class="fa-solid fa-pencil"></i>&nbsp;'.booked_get_name($user_info->ID).'</a>';
 							else :
-								esc_html_e('(this user no longer exists)','booked');
+								esc_html_e('(this user no longer exists)','overbooked');
 							endif;
 						else :
 							echo '<a href="#" class="user" data-user-id="0"><i class="fa-solid fa-pencil"></i>&nbsp;'.$appt['guest_name'].'</a>';
 						endif;
 
 						echo '<br>';
-						if ($late_date > $date_to_compare): echo '<span class="late-appt">' . esc_html__('This appointment has passed.','booked') . '</span><br>'; endif;
+						if ($late_date > $date_to_compare): echo '<span class="late-appt">' . esc_html__('This appointment has passed.','overbooked') . '</span><br>'; endif;
 						if ($appt['calendar']): echo '<strong style="color:#000">'.$appt['calendar'].'</strong><br>'; endif;
 						echo '<i class="fa-solid fa-calendar-days"></i>&nbsp;&nbsp;'.$day_name.', '.$date_display;
 						echo '&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-clock"></i>&nbsp;&nbsp;'.$timeslotText;
@@ -199,7 +199,7 @@ class BookedDashboardWidget {
 			echo '<div class="pending-appt' . ( !empty($appointments_array) ? ' no-pending-message' : '' ) . '">';
 				echo '<div style="display:flex; flex-direction:column; height:200px; width:100%; justify-content:center; align-items:center;">
 					<div style="font-size:50px; color:#aaa;"><i class="fa-regular fa-calendar"></i></div>
-					<div style="font-size:16px; color:#aaa;">' . esc_html__('There are no upcoming appointments.','booked') . '</div>
+					<div style="font-size:16px; color:#aaa;">' . esc_html__('There are no upcoming appointments.','overbooked') . '</div>
 				</div>';
 			echo '</div>';
 

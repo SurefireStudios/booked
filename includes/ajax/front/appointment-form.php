@@ -51,6 +51,6 @@ $availability_error = esc_html__( "Sorry, someone just booked this appointment b
 
 <?php $new_appointment_default = get_option('booked_new_appointment_default','draft'); ?>
 
-<p class="booked-title-bar"><small><?php echo ( $new_appointment_default == 'draft' ? esc_html__('Request an Appointment','booked') : esc_html__('Book an Appointment','booked') ); ?></small></p>
+<p class="booked-title-bar"><small><?php echo ( $new_appointment_default == 'draft' ? esc_html__('Request an Appointment','overbooked') : esc_html__('Book an Appointment','overbooked') ); ?></small></p>
 
 <?php echo '<a href="#" class="close"><i class="fa-solid fa-xmark"></i></a>';

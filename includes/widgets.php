@@ -13,7 +13,7 @@ class Booked_Calendar_Widget extends WP_Widget {
 			'classname' => 'booked_calendar',
 			'description' => 'The Booked Calendar Widget',
 		);
-		parent::__construct( 'booked_calendar', esc_html__('Booked Calendar','booked'), $widget_ops );
+		parent::__construct( 'booked_calendar', esc_html__('OverBooked Calendar','overbooked'), $widget_ops );
 	}
     
     function form($instance) {
@@ -35,24 +35,24 @@ class Booked_Calendar_Widget extends WP_Widget {
 			'selected'			=> $calendar
 		);
 
-		if (!get_option('booked_hide_default_calendar')): $args['show_option_all'] = esc_html__('Default Calendar','booked'); endif;
+		if (!get_option('booked_hide_default_calendar')): $args['show_option_all'] = esc_html__('Default Calendar','overbooked'); endif;
 	
 	    ?>
 	
 		<p>
-	      	<label for="<?php echo $this->get_field_id('title'); ?>"><?php esc_html_e('Widget Title','booked'); ?>:</label>
+	      	<label for="<?php echo $this->get_field_id('title'); ?>"><?php esc_html_e('Widget Title','overbooked'); ?>:</label>
 	      	<input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
 	    </p>
 	    
 	    <p class="booked-widget-col-13">
-	      	<label><?php esc_html_e('Calendar to Display','booked'); ?>:</label><br>
+	      	<label><?php esc_html_e('Calendar to Display','overbooked'); ?>:</label><br>
 	      	<?php echo str_replace( "\n", '', wp_dropdown_categories( $args ) ); ?>
 	    </p>
 	    
 	    <?php $current_month = 0; ?>
 	    
 	    <p class="booked-widget-col-13">
-	      	<label><?php esc_html_e('Month','booked'); ?>:</label><br>
+	      	<label><?php esc_html_e('Month','overbooked'); ?>:</label><br>
 	      	<select name="<?php echo $this->get_field_name('booked_calendar_month'); ?>">
 		      	<?php do {
 			      	echo '<option value="'.$current_month.'"'.($month == $current_month ? ' selected' : '').'>'.(!$current_month ? esc_html__('Current month') : date_i18n('F',strtotime('2016-'.$current_month.'-01'))).'</option>';
@@ -64,7 +64,7 @@ class Booked_Calendar_Widget extends WP_Widget {
 	    <?php $current_year = date_i18n('Y'); $highest_year = $current_year + 25; ?>
 	    
 	    <p class="booked-widget-col-13">
-	      	<label><?php esc_html_e('Year','booked'); ?>:</label><br>
+	      	<label><?php esc_html_e('Year','overbooked'); ?>:</label><br>
 	      	<select name="<?php echo $this->get_field_name('booked_calendar_year'); ?>">
 		      	<option value="0"<?php if (!$year): ?> selected<?php endif; ?>><?php esc_html_e('Current year'); ?></option>
 		      	<?php do {

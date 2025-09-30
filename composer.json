@@ -1,0 +1,24 @@
+{
+    "name": "surefirestudios/overbooked",
+    "description": "Powerful appointment booking made simple. Lightweight WordPress appointment booking plugin designed for modern sites.",
+    "type": "wordpress-plugin",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Surefire Studios",
+            "homepage": "https://www.surefirestudios.io"
+        }
+    ],
+    "require": {
+        "php": ">=8.3",
+        "fortawesome/wordpress-fontawesome": "^4.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "OverBooked\\": "includes/"
+        }
+    },
+    "config": {
+        "vendor-dir": "vendor"
+    }
+}

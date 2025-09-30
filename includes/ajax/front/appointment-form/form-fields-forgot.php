@@ -3,5 +3,5 @@
 </div>
 	
 <div class="field">
-	<input value="" placeholder="<?php esc_html_e('Email Address','booked'); ?> ..." class="textfield large" id="username" name="username" type="text" >
+	<input value="" placeholder="<?php esc_html_e('Email Address','overbooked'); ?> ..." class="textfield large" id="username" name="username" type="text" >
 </div>

@@ -1,13 +1,15 @@
 <?php
 
 /*
-Plugin Name: Booked
-Plugin URI: https://github.com/SurefireStudios/booked
+Plugin Name: OverBooked
+Plugin URI: https://github.com/SurefireStudios/OverBooked
 Description: Powerful appointment booking made simple. Lightweight WordPress appointment booking plugin designed for modern sites. Built with PHP 8+ and the latest WordPress standards, it makes scheduling effortless for both site owners and clients.
 Version: 2.5.0
 Author: Surefire Studios
 Author URI: https://www.surefirestudios.io
-Text Domain: booked
+License: GPL v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: overbooked
 */
 
 define( 'BOOKED_VERSION', '2.5.0' );
@@ -37,11 +39,6 @@ if ( !booked_is_rest_api_request() ) {
 	require_once BOOKED_PLUGIN_DIR . '/includes/add-ons/init.php';
 }
 
-// Only load update checker for admin requests to prevent REST API slowdowns
-if ( is_admin() && !( defined( 'DOING_AJAX' ) && DOING_AJAX ) && !booked_is_rest_api_request() ) {
-	require_once BOOKED_PLUGIN_DIR . '/includes/updates/plugin-update-checker.php';
-	$booked_update_check = PucFactory::buildUpdateChecker('http://boxyupdates.com/get/?action=get_metadata&slug=booked', __FILE__, 'booked');
-}
 
 // Only load mailer functions for non-REST API requests
 if ( !booked_is_rest_api_request() ) {
@@ -741,7 +738,9 @@ if(!class_exists('booked_plugin')) {
 		public function init_settings() {
 			$plugin_options = $this->plugin_settings();
 			foreach($plugin_options as $option_name) {
-				register_setting('booked_plugin-group', $option_name);
+				register_setting('booked_plugin-group', $option_name, array(
+					'sanitize_callback' => 'sanitize_text_field'
+				));
 			}
 		}
 
@@ -898,7 +897,7 @@ if(!class_exists('booked_plugin')) {
 					endif;
 
 				?></select>
-				<p><?php esc_html_e('This will use your setting from the Booked Settings panel by default.','booked'); ?></p>
+				<p><?php esc_html_e('This will use your setting from the OverBooked Settings panel by default.','overbooked'); ?></p>
 			</div><?php
 
 		}
@@ -928,7 +927,7 @@ if(!class_exists('booked_plugin')) {
 
 						endif; ?>
 					</select><br>
-					<span class="description"><?php esc_html_e('This will use your setting from the Booked Settings panel by default.'); ?></span>
+					<span class="description"><?php esc_html_e('This will use your setting from the OverBooked Settings panel by default.'); ?></span>
 				</td>
 			</tr><?php
 		}
@@ -1113,6 +1112,7 @@ if(!class_exists('booked_plugin')) {
 				wp_enqueue_style('chosen', BOOKED_PLUGIN_URL . '/assets/js/chosen/chosen.min.css', array(), '1.2.0');
 				wp_enqueue_style('booked-animations', BOOKED_PLUGIN_URL . '/assets/css/animations.css', array(), BOOKED_VERSION);
 				wp_enqueue_style('booked-admin', BOOKED_PLUGIN_URL . '/dist/booked-admin.css', array(), BOOKED_VERSION);
+				wp_enqueue_style('booked-modern', BOOKED_PLUGIN_URL . '/assets/css/modern-overrides.css', array('booked-admin'), BOOKED_VERSION);
 			endif;
 
 		}
@@ -1177,6 +1177,7 @@ if(!class_exists('booked_plugin')) {
 			wp_enqueue_style('booked-tooltipster-theme', BOOKED_PLUGIN_URL . '/assets/js/tooltipster/css/themes/tooltipster-light.css', array(), '3.3.0');
 			wp_enqueue_style('booked-animations', BOOKED_PLUGIN_URL . '/assets/css/animations.css', array(), BOOKED_VERSION);
 			wp_enqueue_style('booked-css', BOOKED_PLUGIN_URL . '/dist/booked.css', array(), BOOKED_VERSION);
+			wp_enqueue_style('booked-modern', BOOKED_PLUGIN_URL . '/assets/css/modern-overrides.css', array('booked-css'), BOOKED_VERSION);
 
 			if ( defined('NECTAR_THEME_NAME') && NECTAR_THEME_NAME == 'salient' ):
 				wp_enqueue_style('booked-salient-overrides', BOOKED_PLUGIN_URL . '/assets/css/theme-specific/salient.css', array(), BOOKED_VERSION);
@@ -1238,7 +1239,7 @@ if(class_exists('booked_plugin')) {
 		function() {
 			fa()->register(
 				array(
-					'name' => 'Booked',
+					'name' => 'OverBooked',
 					'version' => [
 						[ '6.1.2', '>=' ]
 					]
@@ -1276,11 +1277,3 @@ if(class_exists('booked_plugin')) {
 	}
 }
 
-// Localization
-function booked_local_init(){
-	$domain = 'booked';
-	$locale = apply_filters('plugin_locale', get_locale(), $domain);
-	load_textdomain($domain, WP_LANG_DIR.'/booked/'.$domain.'-'.$locale.'.mo');
-	load_plugin_textdomain($domain, FALSE, dirname(plugin_basename(__FILE__)).'/languages/');
-}
-add_action('after_setup_theme', 'booked_local_init');

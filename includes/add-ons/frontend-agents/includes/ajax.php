@@ -84,16 +84,16 @@ if(!class_exists('BookedFEA_Ajax')) {
 				ob_start();
 				
 				echo '<div class="booked-scrollable">';
-					echo '<p class="booked-title-bar"><small>' . __('Appointment Information','booked') . '</small></p>';
+					echo '<p class="booked-title-bar"><small>' . __('Appointment Information','overbooked') . '</small></p>';
 			
 					if (!$_POST['user_id'] && isset($_POST['appt_id'])):
 					
 						$guest_name = get_post_meta($_POST['appt_id'], '_appointment_guest_name',true);
 						$guest_email = get_post_meta($_POST['appt_id'], '_appointment_guest_email',true);
 					
-						echo '<p class="fea-modal-title">'.__('Contact Information','booked').'</p>';
-						echo '<p><strong class="booked-left-title">'.__('Name','booked').':</strong> '.$guest_name.'<br>';
-						if ($guest_email) : echo '<strong class="booked-left-title">'.__('Email','booked').':</strong> <a href="mailto:'.$guest_email.'">'.$guest_email.'</a>'; endif;
+						echo '<p class="fea-modal-title">'.__('Contact Information','overbooked').'</p>';
+						echo '<p><strong class="booked-left-title">'.__('Name','overbooked').':</strong> '.$guest_name.'<br>';
+						if ($guest_email) : echo '<strong class="booked-left-title">'.__('Email','overbooked').':</strong> <a href="mailto:'.$guest_email.'">'.$guest_email.'</a>'; endif;
 						echo '</p>';
 						
 					else :
@@ -104,10 +104,10 @@ if(!class_exists('BookedFEA_Ajax')) {
 						$email = $user_info->user_email;
 						$phone = get_user_meta($_POST['user_id'], 'booked_phone', true);
 				
-						echo '<p class="fea-modal-title">'.__('Contact Information','booked').'</p>';
-						echo '<p><strong class="booked-left-title">'.__('Name','booked').':</strong> '.$display_name.'<br>';
-						if ($email) : echo '<strong class="booked-left-title">'.__('Email','booked').':</strong> <a href="mailto:'.$email.'">'.$email.'</a><br>'; endif;
-						if ($phone) : echo '<strong class="booked-left-title">'.__('Phone','booked').':</strong> <a href="tel:'.preg_replace('/[^0-9+]/', '', $phone).'">'.$phone.'</a>'; endif;
+						echo '<p class="fea-modal-title">'.__('Contact Information','overbooked').'</p>';
+						echo '<p><strong class="booked-left-title">'.__('Name','overbooked').':</strong> '.$display_name.'<br>';
+						if ($email) : echo '<strong class="booked-left-title">'.__('Email','overbooked').':</strong> <a href="mailto:'.$email.'">'.$email.'</a><br>'; endif;
+						if ($phone) : echo '<strong class="booked-left-title">'.__('Phone','overbooked').':</strong> <a href="tel:'.preg_replace('/[^0-9+]/', '', $phone).'">'.$phone.'</a>'; endif;
 						echo '</p>';
 			
 					endif;
@@ -133,15 +133,15 @@ if(!class_exists('BookedFEA_Ajax')) {
 						if ($timeslots[0] == '0000' && $timeslots[1] == '2400'):
 							$timeslotText = 'All day';
 						else :
-							$timeslotText = $time_start.' '.__('to','booked').' '.$time_end;
+							$timeslotText = $time_start.' '.__('to','overbooked').' '.$time_end;
 						endif;
 						
 						$cf_meta_value = apply_filters('booked_fea_cf_metavalue',$cf_meta_value);
 			
-						echo '<p class="fea-modal-title fea-bordered">'.__('Appointment Information','booked').'</p>';
+						echo '<p class="fea-modal-title fea-bordered">'.__('Appointment Information','overbooked').'</p>';
 						do_action('booked_before_appointment_information_admin');
-						echo '<p><strong class="booked-left-title">'.__('Date','booked').':</strong> '.$day_name.', '.$date_display.'<br>';
-						echo '<strong class="booked-left-title">'.__('Time','booked').':</strong> '.$timeslotText.'</p>';
+						echo '<p><strong class="booked-left-title">'.__('Date','overbooked').':</strong> '.$day_name.', '.$date_display.'<br>';
+						echo '<strong class="booked-left-title">'.__('Time','overbooked').':</strong> '.$timeslotText.'</p>';
 						echo ($cf_meta_value ? '<div class="cf-meta-values">'.$cf_meta_value.'</div>' : '');
 						do_action('booked_after_appointment_information_admin');
 			

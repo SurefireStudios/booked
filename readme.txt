@@ -1,8 +1,8 @@
-=== Booked ===
+=== OverBooked ===
 Contributors: surefirestudios
 Tags: appointment, booking, calendar, scheduling, business, appointments, bookings, reservation
 Requires at least: 5.0
-Tested up to: 6.8.2
+Tested up to: 6.8
 Requires PHP: 8.3
 Stable tag: 2.5.0
 License: GPLv2 or later
@@ -12,7 +12,7 @@ Powerful appointment booking made simple. Lightweight WordPress appointment book
 
 == Description ==
 
-**Booked** is a modern WordPress appointment booking plugin that has been completely updated for PHP 8.3 and WordPress 6.8.2 compatibility. This version features enhanced security, improved performance, and a streamlined codebase that makes scheduling effortless for both site owners and clients.
+**OverBooked** is a modern WordPress appointment booking plugin that has been completely updated for PHP 8.3 and WordPress 6.8.2 compatibility. This version features enhanced security, improved performance, and a streamlined codebase that makes scheduling effortless for both site owners and clients.
 
 ### 🚀 **What's New in Version 2.5.0**
 
@@ -147,5 +147,5 @@ Yes! The plugin is designed to work with any properly coded WordPress theme and 
 == Support ==
 
 For support, documentation, and updates, visit:
-* **GitHub Repository**: https://github.com/SurefireStudios/booked
+* **GitHub Repository**: https://github.com/SurefireStudios/OverBooked
 * **Website**: https://www.surefirestudios.io
